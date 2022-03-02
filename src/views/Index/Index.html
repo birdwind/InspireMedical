@@ -1,29 +1,45 @@
-<v-app>
-    <el-aside width="fit-content">
-        <v-navigation-drawer class="pirate-aside"
-                             permanent
-                             :width="56">
-            <div class="pirate-nav">
-                <div class="pirate-nav-top">
-                    <el-tooltip class="pirate-nav-item"
-                                effect="dark"
-                                content="首頁"
-                                placement="right">
-                        <router-link :to="`/home`">
-                            <el-avatar src="/images/logo.jpg"></el-avatar>
-                        </router-link>
-                    </el-tooltip>
-                </div>
-                <el-divider></el-divider>
+<v-app class="index">
+    <v-app-bar app
+               short
+               flat
+               clipped-left>
+        <div class="medical-header" no-gutters>
+            <div class="medical-header-left">
+                <router-link class="d-flex align-center" to="/">
+                    <i class="medical-icon icon-logo-small"></i>
+                </router-link>
             </div>
-        </v-navigation-drawer>
-    </el-aside>
-    <el-main style="height: calc(100vh - 37px);">
+            <div class="medical-header-center">
+                <v-tabs fixed-tabs
+                        align-with-title
+                        hide-slider
+                        v-model="currentTab"
+                        background-color="transparent"
+                        class="medical-tabs"
+                        active-class="medical-tabs-active"
+                        height="43">
+                    <v-tab class="medical-tab-item">
+                        <span>Survey List</span>
+                    </v-tab>
+                    <v-tab class="medical-tab-item">
+                        <span>Question Library</span>
+                    </v-tab>
+                </v-tabs>
+            </div>
+            <div class="medical-header-right">
+                <div class="account">
+                    <i class="medical-icon medical-account"></i>
+                    <span>Dr.Wu</span>
+                </div>
+            </div>
+        </div>
+    </v-app-bar>
+    <v-main style="height: calc(100vh - 37px);">
         <router-view style="min-height: calc(100% - 78px); "></router-view>
         <div class="copyrights">
             <div class="text">
                 {{ copyRight }}
             </div>
         </div>
-    </el-main>
+    </v-main>
 </v-app>

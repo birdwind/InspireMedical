@@ -1,4 +1,4 @@
-.pirate-icon {
+.medical-icon {
   width: 24px;
   height: 24px;
   min-width: 24px;
@@ -7,17 +7,17 @@
   background-size: cover;
   transition: 0.1s;
 
-  &.pirate-icon-16 {
+  &.medical-icon-16 {
     width: 16px;
     height: 16px;
   }
 
-  &.pirate-icon-36 {
+  &.medical-icon-36 {
     width: 36px;
     height: 36px;
   }
 
-  &.pirate-icon-42 {
+  &.medical-icon-42 {
     width: 42px;
     height: 42px;
   }
@@ -50,16 +50,12 @@
     background-image: url("/images/icon_logo.svg");
   }
 
-  &.icon-close {
-    background-image: url("/images/icons/Icon_close.svg");
+  &.icon-logo-small{
+    background-image: url("/icons/logo.svg");
   }
 
-  &.icon-minimize {
-    background-image: url("/images/icons/Icon_minimize.svg");
-  }
-
-  &.icon-maximize {
-    background-image: url("/images/icons/Icon_maximize.svg");
+  &.medical-account{
+    background-image: url("/icons/icon_account.svg");
   }
 
 }

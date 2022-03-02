@@ -5,8 +5,9 @@ import { BaseVue } from "@/base/view/BaseVue";
   components: {},
 })
 export default class Index extends BaseVue {
-  copyRight = process.env.VUE_APP_CopyRight;
-  workId = "";
+  private currentTab = 0;
+  private copyRight = process.env.VUE_APP_CopyRight;
+  private workId = "";
 
   mounted() {
     this.workId = this.$route.params.workId;

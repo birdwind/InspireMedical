@@ -1,0 +1,45 @@
+.index {
+  .medical-header {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    border-bottom: 1px solid #017C8E;
+    padding: 0 16px;
+
+    .medical-header-left {
+
+    }
+
+    .medical-header-center {
+      position: relative;
+      top: 1px;
+      flex: auto;
+
+      .medical-tabs {
+        .medical-tab-item {
+          border: 1px solid #017C8E;
+          box-sizing: border-box;
+          border-radius: 10px 10px 0 0;
+
+          &.medical-tabs-active {
+            border-bottom: 1px solid #FFFFFF;
+          }
+        }
+      }
+    }
+
+    .medical-header-right {
+      margin-left: auto;
+
+      .account {
+        display: flex;
+        align-items: center;
+
+        i{
+          margin-right: 12px;
+        }
+      }
+    }
+  }
+}

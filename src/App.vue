@@ -1,5 +1,5 @@
 <template>
-  <div class="to-do-list">
+  <div class="medical">
     <AuthGuard>
       <router-view v-if="!isReload"></router-view>
     </AuthGuard>

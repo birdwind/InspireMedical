@@ -3,3 +3,29 @@
     width: 100%;
   }
 }
+
+.v-app-bar{
+  &.v-toolbar{
+    &.v-sheet{
+      background-color: #FFFFFF!important;
+
+      .v-toolbar__content{
+        padding: 0;
+      }
+    }
+  }
+}
+.v-tabs {
+  .v-tab{
+    .v-ripple__container{
+      display: none;
+    }
+
+    &:hover{
+      &::before{
+        opacity: 0!important;
+      }
+    }
+  }
+
+}
