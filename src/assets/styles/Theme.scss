@@ -74,6 +74,45 @@ body {
   height: 100vh;
 }
 
+.medical-input {
+  span {
+    font-size: 20px;
+    line-height: 23px;
+    color: #3E3E3E;
+  }
+
+  input {
+    border: 1px solid #3E3E3E;
+    box-sizing: border-box;
+    border-radius: 10px;
+  }
+
+  p {
+    display: none;
+  }
+
+  &.title-input-inline {
+    display: flex;
+    align-items: center;
+  }
+
+  &.medical-input-error {
+    input {
+      border: 1px solid #d76e51;
+    }
+
+    p {
+      margin-left: 12px;
+      font-weight: bold;
+      color: #d76e51;
+    }
+  }
+
+  & + .medical-input{
+    margin-top: 12px;
+  }
+}
+
 .copyrights {
   position: sticky;
   left: 0;

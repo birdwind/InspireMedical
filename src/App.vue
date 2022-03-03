@@ -1,6 +1,6 @@
 <template>
   <div class="medical">
-    <AuthGuard>
+    <AuthGuard :isReady="isReady">
       <router-view v-if="!isReload"></router-view>
     </AuthGuard>
   </div>

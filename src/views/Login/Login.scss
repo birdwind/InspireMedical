@@ -1,3 +1,44 @@
 .login {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  .login-wrapper {
+
+    .login-wrapper-top {
+      display: flex;
+      justify-content: center;
+    }
+
+    .login-wrapper-main {
+      .login-wrapper-form {
+        margin: 105px 0;
+
+        .medical-input {
+          input {
+            padding: 18px 30px;
+            background: #EBEBEB;
+            border-radius: 13px;
+            font-size: 30px;
+
+            &::placeholder {
+              font-weight: bold;
+            }
+          }
+        }
+      }
+
+      .login-wrapper-footer {
+        button {
+          width: 100%;
+          padding: 18px;
+          background: #017C8E;
+          border-radius: 13px;
+          color: #FFFFFF;
+          font-size: 30px;
+        }
+      }
+    }
+  }
 }

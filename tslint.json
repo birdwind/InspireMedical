@@ -11,7 +11,8 @@
       "node_modules/**",
       "src/api/impl/**",
       "*.js",
-      "*.json"
+      "*.json",
+      "**/*.json"
     ]
   },
   "rules": {

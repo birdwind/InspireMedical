@@ -4,6 +4,8 @@ import { CreateElement, VNode } from "vue";
 import { Getter } from "vuex-class";
 
 import Unauthorized from "@/components/Unauthorized.vue";
+import Loading from "@/components/Loading.vue";
+import Login from "@/views/Login/Login.vue";
 
 @Component
 export class AuthGuard extends Vue {
@@ -14,13 +16,13 @@ export class AuthGuard extends Vue {
   private readonly isReady!: boolean;
 
   render(h: CreateElement): VNode {
-    // if (!this.isReady && !this.isLogin) {
-    //   return h(Loading);
-    // }
+    if (!this.isReady && !this.isLogin) {
+      return h(Loading);
+    }
 
-    // if (this.isReady && !this.isLogin) {
-    //   return h(Login);
-    // }
+    if (this.isReady && !this.isLogin) {
+      return h(Login);
+    }
 
     // if (this.isLogin && this.$slots && this.$slots.default) {
     if (this.$slots && this.$slots.default) {

@@ -1,3 +1,26 @@
-<div class="login"> 
-    <h1>loginComponent</h1>
+<div class="login">
+    <div class="login-wrapper">
+        <div class="login-wrapper-top">
+            <img src="/images/logo.svg">
+        </div>
+        <div class="login-wrapper-main">
+            <div class="login-wrapper-form">
+                <div class="medical-input">
+                    <input type="text" placeholder="Email"></input>
+                    <p></p>
+                </div>
+                <div class="medical-input">
+                    <input type="password" placeholder="Password"></input>
+                    <p></p>
+                </div>
+                <div class="medical-input">
+                    <input type="text" placeholder="CAPTCHA"></input>
+                    <p></p>
+                </div>
+            </div>
+            <div class="login-wrapper-footer">
+                <button @click="login">Login</button>
+            </div>
+        </div>
+    </div>
 </div>

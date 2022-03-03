@@ -45,3 +45,15 @@
     }
   }
 }
+
+.el-loading-mask {
+  background-color: rgba(255, 255, 255, .5);
+
+  .el-loading-spinner {
+    top: 50vh !important;
+
+    .path {
+      stroke-width: 10;
+    }
+  }
+}
