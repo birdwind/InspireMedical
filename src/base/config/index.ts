@@ -8,3 +8,4 @@ export * from "./configVuetify";
 // export * from "./configFontAwesomeIcon";
 // export * from "./configBootstrapDatetimePicker";
 export * from "./configRightMouseMenu";
+export * from "./configI18n";

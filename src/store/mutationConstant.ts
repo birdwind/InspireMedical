@@ -1,5 +1,6 @@
 // auth模組
 export const AUTH_LOGIN = "AUTH_LOGIN";
+export const AUTH_UPDATE_LANG = "AUTH_UPDATE_LANG";
 
 // ui 模組
 export const UI_LOADING = "UI_LOADING";

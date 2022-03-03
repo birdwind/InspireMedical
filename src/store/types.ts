@@ -1,7 +1,9 @@
 // auth模組
 import { HistoryMessage } from "@/base/data/historyMessage";
+import { LocalesEnums } from "@/enums/LocalesEnums";
 
-export type Login = (data: { account: string; password: string }) => Promise<void>;
+export type UpdateLang = (localesEnums: LocalesEnums) => void;
+export type LoginServer = (data: { account: string; password: string }) => Promise<void>;
 
 // ui模組
 export type ShowLoading = (isShow: boolean) => void;

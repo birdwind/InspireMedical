@@ -19,7 +19,7 @@
                         active-class="medical-tabs-active"
                         height="43">
                     <v-tab class="medical-tab-item">
-                        <span>Survey List</span>
+                        <span>{{ $t("mainTabs.surveyList") }}</span>
                     </v-tab>
                     <v-tab class="medical-tab-item">
                         <span>Question Library</span>
@@ -27,19 +27,29 @@
                 </v-tabs>
             </div>
             <div class="medical-header-right">
-                <div class="account">
-                    <i class="medical-icon medical-account"></i>
-                    <span>Dr.Wu</span>
-                </div>
+                <el-dropdown>
+                    <div class="account">
+                        <i class="medical-icon medical-account"></i>
+                        <span>Dr.Wu</span>
+                    </div>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item>
+                            <div @click="changeLang('en')">English</div>
+                        </el-dropdown-item>
+                        <el-dropdown-item>
+                            <div @click="changeLang('zh_TW')">中文</div>
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
             </div>
         </div>
     </v-app-bar>
     <v-main style="height: calc(100vh - 37px);">
         <router-view style="min-height: calc(100% - 78px); "></router-view>
-        <div class="copyrights">
-            <div class="text">
-                {{ copyRight }}
-            </div>
-        </div>
+        <!--        <div class="copyrights">-->
+        <!--            <div class="text">-->
+        <!--                {{ copyRight }}-->
+        <!--            </div>-->
+        <!--        </div>-->
     </v-main>
 </v-app>

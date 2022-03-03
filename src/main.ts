@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { configElementUi, configErrorHandler, configRightMouseMenu, vuetify } from "@/base/config";
+import { configElementUi, configErrorHandler, configRightMouseMenu, vuetify, i18n } from "@/base/config";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -14,5 +14,6 @@ new Vue({
   router,
   store,
   vuetify,
+  i18n,
   render: (h) => h(App),
 }).$mount("#app");

@@ -1,8 +1,12 @@
 import { MyLogger } from "@/base/utils/MyLogger";
-import { AUTH_LOGIN, UI_HISTORY_MESSAGE } from "@/store/mutationConstant";
+import { AUTH_LOGIN, AUTH_UPDATE_LANG, UI_HISTORY_MESSAGE } from "@/store/mutationConstant";
+import { LocalesEnums } from "@/enums/LocalesEnums";
 
 export default {
-  async login(context: any, data: any): Promise<void> {
+  updateLang(context: any, localesEnums: LocalesEnums) {
+    context.commit(AUTH_UPDATE_LANG, localesEnums);
+  },
+  async loginServer(context: any, data: any): Promise<void> {
     try {
       const userName = data.account;
       const password = data.password;
