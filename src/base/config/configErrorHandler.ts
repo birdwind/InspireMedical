@@ -1,7 +1,9 @@
 import Vue from "vue";
 import { BaseVue } from "@/base/view/BaseVue";
-import { ApiBadRequestError, ApiUnauthorizedError } from "@/base/error/ApiErrorHandler";
+import { ApiBadRequestError, ApiError, ApiUnauthorizedError } from "@/base/error/ApiErrorHandler";
 import { BusinessError } from "@/base/error/BusinessError";
+import { MessageType } from "element-ui/types/message";
+import { NotificationPosition } from "element-ui/types/notification";
 
 interface IAllError extends Error {
   config: any;
@@ -54,6 +56,17 @@ function safeShowError(vm: BaseVue, message: string, ex?: Error) {
   console.error(ex);
 }
 
+function showMessage(type: MessageType, msg: string, title: string = "訊息") {
+  const data = {
+    type: type as MessageType,
+    title,
+    message: msg,
+    position: "bottom-right" as NotificationPosition,
+  };
+
+  Vue.prototype.$notify(data);
+}
+
 export function configErrorHandler(): void {
   Vue.config.errorHandler = (err: IAllError, vm: Vue) => {
     const myCpn = findComponentBaseVue(vm);
@@ -77,4 +90,22 @@ export function configErrorHandler(): void {
       myCpn.stopLoading();
     }
   };
+}
+
+export function customerErrorHandler(err: Error): void {
+  if (err instanceof BusinessError) {
+    const bex = err as BusinessError;
+    showMessage("warning", bex.message);
+  } else if (err instanceof ApiBadRequestError) {
+    const apiError = err as ApiBadRequestError;
+    showMessage("warning", apiError.message, apiError.code);
+  } else if (err instanceof ApiUnauthorizedError) {
+    const apiError = err as ApiUnauthorizedError;
+    showMessage("warning", apiError.message, apiError.code);
+  } else if (err instanceof ApiError) {
+    const apiError = err as ApiError;
+    showMessage("warning", apiError.message, apiError.code);
+  } else {
+    // safeShowError(myCpn, err.message, err);
+  }
 }
