@@ -7,7 +7,10 @@ export default {
   [types.AUTH_UPDATE_LANG](state: AuthState, localesEnums: LocalesEnums): void {
     i18n.locale = localesEnums;
   },
-  [types.AUTH_LOGIN](state: AuthState, isLogin: boolean): void {
-    state.isLogin = isLogin;
+  [types.AUTH_LOGIN](state: AuthState, data: any): void {
+    state.authorization = data;
+    if (data) {
+      state.isLogin = true;
+    }
   },
 };

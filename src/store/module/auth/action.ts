@@ -13,10 +13,9 @@ export default {
       const password = data.password;
 
       const authResponse = await LoginService.login({ Phone: "0981222612", Password: "10101010" });
-      MyLogger.log(authResponse);
 
       // Check Login Data Same as System
-      await context.commit(AUTH_LOGIN, true);
+      await context.commit(AUTH_LOGIN, authResponse);
     } catch (error) {
       MyLogger.log("Login Failed");
     }

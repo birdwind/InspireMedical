@@ -79,7 +79,7 @@ instance.interceptors.response.use((res) => {
 
 instance.interceptors.response.use(
   (response) => {
-    if (response.data.isSuccess) {
+    if (response.data.IsSuccess) {
       return response.data.JsonData;
     } else {
       customerErrorHandler(new BusinessError(response.data.Message));
@@ -106,6 +106,6 @@ instance.interceptors.response.use(
 );
 // ** end response interceptors
 
-instance.defaults.headers.post["Content-Type"] = "application/json";
+instance.defaults.headers.post["Content-Type"] = "x-www-form-urlencoded";
 
 export const apiUtils = instance;
