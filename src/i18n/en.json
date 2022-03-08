@@ -1,4 +1,8 @@
 {
+  "validation": {
+    "required": "This field is required",
+    "email": "This field is invalid email"
+  },
   "mainTabs": {
     "surveyList": "Survey List",
     "questionLibrary": "Question Library"

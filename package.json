@@ -29,6 +29,7 @@
     "loglevel": "^1.7.0",
     "loglevel-plugin-prefix": "^0.8.4",
     "uuid-generator-ts": "^1.1.0",
+    "vee-validate": "3",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-i18n": "^8.22.1",

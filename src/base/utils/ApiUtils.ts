@@ -4,6 +4,7 @@ import { ApiBadRequestError, ApiError, ApiUnauthorizedError } from "@/base/error
 import { MyLogger } from "@/base/utils/MyLogger";
 import stores from "@/store";
 import { BusinessError } from "@/base/error/BusinessError";
+import store from "@/store";
 
 const JwtHeaderName = "authorization";
 const ClientActionTimeHeaderName = "x-client-action-time";
@@ -31,8 +32,9 @@ instance.interceptors.request.use((config) => {
   //   config.headers[JwtHeaderName] = "Bearer " + SecretKeeper.jwt;
   // }
   // }
-
-  config.headers!["token"] = "0000";
+  const tokenKey = "Token";
+  const auth = store.getters["Auth/auth"];
+  config.headers![tokenKey] = auth ? auth.LoginKey : "0000";
 
   // config.headers![ClientActionTimeHeaderName] = new Date().getTime().toString();
   return config;

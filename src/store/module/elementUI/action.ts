@@ -1,7 +1,5 @@
-import { MyLogger } from "@/base/utils/MyLogger";
-import stores from "@/store";
-import store from "@/store";
 import { UI_HISTORY_MESSAGE, UI_LOADING, UI_RELOAD } from "@/store/mutationConstant";
+import { MyLogger } from "@/base/utils/MyLogger";
 
 export default {
   showLoading(context: any, data: any) {

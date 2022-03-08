@@ -12,12 +12,13 @@ export default {
       const userName = data.account;
       const password = data.password;
 
-      const authResponse = await LoginService.login({ Phone: "0981222612", Password: "10101010" });
+      const authResponse = await LoginService.login({ Phone: userName, Password: password });
 
       // Check Login Data Same as System
       await context.commit(AUTH_LOGIN, authResponse);
     } catch (error) {
       MyLogger.log("Login Failed");
+      await Promise.reject(error);
     }
   },
   async logout(context: any): Promise<void> {

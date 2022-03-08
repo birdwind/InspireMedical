@@ -18,7 +18,3 @@ export const i18n = new VueI18n({
   locale: defaultLocale,
   fallbackLocale: defaultLocale,
 });
-
-// Vue.prototype.$i18nn = i18n;
-
-// export default Vue.prototype.$i18n;

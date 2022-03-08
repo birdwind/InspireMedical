@@ -1,5 +1,12 @@
 import Vue from "vue";
-import { configElementUi, configErrorHandler, configRightMouseMenu, vuetify, i18n } from "@/base/config";
+import {
+  configElementUi,
+  configErrorHandler,
+  configRightMouseMenu,
+  vuetify,
+  i18n,
+  configVeeValidate,
+} from "@/base/config";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -9,6 +16,7 @@ Vue.config.productionTip = false;
 configErrorHandler();
 configElementUi();
 configRightMouseMenu();
+configVeeValidate();
 
 new Vue({
   router,

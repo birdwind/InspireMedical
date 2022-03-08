@@ -45,11 +45,13 @@
         </div>
     </v-app-bar>
     <v-main style="height: calc(100vh - 37px);">
-        <router-view style="min-height: calc(100% - 78px); "></router-view>
-        <!--        <div class="copyrights">-->
-        <!--            <div class="text">-->
-        <!--                {{ copyRight }}-->
-        <!--            </div>-->
-        <!--        </div>-->
+        <v-layout v-loading="isLoading" style="display: block; flex-basis: 0">
+            <router-view style="min-height: calc(100% - 78px); "></router-view>
+            <!--        <div class="copyrights">-->
+            <!--            <div class="text">-->
+            <!--                {{ copyRight }}-->
+            <!--            </div>-->
+            <!--        </div>-->
+        </v-layout>
     </v-main>
 </v-app>

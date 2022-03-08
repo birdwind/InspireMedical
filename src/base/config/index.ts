@@ -9,3 +9,4 @@ export * from "./configVuetify";
 // export * from "./configBootstrapDatetimePicker";
 export * from "./configRightMouseMenu";
 export * from "./configI18n";
+export * from "./configVeeValidate";

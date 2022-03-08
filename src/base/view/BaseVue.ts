@@ -1,11 +1,16 @@
 import Vue from "vue";
 import { MessageType } from "element-ui/types/message";
 import { NotificationPosition } from "element-ui/types/notification";
-import { Action } from "vuex-class";
+import { Action, Getter, State } from "vuex-class";
 import { AddHistoryMessage, Reload, ShowLoading } from "@/store/types";
 import { MyLogger } from "@/base/utils/MyLogger";
 
+type AnyAsyncAction = () => Promise<void>;
+
 export class BaseVue extends Vue {
+  @Getter("ElementUI/isLoading")
+  protected isLoading!: boolean;
+
   @Action("ElementUI/reload")
   private reload!: Reload;
 
@@ -61,6 +66,35 @@ export class BaseVue extends Vue {
   routerLink(path: string) {
     if (this.$route.fullPath !== path) {
       this.$router.push(path);
+    }
+  }
+
+  /**
+   * 自動開啟 & 結束 loading
+   * @param action
+   */
+  async executeAsync(action: AnyAsyncAction) {
+    this.startLoading();
+    MyLogger.log("loading", this.isLoading);
+    try {
+      await action();
+    } finally {
+      this.stopLoading();
+      MyLogger.log("loading", this.isLoading);
+    }
+  }
+
+  /**
+   * 自動開啟 & 結束 loading
+   * @param action
+   * @param callback
+   */
+  async executeComponentAsync(action: AnyAsyncAction, callback: (isShowLoading: boolean) => any) {
+    callback(true);
+    try {
+      await action();
+    } finally {
+      callback(false);
     }
   }
 }

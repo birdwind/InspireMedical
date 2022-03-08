@@ -75,20 +75,44 @@ body {
 }
 
 .medical-input {
-  span {
-    font-size: 20px;
-    line-height: 23px;
-    color: #3E3E3E;
-  }
+  > div {
 
-  input {
-    border: 1px solid #3E3E3E;
-    box-sizing: border-box;
-    border-radius: 10px;
-  }
+    span {
+      font-size: 20px;
+      line-height: 23px;
+      color: #3E3E3E;
+    }
 
-  p {
-    display: none;
+    input {
+      border: 1px solid #3E3E3E;
+      box-sizing: border-box;
+      border-radius: 10px;
+
+      &:focus-visible {
+        outline: 2px solid #3E3E3E;
+      }
+    }
+
+    p {
+      visibility: hidden;
+    }
+
+    &.medical-input-error {
+      input {
+        border: 1px solid #d76e51;
+
+        &:focus-visible {
+          outline: 2px solid #d76e51;
+        }
+      }
+
+      p {
+        visibility: visible;
+        margin-left: 12px;
+        font-weight: bold;
+        color: #d76e51;
+      }
+    }
   }
 
   &.title-input-inline {
@@ -96,20 +120,10 @@ body {
     align-items: center;
   }
 
-  &.medical-input-error {
-    input {
-      border: 1px solid #d76e51;
+  & + .medical-input {
+    > div {
+      margin-top: 12px;
     }
-
-    p {
-      margin-left: 12px;
-      font-weight: bold;
-      color: #d76e51;
-    }
-  }
-
-  & + .medical-input{
-    margin-top: 12px;
   }
 }
 
