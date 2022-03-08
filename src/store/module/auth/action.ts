@@ -1,5 +1,4 @@
-import { MyLogger } from "@/base/utils/MyLogger";
-import { AUTH_LOGIN, AUTH_UPDATE_LANG, UI_HISTORY_MESSAGE } from "@/store/mutationConstant";
+import { AUTH_LOGIN, AUTH_UPDATE_LANG } from "@/store/mutationConstant";
 import { LocalesEnums } from "@/enums/LocalesEnums";
 import { LoginService } from "@/services/LoginService";
 
@@ -17,17 +16,14 @@ export default {
       // Check Login Data Same as System
       await context.commit(AUTH_LOGIN, authResponse);
     } catch (error) {
-      MyLogger.log("Login Failed");
       await Promise.reject(error);
     }
   },
   async logout(context: any): Promise<void> {
     try {
-      //
+      await context.commit(AUTH_LOGIN, null);
     } catch (error) {
       // skip
     }
-    //
-    // await this.dispatch(`${AppModuleConstant.appStore}/${AppStoreActionConstant.setUserProfile}`, {});
   },
 };

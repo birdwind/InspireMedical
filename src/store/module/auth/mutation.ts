@@ -5,7 +5,8 @@ import { i18n } from "@/base/config";
 
 export default {
   [types.AUTH_UPDATE_LANG](state: AuthState, localesEnums: LocalesEnums): void {
-    i18n.locale = localesEnums;
+    state.lang = localesEnums;
+    i18n.locale = state.lang;
   },
   [types.AUTH_LOGIN](state: AuthState, data: any): void {
     state.authorization = data;
