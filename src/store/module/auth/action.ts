@@ -26,4 +26,7 @@ export default {
       // skip
     }
   },
+  async updateAuthorization(context: any, data: any): Promise<void> {
+    context.commit(AUTH_LOGIN, data);
+  },
 };

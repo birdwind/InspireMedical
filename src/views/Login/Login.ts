@@ -23,6 +23,7 @@ export default class Login extends BaseVue {
         account: this.username,
         password: this.password,
       }).catch((e) => {
+        MyLogger.log("123", e);
         if (e.indexOf("帳號") != -1) {
           this.$refs.form.setErrors({ "login.email": [e] });
         }

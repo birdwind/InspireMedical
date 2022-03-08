@@ -18,6 +18,7 @@ configElementUi();
 configRightMouseMenu();
 configVeeValidate();
 
+// Vue.prototype.$store = store;
 new Vue({
   router,
   store,
