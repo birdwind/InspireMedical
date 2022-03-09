@@ -1,4 +1,7 @@
 {
+  "common": {
+    "backToList": "Back to List"
+  },
   "validation": {
     "required": "This field is required",
     "email": "This field is invalid email"
@@ -6,5 +9,28 @@
   "mainTabs": {
     "surveyList": "Survey List",
     "questionLibrary": "Question Library"
+  },
+  "table": {
+    "empty": "Data Empty",
+    "loading": "Loading..."
+  },
+  "pagination": {
+    "pageOf": "${startOfPage} - ${endOfPage} of ${total}",
+    "pageInclude": "Viewing ${perPage} of ${dataOfPage} records"
+  },
+  "survey": {
+    "add": "Add New Survey",
+    "new": "New Survey",
+    "name": "Survey Name",
+    "created": "Created By",
+    "condition": "Condition",
+    "respondent": "Respondent",
+    "questions": "Questions",
+    "createdDate": "Created",
+    "modifiedDate": "Modified",
+    "prescription": "Prescriptions",
+    "default": "Default",
+    "patientCondition": "Patient Condition",
+    "schedule": "Schedule"
   }
 }

@@ -89,6 +89,9 @@ module.exports = {
           target: proxyHost,
           ws: true,
           changeOrigin: true,
+          pathRewrite: { // 訪問路徑重寫
+            '^/api': ''
+          }
         },
       },
       headers: {

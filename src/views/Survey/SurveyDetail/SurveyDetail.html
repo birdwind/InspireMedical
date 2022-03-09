@@ -1,0 +1,52 @@
+<div class="survey-detail">
+    <div class="survey-top">
+        <div class="back"
+             @click="routerLink('/survey/')">
+            <i class="medical-icon icon-arrow-left"></i>
+            <span>{{ $t("common.backToList") }}</span>
+        </div>
+    </div>
+    <div class="survey-main">
+        <ValidationObserver ref="form">
+            <div class="survey-header">
+                <span>{{ $t("survey.new") }}</span>
+            </div>
+            <div class="survey-category">
+                <div class="survey-category-wrapper">
+                    <span class="survey-category-header">{{ $t("survey.patientCondition") }}</span>
+                    <div class="survey-category-list">
+                            <div class="medical-input medical-radio">
+                                <div>
+                                    <span>Alzheimer’s</span>
+                                    <input type="radio" value="1" v-model="patientCondition">
+                                    <p></p>
+                                </div>
+                            </div>
+                        <ValidationProvider class="medical-input medical-radio"
+                                            name="survey.condition.alzheimer"
+                                            rules="oneOf:1,2,3"
+                                            immediate
+                                            v-slot="{ errors, classes }">
+                            <div :class="classes">
+                                <span>Parkinson’s</span>
+                                <input type="radio" value="3" v-model="patientCondition">
+                                <p>{{ errors[0] }}</p>
+                            </div>
+                        </ValidationProvider>
+                    </div>
+                </div>
+                <div class="survey-category-wrapper">
+                    <span class="survey-category-header">{{ $t("survey.respondent") }}</span>
+                    <div class="survey-category-list"></div>
+                </div>
+                <div class="survey-category-wrapper">
+                    <span class="survey-category-header">{{ $t("survey.schedule") }}</span>
+                    <div class="survey-category-list"></div>
+                </div>
+            </div>
+            <div class="survey-basic"></div>
+            <hr>
+            <div></div>
+        </ValidationObserver>
+    </div>
+</div>

@@ -108,6 +108,6 @@ instance.interceptors.response.use(
 );
 // ** end response interceptors
 
-instance.defaults.headers.post["Content-Type"] = "x-www-form-urlencoded";
+instance.defaults.headers.post["Content-Type"] = "application/json";
 
 export const apiUtils = instance;

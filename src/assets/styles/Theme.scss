@@ -74,11 +74,31 @@ body {
   height: 100vh;
 }
 
+.medical-simply-grid {
+  display: flex;
+
+  .left {
+
+  }
+
+  .center {
+    margin: 0 auto;
+  }
+
+  .right {
+    margin-left: auto;
+  }
+}
+
 .medical-input {
   > div {
+    display: flex;
+    flex: 0 1 auto;
+    align-items: center;
+    justify-items: center;
 
     span {
-      font-size: 20px;
+
       line-height: 23px;
       color: #3E3E3E;
     }
@@ -123,6 +143,170 @@ body {
   & + .medical-input {
     > div {
       margin-top: 12px;
+    }
+  }
+
+  &.medical-radio {
+    input {
+      display: none;
+
+      & + span {
+        display: flex;
+        position: relative;
+        padding-left: 20px;
+        flex: 0 1 auto;
+        align-items: center;
+        justify-content: center;
+
+        &:before {
+          content: '';
+          display: block;
+          position: absolute;
+          left: 0;
+          border-radius: 50%;
+          margin-right: 4px;
+          width: 16px;
+          height: 16px;
+          border: 1px solid #FFFFFF;
+          background: transparent;
+        }
+
+        &:after {
+          content: '';
+          display: block;
+          width: 8px;
+          height: 8px;
+          background: #3F99DF;
+          position: absolute;
+          border-radius: 50%;
+          left: 4px;
+          opacity: 0;
+          transform: scale(0, 0);
+          transition: all .2s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+        }
+      }
+
+      &:checked {
+        & + span {
+          color: #3F99DF !important;
+
+          &:before {
+            border: 1px solid #3F99DF;
+          }
+
+          &:after {
+            opacity: 1;
+            transform: scale(1, 1);
+          }
+        }
+      }
+
+      &:disabled {
+        & + span {
+          color: #6d7073 !important;
+
+          &:before {
+            border: 1px solid #6d7073;
+          }
+
+          &:after {
+            opacity: 1;
+            transform: scale(1, 1);
+            background: #6d7073;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.medical-button {
+  background: #017C8E;
+  color: #FFFFFF;
+  border-radius: 10px;
+}
+
+.medical-table {
+  .medical-table-top {
+
+  }
+
+  .v-data-table-header {
+    tr {
+      &:last-child {
+        > th {
+          background: #B3DBE0;
+          border-bottom: unset !important;
+          border-right: 5px solid #FFFFFF;
+
+          > div {
+            display: flex;
+            align-items: center;
+
+            .sort {
+              margin-left: 20px;
+
+              i {
+                cursor: pointer;
+                display: block;
+                margin-bottom: 3px;
+                opacity: 0.3;
+
+                &.active {
+                  opacity: 1;
+                }
+
+                &:last-of-type {
+                  margin-bottom: initial;
+                }
+              }
+            }
+          }
+
+          &:last-of-type {
+            border-right: unset;
+          }
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        border-right: 5px solid #FFFFFF;
+
+        &:last-of-type {
+          border-right: unset;
+        }
+      }
+
+      &:nth-of-type(even) {
+        background: #F3F3F3;
+      }
+    }
+  }
+
+  .medical-table-footer {
+  }
+}
+
+.medical-pagination {
+  display: flex;
+  align-items: center;
+
+  .medical-pagination-button {
+    display: flex;
+    margin-left: 25px;
+
+    i {
+      cursor: pointer;
+
+      &.disabled {
+        cursor: default;
+        opacity: 0.4;
+      }
     }
   }
 }

@@ -1,3 +1,24 @@
 .survey-list {
+  padding: 20px 20px;
 
+  .survey-top {
+    .medical-button {
+      width: 313px;
+      height: 43px;
+    }
+  }
+
+  .survey-main {
+    .medical-table {
+      .medical-table-top {
+        margin: 27px 0;
+
+      }
+
+      .medical-table-footer {
+        margin-top: 65px;
+
+      }
+    }
+  }
 }

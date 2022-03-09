@@ -7,37 +7,37 @@
             <div class="login-wrapper-form">
                 <ValidationObserver ref="form">
                     <form>
-                    <ValidationProvider class="medical-input"
-                                        name="login.email"
-                                        rules="required|email"
-                                        immediate
-                                        v-slot="{ errors, classes }">
-                        <div :class="classes">
-                            <input type="email" v-model="username">
-                            <p>{{ errors[0] }}</p>
-                        </div>
-                    </ValidationProvider>
-                    <ValidationProvider class="medical-input"
-                                        name="login.password"
-                                        rules="required"
-                                        immediate
-                                        v-slot="{ errors, classes }">
-                        <div :class="classes">
-                            <input type="password" placeholder="Password"
-                                   v-model="password"></input>
-                            <p>{{ errors[0] }}</p>
-                        </div>
-                    </ValidationProvider>
-                    <ValidationProvider class="medical-input"
-                                        name="captcha"
-                                        rules=""
-                                        v-slot="{ errors, classes }">
-                        <div :class="classes">
-                            <input type="text" placeholder="CAPTCHA"></input>
-                            <p>{{ errors[0] }}</p>
-                        </div>
-                    </ValidationProvider>
-                        </form>
+                        <ValidationProvider class="medical-input"
+                                            name="login.email"
+                                            rules="required|email"
+                                            immediate
+                                            v-slot="{ errors, classes }">
+                            <div :class="classes">
+                                <input type="email" v-model="username">
+                                <p>{{ errors[0] }}</p>
+                            </div>
+                        </ValidationProvider>
+                        <ValidationProvider class="medical-input"
+                                            name="login.password"
+                                            rules="required"
+                                            immediate
+                                            v-slot="{ errors, classes }">
+                            <div :class="classes">
+                                <input type="password" placeholder="Password"
+                                       v-model="password"></input>
+                                <p>{{ errors[0] }}</p>
+                            </div>
+                        </ValidationProvider>
+                        <ValidationProvider class="medical-input"
+                                            name="captcha"
+                                            rules=""
+                                            v-slot="{ errors, classes }">
+                            <div :class="classes">
+                                <input type="text" placeholder="CAPTCHA"></input>
+                                <p>{{ errors[0] }}</p>
+                            </div>
+                        </ValidationProvider>
+                    </form>
                 </ValidationObserver>
             </div>
             <div class="login-wrapper-footer">

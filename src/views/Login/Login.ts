@@ -6,14 +6,15 @@ import { MyLogger } from "@/base/utils/MyLogger";
 
 @Component({})
 export default class Login extends BaseVue {
-  $refs!: {
-    form: any;
-  };
+  private username = "0981222612";
+  private password = "10101010";
+
   @Action("Auth/loginServer")
   private loginServer!: LoginServer;
 
-  private username = "0981222612";
-  private password = "10101010";
+  $refs!: {
+    form: any;
+  };
 
   mounted() {}
 
@@ -24,10 +25,10 @@ export default class Login extends BaseVue {
         password: this.password,
       }).catch((e) => {
         MyLogger.log("123", e);
-        if (e.indexOf("帳號") != -1) {
+        if (e.indexOf("帳號") !== -1) {
           this.$refs.form.setErrors({ "login.email": [e] });
         }
-        if (e.indexOf("密碼") != -1) {
+        if (e.indexOf("密碼") !== -1) {
           this.$refs.form.setErrors({ "login.password": [e] });
         }
       });

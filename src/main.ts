@@ -10,6 +10,7 @@ import {
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import filter from "@/base/filter";
 
 Vue.config.productionTip = false;
 
@@ -17,6 +18,7 @@ configErrorHandler();
 configElementUi();
 configRightMouseMenu();
 configVeeValidate();
+filter();
 
 // Vue.prototype.$store = store;
 new Vue({
