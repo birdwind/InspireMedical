@@ -3,8 +3,16 @@ import { BaseVue } from "@/base/view/BaseVue";
 import { PatientConditionEnum } from "@/enums/PatientConditionEnum";
 import { RespondentEnum } from "@/enums/RespondentEnum";
 import { ScheduleEnum } from "@/enums/ScheduleEnum";
+import Vuedraggable from "vuedraggable";
+import { MyLogger } from "@/base/utils/MyLogger";
+import { SurveyServices } from "@/services/SurveyServices";
+import { SurveyDetailModel } from "@/model/Survey/SurveyDetailModel";
 
-@Component({})
+@Component({
+  components: {
+    Vuedraggable,
+  },
+})
 export default class SurveyDetail extends BaseVue {
   private patientConditionList = [
     {
@@ -65,17 +73,31 @@ export default class SurveyDetail extends BaseVue {
   private scheduleValue = -1;
   private surveyName = "";
   private description = "";
+  private temp = [1, 2, 3, 4, 5, 6];
+  private tempIndex = -1;
+  private surveyDetailModel = new SurveyDetailModel();
 
   $refs!: {
     form: any;
   };
 
-  mounted() {
-    this.init();
+  async mounted() {
+    await this.init();
     // this.$refs.form.setErrors({ "patient.alzheimer": "123" });
   }
 
-  private init() {}
+  private async init() {
+    await SurveyServices.surveyDetail(1);
+  }
+
+  get dragOptions() {
+    return {
+      animation: 200,
+      group: "description",
+      disabled: false,
+      ghostClass: "ghost",
+    };
+  }
 
   private clickPatient(patientConditionEnum: PatientConditionEnum) {
     this.patientConditionValue = patientConditionEnum;
@@ -87,5 +109,13 @@ export default class SurveyDetail extends BaseVue {
 
   private clickSchedule(scheduleEnum: ScheduleEnum) {
     this.scheduleValue = scheduleEnum;
+  }
+
+  private handlerMove(evt: any, originalEvent: any) {
+    MyLogger.log(evt);
+  }
+
+  handlerEndDrag() {
+    MyLogger.log("EndDrag");
   }
 }

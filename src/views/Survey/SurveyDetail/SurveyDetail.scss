@@ -3,6 +3,7 @@
 
   .survey-top {
     .back {
+      width: fit-content;
       display: flex;
       align-items: center;
       cursor: pointer;
@@ -26,13 +27,14 @@
 
     .survey-category {
       display: flex;
+      min-height: 205px;
 
       .survey-category-wrapper {
         flex: 1;
         background: #d3e2e4;
         padding: 24px;
         border-radius: 10px;
-        max-height: 205px;
+        max-width: 433px;
 
         .survey-category-header {
         }
@@ -42,7 +44,6 @@
 
           &.grid {
             display: grid;
-            justify-content: center;
             grid-template-columns: repeat(auto-fill, 180px);
           }
         }
@@ -55,6 +56,107 @@
 
     .survey-basic {
       margin-top: 30px;
+    }
+
+    hr {
+      margin: 50px 0;
+    }
+
+    .survey-question {
+      .medical-button {
+        padding: 10px 50px;
+      }
+
+      .survey-question-wrapper {
+        display: flex;
+        margin-top: 30px;
+
+        .question {
+          display: flex;
+
+          .question-wrapper {
+            .notice {
+              color: #7E7E7E;
+              font-size: 12px;
+            }
+
+            .question-drag_drop-area {
+              background: #F3F3F3;
+              border-radius: 10px;
+              padding: 15px;
+              width: 412px;
+              max-width: 412px;
+              height: 551px;
+              max-height: 551px;
+              margin-top: 30px;
+              overflow: auto;
+
+              .question-drag_drop-group {
+                .question-item {
+                  display: flex;
+                  align-items: center;
+                  border-bottom: 1px solid #C4C4C4;
+
+                  i {
+                    margin-right: 8px;
+
+                    &.icon-drag_drop {
+                      cursor: pointer;
+                    }
+                  }
+
+                  &:last-of-type {
+                    border-bottom: initial;
+                  }
+                }
+
+                .ghost {
+                  opacity: 0.5;
+                  background: #C4C4C4;
+                }
+              }
+            }
+
+            & + .question-wrapper {
+              margin-left: 5%;
+            }
+          }
+        }
+
+        .preview {
+          background: #F2F2F2;
+          border-radius: 10px;
+          margin-left: 5%;
+          padding: 20px;
+          min-width: 400px;
+          max-width: 400px;
+
+          > div {
+            max-height: 551px;
+
+            &.text-preview {
+              overflow: auto;
+
+              .text-preview-item {
+                .text-preview-item-title {
+                  background: #FAF1E7;
+                  padding: 18px 25px;
+                }
+
+                .text-preview-item-answer {
+                  display: flex;
+                  justify-content: center;
+                  padding: 12px 25px;
+
+                  .medical-input {
+                    flex: 1;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

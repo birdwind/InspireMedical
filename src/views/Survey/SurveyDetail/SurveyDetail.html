@@ -24,7 +24,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="survey-category-wrapper">
+                <div v-if="patientConditionValue !== -1"
+                     class="survey-category-wrapper">
                     <span class="survey-category-header">{{ $t("survey.respondent") }}</span>
                     <div class="survey-category-list">
                         <div class="medical-input medical-radio"
@@ -36,7 +37,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="survey-category-wrapper">
+                <div v-if="respondentValue !== -1"
+                     class="survey-category-wrapper">
                     <span class="survey-category-header">{{ $t("survey.schedule") }}</span>
                     <div class="survey-category-list grid">
                         <div class="medical-input medical-radio"
@@ -49,7 +51,8 @@
                     </div>
                 </div>
             </div>
-            <div class="survey-basic">
+            <div v-if="respondentValue !== -1"
+                 class="survey-basic">
                 <ValidationProvider class="medical-input"
                                     name="survey.name"
                                     rules="required"
@@ -74,10 +77,88 @@
                         <p>{{ errors[0] }}</p>
                     </div>
                 </ValidationProvider>
-                <span>{{ $t("survey.prescribed") }}</span>
+                <span v-html="$t('survey.prescribed')"></span>
             </div>
             <hr>
-            <div></div>
+            <div v-if="respondentValue !== -1"
+                 class="survey-question">
+                <button class="medical-button">
+                    Load a Template
+                </button>
+                <div class="survey-question-wrapper">
+                    <div class="question">
+                        <div class="question-wrapper">
+                            <span v-html="$t('survey.availableQuestions').replace('${question}', 2)"></span>
+                            <br>
+                            <span class="notice">{{ $t('survey.availableQuestionsNotice') }}</span>
+                            <div class="question-drag_drop-area">
+                                <Vuedraggable :list="temp"
+                                              :data-index="tempIndex"
+                                              v-bind="dragOptions"
+                                              handle=".icon-drag_drop"
+                                              group="question"
+                                              :move="handlerMove"
+                                              @end="handlerEndDrag">
+                                    <transition-group class="question-drag_drop-group">
+                                        <div class="question-item"
+                                             v-for="item in temp"
+                                             :key="item">
+                                            <i class="medical-icon icon-drag_drop"></i>
+                                            {{ item }}
+                                        </div>
+                                    </transition-group>
+                                </Vuedraggable>
+                            </div>
+                        </div>
+                        <div class="question-wrapper">
+                            <span v-html="$t('survey.includeQuestions').replace('${question}', 2)"></span>
+                            <br>
+                            <span class="notice">{{ $t('survey.includeQuestionsNotice') }}</span>
+                            <div class="question-drag_drop-area">
+                                <Vuedraggable :list="temp"
+                                              :data-index="tempIndex"
+                                              v-bind="dragOptions"
+                                              handle=".icon-drag_drop"
+                                              group="question"
+                                              :move="handlerMove"
+                                              @end="handlerEndDrag">
+                                    <transition-group class="question-drag_drop-group">
+                                        <div class="question-item"
+                                             v-for="item in temp"
+                                             :key="item">
+                                            <i class="medical-icon icon-drag_drop"></i>
+                                            {{ item }}
+                                        </div>
+                                    </transition-group>
+                                </Vuedraggable>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview">
+                        <span>{{ $t("survey.preview") }}</span>
+                        <div class="text-preview">
+                            <div class="text-preview-item"
+                                 v-for="item in 10">
+                                <div class="text-preview-item-title">
+                                    1.您是否經常劇烈疼痛?
+                                </div>
+                                <div class="text-preview-item-answer">
+                                    <div class="medical-input medical-radio">
+                                        <input type="radio" value="0">
+                                        <span>NO</span>
+                                        <p></p>
+                                    </div>
+                                    <div class="medical-input medical-radio">
+                                        <input type="radio" value="1">
+                                        <span>YES</span>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </ValidationObserver>
     </div>
 </div>

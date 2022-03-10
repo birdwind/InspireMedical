@@ -1,31 +1,36 @@
-.v-navigation-drawer{
-  .v-navigation-drawer__content{
+.v-navigation-drawer {
+  .v-navigation-drawer__content {
     width: 100%;
   }
 }
 
-.v-app-bar{
-  &.v-toolbar{
-    &.v-sheet{
-      background-color: #FFFFFF!important;
+.v-app-bar {
+  &.v-toolbar {
+    &.v-sheet {
+      background-color: #FFFFFF !important;
 
-      .v-toolbar__content{
+      .v-toolbar__content {
         padding: 0;
       }
     }
   }
 }
+
 .v-tabs {
-  .v-tab{
-    .v-ripple__container{
+  .v-tab {
+    .v-ripple__container {
       display: none;
     }
 
-    &:hover{
-      &::before{
-        opacity: 0!important;
+    &:hover {
+      &::before {
+        opacity: 0 !important;
       }
     }
   }
 
+}
+
+.v-main {
+  //overflow: auto;
 }
