@@ -84,6 +84,9 @@ instance.interceptors.response.use(
     if (response.data.IsSuccess) {
       return response.data.JsonData;
     } else {
+      if (response.data.Message.indexOf("金鑰失效") !== -1) {
+        stores.dispatch("Auth/logout", {});
+      }
       customerErrorHandler(new BusinessError(response.data.Message));
     }
     return Promise.reject(response.data.Message);

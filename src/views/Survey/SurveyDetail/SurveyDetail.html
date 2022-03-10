@@ -15,36 +15,67 @@
                 <div class="survey-category-wrapper">
                     <span class="survey-category-header">{{ $t("survey.patientCondition") }}</span>
                     <div class="survey-category-list">
-                            <div class="medical-input medical-radio">
-                                <div>
-                                    <span>Alzheimer’s</span>
-                                    <input type="radio" value="1" v-model="patientCondition">
-                                    <p></p>
-                                </div>
-                            </div>
-                        <ValidationProvider class="medical-input medical-radio"
-                                            name="survey.condition.alzheimer"
-                                            rules="oneOf:1,2,3"
-                                            immediate
-                                            v-slot="{ errors, classes }">
-                            <div :class="classes">
-                                <span>Parkinson’s</span>
-                                <input type="radio" value="3" v-model="patientCondition">
-                                <p>{{ errors[0] }}</p>
-                            </div>
-                        </ValidationProvider>
+                        <div class="medical-input medical-radio"
+                             v-for="patient of patientConditionList"
+                             @click="clickPatient(patient.value)">
+                            <input type="radio" :value="patient.value" v-model="patientConditionValue">
+                            <span>{{ $t(patient.text) }}</span>
+                            <p></p>
+                        </div>
                     </div>
                 </div>
                 <div class="survey-category-wrapper">
                     <span class="survey-category-header">{{ $t("survey.respondent") }}</span>
-                    <div class="survey-category-list"></div>
+                    <div class="survey-category-list">
+                        <div class="medical-input medical-radio"
+                             v-for="respondent of respondentList"
+                             @click="clickRespondent(respondent.value)">
+                            <input type="radio" :value="respondent.value" v-model="respondentValue">
+                            <span>{{ $t(respondent.text) }}</span>
+                            <p></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="survey-category-wrapper">
                     <span class="survey-category-header">{{ $t("survey.schedule") }}</span>
-                    <div class="survey-category-list"></div>
+                    <div class="survey-category-list grid">
+                        <div class="medical-input medical-radio"
+                             v-for="schedule of scheduleList"
+                             @click="clickSchedule(schedule.value)">
+                            <input type="radio" :value="schedule.value" v-model="scheduleValue">
+                            <span>{{ $t(schedule.text) }}</span>
+                            <p></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="survey-basic"></div>
+            <div class="survey-basic">
+                <ValidationProvider class="medical-input"
+                                    name="survey.name"
+                                    rules="required"
+                                    v-slot="{ errors, classes }">
+                    <div :class="classes">
+                        <div class="medical-input-inline">
+                            <span>{{ $t("survey.name") }}</span>
+                            <input type="text" v-model="surveyName">
+                        </div>
+                        <p>{{ errors[0] }}</p>
+                    </div>
+                </ValidationProvider>
+                <ValidationProvider class="medical-input"
+                                    name="survey.description"
+                                    rules=""
+                                    v-slot="{ errors, classes }">
+                    <div :class="classes">
+                        <div class="medical-input-inline">
+                            <span>{{ $t("survey.description") }}</span>
+                            <textarea type="text" v-model="description"/>
+                        </div>
+                        <p>{{ errors[0] }}</p>
+                    </div>
+                </ValidationProvider>
+                <span>{{ $t("survey.prescribed") }}</span>
+            </div>
             <hr>
             <div></div>
         </ValidationObserver>

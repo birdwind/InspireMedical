@@ -4,7 +4,8 @@
   },
   "validation": {
     "required": "This field is required",
-    "email": "This field is invalid email"
+    "email": "This field is invalid email",
+    "oneOf": "This field is required"
   },
   "mainTabs": {
     "surveyList": "Survey List",
@@ -17,6 +18,12 @@
   "pagination": {
     "pageOf": "${startOfPage} - ${endOfPage} of ${total}",
     "pageInclude": "Viewing ${perPage} of ${dataOfPage} records"
+  },
+  "login": {
+    "email": "Email"
+  },
+  "patient": {
+    "alzheimer": "Alzheimer"
   },
   "survey": {
     "add": "Add New Survey",
@@ -31,6 +38,26 @@
     "prescription": "Prescriptions",
     "default": "Default",
     "patientCondition": "Patient Condition",
-    "schedule": "Schedule"
+    "schedule": "Schedule",
+    "description": "Description",
+    "prescribed": "Currently Prescribed to： <p style:'color: #'>${patient}</p> patients",
+    "patient": {
+      "alzheimer": "Alzheimer's",
+      "parkinson": "Parkinson's",
+      "migraine": "Migraine's"
+    },
+    "respondents": {
+      "patient": "Patient",
+      "caregiver": "Caregiver",
+      "nurse": "Nurse"
+    },
+    "schedules": {
+      "one_month": "1x/month",
+      "two_month": "2x/month",
+      "one_week": "1x/week",
+      "two_week": "2x/week",
+      "one_day": "1x/day",
+      "hoc": "ad hoc"
+    }
   }
 }

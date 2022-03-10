@@ -73,12 +73,14 @@ export default class SurveyList extends BaseVue {
     await this.executeComponentAsync(
       async () => {
         await SurveyServices.surveyList(page - 1).then((response) => {
-          response.QuestionList.forEach((item: any) => {
-            item.TimeC = new Date(item.TimeC);
-            item.TimeU = new Date(item.TimeU);
-          });
-          this.medicalTableModel.data = response.QuestionList;
-          this.medicalTableModel.totalData = response.QuestionCount;
+          if (response) {
+            response.QuestionList.forEach((item: any) => {
+              item.TimeC = new Date(item.TimeC);
+              item.TimeU = new Date(item.TimeU);
+            });
+            this.medicalTableModel.data = response.QuestionList;
+            this.medicalTableModel.totalData = response.QuestionCount;
+          }
         });
       },
       (isShowLoading) => (this.tableLoading = isShowLoading)

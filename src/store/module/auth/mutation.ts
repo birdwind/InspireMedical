@@ -10,8 +10,6 @@ export default {
   },
   [types.AUTH_LOGIN](state: AuthState, data: any): void {
     state.authorization = data;
-    if (data) {
-      state.isLogin = true;
-    }
+    state.isLogin = !!data;
   },
 };

@@ -1,6 +1,7 @@
 import { AUTH_LOGIN, AUTH_UPDATE_LANG } from "@/store/mutationConstant";
 import { LocalesEnums } from "@/enums/LocalesEnums";
 import { LoginService } from "@/services/LoginService";
+import { MyLogger } from "@/base/utils/MyLogger";
 
 export default {
   updateLang(context: any, localesEnums: LocalesEnums) {

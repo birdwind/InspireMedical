@@ -91,25 +91,28 @@ body {
 }
 
 .medical-input {
+  width: fit-content;
+
   > div {
-    display: flex;
-    flex: 0 1 auto;
-    align-items: center;
-    justify-items: center;
 
     span {
-
       line-height: 23px;
       color: #3E3E3E;
+
+      & + input, & + textarea {
+        margin-left: 18px;
+      }
     }
 
-    input {
+    input, textarea {
+      width: 100%;
+      padding: 10px 12px;
       border: 1px solid #3E3E3E;
       box-sizing: border-box;
       border-radius: 10px;
 
       &:focus-visible {
-        outline: 2px solid #3E3E3E;
+        outline: unset;
       }
     }
 
@@ -117,13 +120,32 @@ body {
       visibility: hidden;
     }
 
-    &.medical-input-error {
-      input {
-        border: 1px solid #d76e51;
+    .medical-input-inline {
+      display: block;
+      align-items: center;
 
-        &:focus-visible {
-          outline: 2px solid #d76e51;
-        }
+      > * {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      input, textarea {
+        width: 80%;
+      }
+
+      span {
+        min-width: 100px;
+      }
+
+      & + p {
+        margin-left: 120px !important;
+      }
+
+    }
+
+    &.medical-input-error {
+      input, textarea {
+        border: 1px solid #d76e51;
       }
 
       p {
@@ -147,16 +169,17 @@ body {
   }
 
   &.medical-radio {
+    cursor: pointer;
+
     input {
       display: none;
 
       & + span {
         display: flex;
-        position: relative;
-        padding-left: 20px;
         flex: 0 1 auto;
+        position: relative;
+        padding-left: 25px;
         align-items: center;
-        justify-content: center;
 
         &:before {
           content: '';
@@ -167,8 +190,8 @@ body {
           margin-right: 4px;
           width: 16px;
           height: 16px;
-          border: 1px solid #FFFFFF;
-          background: transparent;
+          border: 1px solid #7E7E7E;
+          background: #FFFFFF;
         }
 
         &:after {
@@ -188,7 +211,7 @@ body {
 
       &:checked {
         & + span {
-          color: #3F99DF !important;
+          //color: #3F99DF !important;
 
           &:before {
             border: 1px solid #3F99DF;
@@ -219,7 +242,6 @@ body {
     }
   }
 }
-
 
 .medical-button {
   background: #017C8E;
