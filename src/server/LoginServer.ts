@@ -1,7 +1,7 @@
 import { apiUtils } from "@/base/utils/ApiUtils";
 import store from "@/store";
 
-export const LoginService = {
+export const LoginServer = {
   async login(data: any): Promise<any> {
     try {
       return await apiUtils.post("/api/api/Login/WebLogin", JSON.stringify(data), {});

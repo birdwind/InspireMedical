@@ -64,5 +64,36 @@
     "includeQuestions": "Include Questions <span style='color: #3190e8'> ${question}</span>",
     "includeQuestionsNotice": "Drag to recorder. Drag left to remove",
     "preview": "Preview"
+  },
+  "question": {
+    "library": "Question Library",
+    "availableQuestion": "Available Question <span style='color: #3190e8'>${question}</span>",
+    "new": "New Question",
+    "add": "Add new question",
+    "name": "Question Name",
+    "type": "Answer Type",
+    "respondent": "Respondent",
+    "createdDate": "Created",
+    "modifiedDate": "Modified",
+    "use": "Currently use",
+    "created": "Created By",
+    "patientCondition": "Patient Condition",
+    "types": {
+      "text": "TEXT",
+      "number": "NUMBER",
+      "media": "MEDIA"
+    },
+    "patient": {
+      "alzheimer": "Alzheimer's",
+      "parkinson": "Parkinson's",
+      "migraine": "Migraine's"
+    },
+    "respondents": {
+      "patient": "Patient",
+      "caregiver": "Caregiver",
+      "nurse": "Nurse"
+    },
+    "useSurveys": "Currently use in <span style='color: #3190e8'>${survey}</span> survey",
+    "usePrescribed": "Currently Prescribed to <span style='color: #3190e8'>${patient}</span> patients"
   }
 }

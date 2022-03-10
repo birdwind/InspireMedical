@@ -1,18 +1,21 @@
-<div class="survey-list">
-    <div class="survey-top medical-simply-grid">
+<div class="question-list">
+    <div class="question-list-top medical-simply-grid">
+        <div class="left">
+            <span>{{ $t("question.library") }}</span>
+        </div>
+        <div class="center">
+            <span v-html="$t('question.availableQuestion')"></span>
+        </div>
         <div class="right">
             <button class="medical-button"
-                    @click="routerLink('/survey/0')">
-                {{ $t("survey.add") }}
+                    @click="routerLink('/question/0')">
+                {{ $t("question.add") }}
             </button>
         </div>
     </div>
-    <div class="survey-main">
+    <div class="question-list-main">
         <div class="medical-table">
             <div class="medical-table-top medical-simply-grid">
-                <div class="left">
-                    <span>Surveys setup in your care center:</span>
-                </div>
                 <div class="right">
                     <div class="medical-pagination">
                         <span>
@@ -37,7 +40,7 @@
                     :loading="tableLoading"
                     :sort-by="medicalTableModel.sortBy"
                     :sort-desc="medicalTableModel.sortDesc"
-                    :headers="surveyListHeaderModel"
+                    :headers="questionListHeaderModel"
                     :items="medicalTableModel.data"
                     :items-per-page="medicalTableModel.perPage"
                     :no-data-text="$t('table.empty')"
@@ -65,14 +68,17 @@
                 </template>
                 <template v-slot:item="itemRow">
                     <tr>
-                        <td v-for="header of surveyListHeaderModel">
+                        <td v-for="header of questionListHeaderModel">
                             <div v-if="header.value === 'TimeC' || header.value === 'TimeU'">
                                 {{ itemRow.item[header.value] | ToDateMonth }}
                             </div>
-                            <div v-else-if="header.value === 'SurveyName'">
-                                <router-link :to="`/survey/${itemRow.item.SurveyID}`">
+                            <div v-else-if="header.value === 'QuestionText'">
+                                <router-link :to="`/question/${itemRow.item.QuestionID}`">
                                     {{ itemRow.item[header.value] }}
                                 </router-link>
+                            </div>
+                            <div v-else-if="header.value === 'AnswerTypeText'">
+                                {{ $t(itemRow.item[header.value]) + "_" + itemRow.item["AnswerType"] }}
                             </div>
                             <div v-else>
                                 {{ itemRow.item[header.value] }}

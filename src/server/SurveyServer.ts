@@ -1,6 +1,6 @@
 import { apiUtils } from "@/base/utils/ApiUtils";
 
-export const SurveyServices = {
+export const SurveyServer = {
   async surveyList(page: number): Promise<any> {
     try {
       return await apiUtils.get("/api/SurveyManagement/SurveyList", { params: { Page: page } });

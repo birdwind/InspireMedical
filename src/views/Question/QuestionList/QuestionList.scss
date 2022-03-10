@@ -1,0 +1,29 @@
+.question-list {
+  padding: 20px;
+
+  .question-list-top {
+    .left {
+      span {
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
+
+    .right {
+      button {
+        padding: 10px;
+        width: 313px;
+      }
+    }
+  }
+
+  .question-list-main {
+    .medical-table {
+      margin: 27px 0;
+    }
+
+    .medical-table-footer {
+      margin-top: 65px;
+    }
+  }
+}

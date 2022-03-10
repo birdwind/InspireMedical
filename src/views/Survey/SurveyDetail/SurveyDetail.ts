@@ -5,8 +5,9 @@ import { RespondentEnum } from "@/enums/RespondentEnum";
 import { ScheduleEnum } from "@/enums/ScheduleEnum";
 import Vuedraggable from "vuedraggable";
 import { MyLogger } from "@/base/utils/MyLogger";
-import { SurveyServices } from "@/services/SurveyServices";
 import { SurveyDetailModel } from "@/model/Survey/SurveyDetailModel";
+import { SurveyServer } from "@/server/SurveyServer";
+import { Watch } from "vue-property-decorator";
 
 @Component({
   components: {
@@ -68,6 +69,7 @@ export default class SurveyDetail extends BaseVue {
       value: ScheduleEnum.hoc,
     },
   ];
+  private id = 0;
   private patientConditionValue = -1;
   private respondentValue = -1;
   private scheduleValue = -1;
@@ -81,16 +83,26 @@ export default class SurveyDetail extends BaseVue {
     form: any;
   };
 
-  async mounted() {
+  @Watch("$route.params")
+  private async watchParams(newVal: any) {
+    this.id = newVal.id;
+    await this.init();
+  }
+
+  private async mounted() {
     await this.init();
     // this.$refs.form.setErrors({ "patient.alzheimer": "123" });
   }
 
   private async init() {
-    await SurveyServices.surveyDetail(1);
+    if (this.id === 0) {
+      // TODO: Clean Page Data
+    } else {
+      await SurveyServer.surveyDetail(this.id);
+    }
   }
 
-  get dragOptions() {
+  private get dragOptions() {
     return {
       animation: 200,
       group: "description",
@@ -115,7 +127,7 @@ export default class SurveyDetail extends BaseVue {
     MyLogger.log(evt);
   }
 
-  handlerEndDrag() {
+  private handlerEndDrag() {
     MyLogger.log("EndDrag");
   }
 }

@@ -1,7 +1,6 @@
 import { AUTH_LOGIN, AUTH_UPDATE_LANG } from "@/store/mutationConstant";
 import { LocalesEnums } from "@/enums/LocalesEnums";
-import { LoginService } from "@/services/LoginService";
-import { MyLogger } from "@/base/utils/MyLogger";
+import { LoginServer } from "@/server/LoginServer";
 
 export default {
   updateLang(context: any, localesEnums: LocalesEnums) {
@@ -12,7 +11,7 @@ export default {
       const userName = data.account;
       const password = data.password;
 
-      const authResponse = await LoginService.login({ Phone: userName, Password: password });
+      const authResponse = await LoginServer.login({ Phone: userName, Password: password });
 
       // Check Login Data Same as System
       await context.commit(AUTH_LOGIN, authResponse);
