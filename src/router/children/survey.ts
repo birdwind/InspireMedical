@@ -1,7 +1,7 @@
 export const surveyRoutes = [
   {
     path: "/survey",
-    alias: [""],
+    alias: ["/"],
     name: "SurveyList",
     component: () => import("@/views/Survey/SurveyList/SurveyList.vue"),
   },

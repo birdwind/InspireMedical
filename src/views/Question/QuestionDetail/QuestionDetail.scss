@@ -15,7 +15,7 @@
     }
   }
 
-  .question-main{
+  .question-main {
     margin-top: 20px;
 
     .question-header {
@@ -53,9 +53,25 @@
         }
       }
 
-      .question-category-description{
+      .question-category-description {
 
         margin-left: 20px;
+      }
+    }
+
+    .question-form {
+      margin-top: 60px;
+
+      .question-form-flex {
+        display: flex;
+        align-items: center;
+
+        .answer-choices {
+          .answer-area {
+            background: #F3F3F3;
+            border-radius: 10px;
+          }
+        }
       }
     }
   }

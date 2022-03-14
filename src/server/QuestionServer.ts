@@ -11,4 +11,7 @@ export const QuestionServer = {
       return await apiUtils.get("/api/SurveyManagement/QuestionDetail", { params: { SurveyID: id } });
     } catch (e) {}
   },
+  async answerType(): Promise<any> {
+    return await apiUtils.get("/api/SurveyManagement/AnswerTypeList");
+  },
 };

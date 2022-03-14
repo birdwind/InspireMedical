@@ -101,7 +101,7 @@ body {
       line-height: 23px;
       color: #3E3E3E;
 
-      & + input, & + textarea {
+      & + * {
         margin-left: 18px;
       }
     }

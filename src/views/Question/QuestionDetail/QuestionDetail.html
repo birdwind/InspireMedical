@@ -41,6 +41,34 @@
                     <p v-html="$t('question.usePrescribed')"></p>
                 </div>
             </div>
+            <div class="question-form">
+                <ValidationProvider class="medical-input"
+                                    name="question.answerType"
+                                    :rules="{ oneOf: answerTypes.map((answer) => {return answer.AnswerTypeID}) }"
+                                    v-slot="{ errors, classes }">
+                    <div :class="classes">
+                        <div class="medical-input-inline">
+                            <span>{{ $t("question.answerType") }}</span>
+                            <el-select v-model="answerType">
+                                <el-option
+                                        v-for="item in answerTypes"
+                                        :key="item.AnswerTypeID"
+                                        :label="$t('question.types.' + item.AnswerType)"
+                                        :value="item.AnswerTypeID">
+                                </el-option>
+                            </el-select>
+                        </div>
+                        <p>{{ errors[0] }}</p>
+                    </div>
+                </ValidationProvider>
+                <div class="question-form-flex">
+                    <div class="answer-choices">
+                        <span v-html="$t('question.answerChoices')"></span>
+                        <div class="answer-area">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </ValidationObserver>
     </div>
 </div>

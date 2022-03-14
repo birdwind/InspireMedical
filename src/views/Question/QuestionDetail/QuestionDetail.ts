@@ -3,6 +3,8 @@ import { BaseVue } from "@/base/view/BaseVue";
 import { Watch } from "vue-property-decorator";
 import { PatientConditionEnum } from "@/enums/PatientConditionEnum";
 import { RespondentEnum } from "@/enums/RespondentEnum";
+import { QuestionServer } from "@/server/QuestionServer";
+import { MyLogger } from "@/base/utils/MyLogger";
 
 @Component({})
 export default class QuestionDetail extends BaseVue {
@@ -37,6 +39,8 @@ export default class QuestionDetail extends BaseVue {
   private id = 0;
   private patientConditionValue = -1;
   private respondentValue = -1;
+  private answerTypes = [];
+  private answerType = "";
 
   @Watch("$route.params")
   private async watchParams(newVal: any) {
@@ -44,9 +48,19 @@ export default class QuestionDetail extends BaseVue {
     await this.init();
   }
 
-  private mounted() {}
+  private async mounted() {
+    await this.init();
+  }
 
-  private async init() {}
+  private async init() {
+    await this.AnswerTypeAPI();
+  }
+
+  private async AnswerTypeAPI() {
+    await QuestionServer.answerType().then((response) => {
+      this.answerTypes = response;
+    });
+  }
 
   private clickPatient(patientConditionEnum: PatientConditionEnum) {
     this.patientConditionValue = patientConditionEnum;
