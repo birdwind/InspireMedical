@@ -70,8 +70,6 @@ export default class SurveyDetail extends BaseVue {
     },
   ];
   private id = 0;
-  private surveyName = "";
-  private description = "";
   private temp = [1, 2, 3, 4, 5, 6];
   private tempIndex = -1;
   private surveyDetailModel = new SurveyDetailModel();
@@ -86,6 +84,20 @@ export default class SurveyDetail extends BaseVue {
     await this.init();
   }
 
+  @Watch("surveyDetailModel.ConditionID")
+  private async watchCondition(newVal: number) {
+    if (this.surveyDetailModel.RespondentType) {
+      await this.availableQuestionsAPI(this.surveyDetailModel.RespondentType, this.surveyDetailModel.ConditionID);
+    }
+  }
+
+  @Watch("surveyDetailModel.RespondentType")
+  private async watchRespondentType(newVal: number) {
+    if (this.surveyDetailModel.ConditionID) {
+      await this.availableQuestionsAPI(this.surveyDetailModel.RespondentType, this.surveyDetailModel.ConditionID);
+    }
+  }
+
   private async mounted() {
     this.id = Number(this.$route.params.id);
     await this.init();
@@ -96,10 +108,18 @@ export default class SurveyDetail extends BaseVue {
     if (this.id === 0) {
       this.surveyDetailModel = new SurveyDetailModel();
     } else {
-      await SurveyServer.surveyDetail(this.id).then((response) => {
-        this.surveyDetailModel = response;
+      await this.executeAsync(async () => {
+        await SurveyServer.surveyDetail(this.id).then((response) => {
+          this.surveyDetailModel = new SurveyDetailModel().json(response);
+        });
       });
     }
+  }
+
+  private async availableQuestionsAPI(respondent: number, condition: number) {
+    await this.executeAsync(async () => {
+      await SurveyServer.availableQuestions(respondent, condition).then((response) => {});
+    });
   }
 
   private get dragOptions() {
@@ -129,5 +149,15 @@ export default class SurveyDetail extends BaseVue {
 
   private handlerEndDrag() {
     MyLogger.log("EndDrag");
+  }
+
+  async save() {
+    MyLogger.log(this.surveyDetailModel.isNew());
+    // if(this.surveyDetailModel.SurveyID === 0){
+    //
+    // }else{
+    //
+    // }
+    // await SurveyServer.saveSurvey(this.surveyDetailModel);
   }
 }

@@ -4,9 +4,7 @@ import { i18n } from "@/base/config";
 import { MedicalTableModel } from "@/model/MedicalTableModel";
 import { Watch } from "vue-property-decorator";
 import { QuestionServer } from "@/server/QuestionServer";
-import { AnswerTypeEnum } from "@/enums/AnswerTypeEnum";
 import { Getter } from "vuex-class";
-import { MyLogger } from "@/base/utils/MyLogger";
 
 @Component({})
 export default class QuestionList extends BaseVue {

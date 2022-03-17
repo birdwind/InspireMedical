@@ -4,7 +4,7 @@
             <span>{{ $t("question.library") }}</span>
         </div>
         <div class="center">
-            <span v-html="$t('question.availableQuestion')"></span>
+            <span v-html="$t('question.availableQuestion').replace('${question}', medicalTableModel.totalData)"></span>
         </div>
         <div class="right">
             <button class="medical-button"

@@ -1,6 +1,9 @@
-export class SurveyDetailModel {
-  SurveyID: string;
-  UID: string;
+import { BaseModel, ModelID } from "@/base/data/BaseModel";
+
+export class SurveyDetailModel extends BaseModel {
+  @ModelID
+  SurveyID: number;
+  UID: number;
   ConditionID: number;
   RespondentType: number;
   SurveySchedule: number;
@@ -12,14 +15,16 @@ export class SurveyDetailModel {
   TimeU: Date | null;
   IsEnable: boolean | null;
   NameC: string;
+  PrescribedPatientCount: number;
   QuestionsCount: number;
   Questions: any;
   ConditionName: string;
   RespondentName: string;
 
   constructor() {
-    this.SurveyID = "";
-    this.UID = "";
+    super();
+    this.SurveyID = 0;
+    this.UID = 0;
     this.ConditionID = 0;
     this.RespondentType = 0;
     this.SurveySchedule = 0;
@@ -30,6 +35,7 @@ export class SurveyDetailModel {
     this.UserU = 0;
     this.TimeU = null;
     this.IsEnable = null;
+    this.PrescribedPatientCount = 0;
     this.NameC = "";
     this.QuestionsCount = 0;
     this.Questions = [];
