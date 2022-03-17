@@ -18,40 +18,40 @@
                         <div class="medical-input medical-radio"
                              v-for="patient of patientConditionList"
                              @click="clickPatient(patient.value)">
-                            <input type="radio" :value="patient.value" v-model="patientConditionValue">
+                            <input type="radio" :value="patient.value" v-model="surveyDetailModel.ConditionID">
                             <span>{{ $t(patient.text) }}</span>
                             <p></p>
                         </div>
                     </div>
                 </div>
-                <div v-if="patientConditionValue !== -1"
+                <div v-if="surveyDetailModel.ConditionID !== 0"
                      class="survey-category-wrapper">
                     <span class="survey-category-header">{{ $t("survey.respondent") }}</span>
                     <div class="survey-category-list">
                         <div class="medical-input medical-radio"
                              v-for="respondent of respondentList"
                              @click="clickRespondent(respondent.value)">
-                            <input type="radio" :value="respondent.value" v-model="respondentValue">
+                            <input type="radio" :value="respondent.value" v-model="surveyDetailModel.RespondentType">
                             <span>{{ $t(respondent.text) }}</span>
                             <p></p>
                         </div>
                     </div>
                 </div>
-                <div v-if="respondentValue !== -1"
+                <div v-if="surveyDetailModel.RespondentType !== 0"
                      class="survey-category-wrapper">
                     <span class="survey-category-header">{{ $t("survey.schedule") }}</span>
                     <div class="survey-category-list grid">
                         <div class="medical-input medical-radio"
                              v-for="schedule of scheduleList"
                              @click="clickSchedule(schedule.value)">
-                            <input type="radio" :value="schedule.value" v-model="scheduleValue">
+                            <input type="radio" :value="schedule.value" v-model="surveyDetailModel.SurveySchedule">
                             <span>{{ $t(schedule.text) }}</span>
                             <p></p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div v-if="respondentValue !== -1"
+            <div v-if="surveyDetailModel.RespondentType !== 0"
                  class="survey-basic">
                 <ValidationProvider class="medical-input"
                                     name="survey.name"
@@ -60,7 +60,7 @@
                     <div :class="classes">
                         <div class="medical-input-inline">
                             <span>{{ $t("survey.name") }}</span>
-                            <input type="text" v-model="surveyName">
+                            <input type="text" v-model="surveyDetailModel.SurveyName">
                         </div>
                         <p>{{ errors[0] }}</p>
                     </div>
@@ -72,7 +72,7 @@
                     <div :class="classes">
                         <div class="medical-input-inline">
                             <span>{{ $t("survey.description") }}</span>
-                            <textarea type="text" v-model="description"/>
+                            <textarea type="text" v-model="surveyDetailModel.SurveyDescription"/>
                         </div>
                         <p>{{ errors[0] }}</p>
                     </div>
@@ -80,7 +80,7 @@
                 <span v-html="$t('survey.prescribed')"></span>
             </div>
             <hr>
-            <div v-if="respondentValue !== -1"
+            <div v-if="surveyDetailModel.RespondentType !== 0"
                  class="survey-question">
                 <button class="medical-button">
                     Load a Template

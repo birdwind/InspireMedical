@@ -1,38 +1,38 @@
 export class SurveyDetailModel {
   SurveyID: string;
   UID: string;
-  ConditionID: string;
-  RespondentType: string;
-  SurveySchedule: string;
+  ConditionID: number;
+  RespondentType: number;
+  SurveySchedule: number;
   SurveyName: string;
   SurveyDescription: string;
-  UserC: string;
-  TimeC: string;
-  UserU: string;
-  TimeU: string;
-  IsEnable: string;
+  UserC: number;
+  TimeC: Date | null;
+  UserU: number;
+  TimeU: Date | null;
+  IsEnable: boolean | null;
   NameC: string;
-  QuestionsCount: string;
-  Questions: string;
+  QuestionsCount: number;
+  Questions: any;
   ConditionName: string;
   RespondentName: string;
 
   constructor() {
     this.SurveyID = "";
     this.UID = "";
-    this.ConditionID = "";
-    this.RespondentType = "";
-    this.SurveySchedule = "";
+    this.ConditionID = 0;
+    this.RespondentType = 0;
+    this.SurveySchedule = 0;
     this.SurveyName = "";
     this.SurveyDescription = "";
-    this.UserC = "";
-    this.TimeC = "";
-    this.UserU = "";
-    this.TimeU = "";
-    this.IsEnable = "";
+    this.UserC = 0;
+    this.TimeC = null;
+    this.UserU = 0;
+    this.TimeU = null;
+    this.IsEnable = null;
     this.NameC = "";
-    this.QuestionsCount = "";
-    this.Questions = "";
+    this.QuestionsCount = 0;
+    this.Questions = [];
     this.ConditionName = "";
     this.RespondentName = "";
   }

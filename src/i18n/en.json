@@ -1,6 +1,9 @@
 {
   "common": {
-    "backToList": "Back to List"
+    "backToList": "Back to List",
+    "cancel": "Cancel",
+    "save": "Save",
+    "modify": "Save Changes"
   },
   "validation": {
     "required": "This field is required",
@@ -99,6 +102,9 @@
     "useSurveys": "Currently use in <span style='color: #3190e8'>${survey}</span> survey",
     "usePrescribed": "Currently Prescribed to <span style='color: #3190e8'>${patient}</span> patients",
     "answerType": "Answer Type",
-    "answerChoices": "Answer Choices <span style='color: #3190e8'>${count}</span>"
+    "answerChoices": "Answer Choices <span style='color: #3190e8'>${count}</span>",
+    "titlePlaceholder": "Question Title",
+    "topicTitle": "Add Topics to this question",
+    "topic": "Topic"
   }
 }

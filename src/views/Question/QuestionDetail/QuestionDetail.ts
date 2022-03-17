@@ -5,9 +5,20 @@ import { PatientConditionEnum } from "@/enums/PatientConditionEnum";
 import { RespondentEnum } from "@/enums/RespondentEnum";
 import { QuestionServer } from "@/server/QuestionServer";
 import { MyLogger } from "@/base/utils/MyLogger";
+import { Getter } from "vuex-class";
+import Vuedraggable from "vuedraggable";
 
-@Component({})
+@Component({
+  components: {
+    Vuedraggable,
+  },
+})
 export default class QuestionDetail extends BaseVue {
+  @Getter("Question/answerType")
+  private answerTypes!: any;
+  @Getter("Question/topic")
+  private topics!: any;
+
   private patientConditionList = [
     {
       text: "survey.patient.alzheimer",
@@ -39,8 +50,11 @@ export default class QuestionDetail extends BaseVue {
   private id = 0;
   private patientConditionValue = -1;
   private respondentValue = -1;
-  private answerTypes = [];
   private answerType = "";
+  private questionTitle = "";
+  private temp = [1, 2, 3];
+  private tempIndex = -1;
+  private topic = [];
 
   @Watch("$route.params")
   private async watchParams(newVal: any) {
@@ -52,14 +66,15 @@ export default class QuestionDetail extends BaseVue {
     await this.init();
   }
 
-  private async init() {
-    await this.AnswerTypeAPI();
-  }
+  private async init() {}
 
-  private async AnswerTypeAPI() {
-    await QuestionServer.answerType().then((response) => {
-      this.answerTypes = response;
-    });
+  private get dragOptions() {
+    return {
+      animation: 200,
+      group: "answer",
+      disabled: false,
+      ghostClass: "ghost",
+    };
   }
 
   private clickPatient(patientConditionEnum: PatientConditionEnum) {
@@ -68,5 +83,13 @@ export default class QuestionDetail extends BaseVue {
 
   private clickRespondent(respondentEnum: RespondentEnum) {
     this.respondentValue = respondentEnum;
+  }
+
+  private handlerMove(evt: any, originalEvent: any) {
+    MyLogger.log(evt);
+  }
+
+  private handlerEndDrag() {
+    MyLogger.log("EndDrag");
   }
 }

@@ -10,3 +10,7 @@ export type UpdateAuthorization = (data: any) => Promise<void>;
 export type ShowLoading = (isShow: boolean) => void;
 export type Reload = (isReload: boolean) => Promise<void>;
 export type AddHistoryMessage = (message: HistoryMessage) => Promise<void>;
+
+// question模組
+export type UpdateAnswerType = (data: any) => void;
+export type UpdateTopic = (data: any) => void;

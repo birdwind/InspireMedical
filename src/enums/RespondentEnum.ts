@@ -1,5 +1,5 @@
 export enum RespondentEnum {
-  Patient,
+  Patient = 1,
   Caregiver,
   Nurse,
 }

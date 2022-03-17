@@ -5,9 +5,13 @@ import { MedicalTableModel } from "@/model/MedicalTableModel";
 import { Watch } from "vue-property-decorator";
 import { QuestionServer } from "@/server/QuestionServer";
 import { AnswerTypeEnum } from "@/enums/AnswerTypeEnum";
+import { Getter } from "vuex-class";
+import { MyLogger } from "@/base/utils/MyLogger";
 
 @Component({})
 export default class QuestionList extends BaseVue {
+  @Getter("Question/answerType")
+  private answerTypes!: any;
   private tableLoading = false;
   private medicalTableModel: MedicalTableModel = new MedicalTableModel();
 
@@ -65,7 +69,11 @@ export default class QuestionList extends BaseVue {
             response.QuestionList.forEach((item: any) => {
               item.TimeC = item.TimeC ? new Date(item.TimeC) : "--";
               item.TimeU = item.TimeU ? new Date(item.TimeU) : "--";
-              item.AnswerTypeText = `question.types.${AnswerTypeEnum[item.AnswerType]}`;
+              item.AnswerTypeText = this.answerTypes
+                .filter((type: any) => {
+                  return type.AnswerTypeID === item.AnswerType;
+                })
+                .map((type: any) => type.AnswerType)[0];
             });
             this.medicalTableModel.data = response.QuestionList;
             this.medicalTableModel.totalData = response.QuestionCount;

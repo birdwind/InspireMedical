@@ -14,4 +14,7 @@ export const QuestionServer = {
   async answerType(): Promise<any> {
     return await apiUtils.get("/api/SurveyManagement/AnswerTypeList");
   },
+  async questionTopic(): Promise<any> {
+    return await apiUtils.get("/api/SurveyManagement/QuestionTopicList");
+  },
 };

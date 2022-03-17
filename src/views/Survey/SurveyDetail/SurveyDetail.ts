@@ -70,9 +70,6 @@ export default class SurveyDetail extends BaseVue {
     },
   ];
   private id = 0;
-  private patientConditionValue = -1;
-  private respondentValue = -1;
-  private scheduleValue = -1;
   private surveyName = "";
   private description = "";
   private temp = [1, 2, 3, 4, 5, 6];
@@ -90,37 +87,40 @@ export default class SurveyDetail extends BaseVue {
   }
 
   private async mounted() {
+    this.id = Number(this.$route.params.id);
     await this.init();
     // this.$refs.form.setErrors({ "patient.alzheimer": "123" });
   }
 
   private async init() {
     if (this.id === 0) {
-      // TODO: Clean Page Data
+      this.surveyDetailModel = new SurveyDetailModel();
     } else {
-      await SurveyServer.surveyDetail(this.id);
+      await SurveyServer.surveyDetail(this.id).then((response) => {
+        this.surveyDetailModel = response;
+      });
     }
   }
 
   private get dragOptions() {
     return {
       animation: 200,
-      group: "description",
+      group: "question",
       disabled: false,
       ghostClass: "ghost",
     };
   }
 
   private clickPatient(patientConditionEnum: PatientConditionEnum) {
-    this.patientConditionValue = patientConditionEnum;
+    this.surveyDetailModel.ConditionID = patientConditionEnum.valueOf();
   }
 
   private clickRespondent(respondentEnum: RespondentEnum) {
-    this.respondentValue = respondentEnum;
+    this.surveyDetailModel.RespondentType = respondentEnum.valueOf();
   }
 
   private clickSchedule(scheduleEnum: ScheduleEnum) {
-    this.scheduleValue = scheduleEnum;
+    this.surveyDetailModel.SurveySchedule = scheduleEnum;
   }
 
   private handlerMove(evt: any, originalEvent: any) {

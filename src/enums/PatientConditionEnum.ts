@@ -1,5 +1,5 @@
 export enum PatientConditionEnum {
-  Alzheimer,
+  Alzheimer = 1,
   Parkinson,
   Migraine,
 }

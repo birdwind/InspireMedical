@@ -53,7 +53,7 @@
                                 <el-option
                                         v-for="item in answerTypes"
                                         :key="item.AnswerTypeID"
-                                        :label="$t('question.types.' + item.AnswerType)"
+                                        :label="$t(item.AnswerType)"
                                         :value="item.AnswerTypeID">
                                 </el-option>
                             </el-select>
@@ -62,12 +62,77 @@
                     </div>
                 </ValidationProvider>
                 <div class="question-form-flex">
-                    <div class="answer-choices">
+                    <div class="question-answer-choices">
                         <span v-html="$t('question.answerChoices')"></span>
-                        <div class="answer-area">
+
+                        <div class="question-answer-preview">
+                            <div class="question-title">
+                                <input type="text" v-model="questionTitle"
+                                       :placeholder="$t('question.titlePlaceholder')"/>
+                                <span>{{ questionTitle }}</span>
+                            </div>
+                            <div class="question-answer">
+                                <div class="question-answer-text">
+                                    <Vuedraggable :list="temp"
+                                                  :data-index="tempIndex"
+                                                  v-bind="dragOptions"
+                                                  handle=".icon-drag_drop"
+                                                  group="question"
+                                                  :move="handlerMove"
+                                                  @end="handlerEndDrag">
+                                        <transition-group class="question-answer-drag_drop-group">
+                                            <div class="question-answer-item medical-simply-grid"
+                                                 v-for="item in temp"
+                                                 :key="item">
+                                                <i class="medical-icon icon-drag_drop"></i>
+                                                {{ item }}
+                                                <div class="right">
+                                                    <i class="medical-icon icon-delete"></i>
+                                                </div>
+                                            </div>
+                                        </transition-group>
+                                    </Vuedraggable>
+                                    <div class="question-answer-add medical-input">
+                                        <div>
+                                            <div class="medical-input-inline">
+                                                <input type="text">
+                                                <button>Add</button>
+                                            </div>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="question-topic">
+                        <div class="question-topic-title">
+                            <span>{{ $t("question.topicTitle") }}</span>
+                        </div>
+                        <el-select class="question-topic-mutiple_select"
+                                   v-model="topic"
+                                   multiple
+                                   :placeholder="$t('question.topic')">
+                            <el-option
+                                    v-for="item in topics"
+                                    :key="item.TopicID"
+                                    :label="item.Topic"
+                                    :value="item.TopicID">
+                            </el-option>
+                        </el-select>
+                    </div>
                 </div>
+            </div>
+            <div class="question-footer">
+                <button class="cancel">
+                    <span>{{ $t("common.cancel") }}</span>
+                </button>
+                <button class="save">
+                    <span>{{ $t("common.save") }}</span>
+                </button>
+                <button class="save modify">
+                    <span>{{ $t("common.modify") }}</span>
+                </button>
             </div>
         </ValidationObserver>
     </div>
