@@ -24,7 +24,7 @@ export const SurveyServer = {
   },
   async saveSurvey(surveyDetailModel: SurveyDetailModel): Promise<any> {
     try {
-      if (surveyDetailModel.SurveyID === 0) {
+      if (surveyDetailModel.isCreate()) {
         return await apiUtils.post("/api/SurveyManagement/AddSurvey", JSON.stringify(surveyDetailModel), {});
       } else {
         return await apiUtils.patch("/api/SurveyManagement/EditSurvey", JSON.stringify(surveyDetailModel), {});

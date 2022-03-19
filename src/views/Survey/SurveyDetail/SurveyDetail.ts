@@ -8,6 +8,7 @@ import { MyLogger } from "@/base/utils/MyLogger";
 import { SurveyDetailModel } from "@/model/Survey/SurveyDetailModel";
 import { SurveyServer } from "@/server/SurveyServer";
 import { Watch } from "vue-property-decorator";
+import QuestionDetailModel from "@/model/Question/QuestionDetailModel";
 
 @Component({
   components: {
@@ -72,6 +73,7 @@ export default class SurveyDetail extends BaseVue {
   private id = 0;
   private temp = [1, 2, 3, 4, 5, 6];
   private tempIndex = -1;
+  private availableQuestions: QuestionDetailModel[] = [];
   private surveyDetailModel = new SurveyDetailModel();
 
   $refs!: {
@@ -151,13 +153,7 @@ export default class SurveyDetail extends BaseVue {
     MyLogger.log("EndDrag");
   }
 
-  async save() {
-    MyLogger.log(this.surveyDetailModel.isNew());
-    // if(this.surveyDetailModel.SurveyID === 0){
-    //
-    // }else{
-    //
-    // }
-    // await SurveyServer.saveSurvey(this.surveyDetailModel);
+  private async save() {
+    await SurveyServer.saveSurvey(this.surveyDetailModel).then((response) => {});
   }
 }

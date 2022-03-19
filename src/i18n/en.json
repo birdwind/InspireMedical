@@ -8,7 +8,8 @@
   "validation": {
     "required": "This field is required",
     "email": "This field is invalid email",
-    "oneOf": "This field is required"
+    "oneOf": "This field is required",
+    "phoneTW": "This field is invalid mobile"
   },
   "mainTabs": {
     "surveyList": "Survey List",
@@ -23,7 +24,8 @@
     "pageInclude": "Viewing ${perPage} of ${dataOfPage} records"
   },
   "login": {
-    "email": "Email"
+    "phone": "Phone",
+    "password": "Password"
   },
   "patient": {
     "alzheimer": "Alzheimer"
@@ -31,6 +33,7 @@
   "survey": {
     "add": "Add New Survey",
     "new": "New Survey",
+    "edit": "Edit Survey",
     "name": "Survey Name",
     "created": "Created By",
     "condition": "Condition",
@@ -64,14 +67,15 @@
     },
     "availableQuestions": "Available Questions <span style='color: #3190e8'> ${question}</span>",
     "availableQuestionsNotice": "Drag a question to the right to add it to your Survey",
-    "includeQuestions": "Include Questions <span style='color: #3190e8'> ${question}</span>",
-    "includeQuestionsNotice": "Drag to recorder. Drag left to remove",
+    "includeQuestions": "Included Questions <span style='color: #3190e8'> ${question}</span>",
+    "includeQuestionsNotice": "Drag to reorder. Drag left to remove",
     "preview": "Preview"
   },
   "question": {
     "library": "Question Library",
     "availableQuestion": "Available Question <span style='color: #3190e8'>${question}</span>",
     "new": "New Question",
+    "edit": "Edit Question",
     "add": "Add new question",
     "name": "Question Name",
     "type": "Answer Type",
@@ -83,6 +87,7 @@
     "patientCondition": "Patient Condition",
     "types": {
       "text": "TEXT",
+      "choices": "CHOICES",
       "number": "NUMBER",
       "image": "IMAGE",
       "boolean": "BOOLEAN",

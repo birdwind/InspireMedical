@@ -9,11 +9,13 @@
                     <form>
                         <ValidationProvider class="medical-input"
                                             name="login.email"
-                                            rules="required|email"
+                                            rules="required|phoneTW"
                                             immediate
                                             v-slot="{ errors, classes }">
                             <div :class="classes">
-                                <input type="email" v-model="username">
+                                <input type="text"
+                                       v-model="username"
+                                       :placeholder="$t('login.phone')">
                                 <p>{{ errors[0] }}</p>
                             </div>
                         </ValidationProvider>
@@ -23,8 +25,9 @@
                                             immediate
                                             v-slot="{ errors, classes }">
                             <div :class="classes">
-                                <input type="password" placeholder="Password"
-                                       v-model="password"></input>
+                                <input type="password"
+                                       v-model="password"
+                                       :placeholder="$t('login.phone')"></input>
                                 <p>{{ errors[0] }}</p>
                             </div>
                         </ValidationProvider>

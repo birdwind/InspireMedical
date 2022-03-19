@@ -9,7 +9,8 @@
     <div class="survey-main">
         <ValidationObserver ref="form">
             <div class="survey-header">
-                <span>{{ $t("survey.new") }}</span>
+                <span v-if="surveyDetailModel.isCreate()">{{ $t("survey.new") }}</span>
+                <span v-else>{{ $t("survey.edit") }}</span>
             </div>
             <div class="survey-category">
                 <div class="survey-category-wrapper">
@@ -82,9 +83,9 @@
             <hr>
             <div v-if="surveyDetailModel.RespondentType !== 0"
                  class="survey-question">
-                <button class="medical-button">
-                    Load a Template
-                </button>
+<!--                <button class="medical-button">-->
+<!--                    Load a Template-->
+<!--                </button>-->
                 <div class="survey-question-wrapper">
                     <div class="question">
                         <div class="question-wrapper">
@@ -115,7 +116,7 @@
                             <br>
                             <span class="notice">{{ $t('survey.includeQuestionsNotice') }}</span>
                             <div class="question-drag_drop-area">
-                                <Vuedraggable :list="temp"
+                                <Vuedraggable :list="surveyDetailModel.Questions"
                                               :data-index="tempIndex"
                                               v-bind="dragOptions"
                                               handle=".icon-drag_drop"
@@ -124,10 +125,10 @@
                                               @end="handlerEndDrag">
                                     <transition-group class="question-drag_drop-group">
                                         <div class="question-item"
-                                             v-for="item in temp"
-                                             :key="item">
+                                             v-for="item in surveyDetailModel.Questions"
+                                             :key="item.QuestionID">
                                             <i class="medical-icon icon-drag_drop"></i>
-                                            {{ item }}
+                                            {{ item.QuestionText }}
                                         </div>
                                     </transition-group>
                                 </Vuedraggable>
@@ -164,10 +165,12 @@
                     <span>{{ $t("common.cancel") }}</span>
                 </button>
                 <button class="save"
-                        @click="save">
+                        @click="save"
+                        v-if="surveyDetailModel.isCreate()">
                     <span>{{ $t("common.save") }}</span>
                 </button>
-                <button class="save modify">
+                <button class="save modify"
+                        v-else-if="!surveyDetailModel.isCreate()">
                     <span>{{ $t("common.modify") }}</span>
                 </button>
             </div>

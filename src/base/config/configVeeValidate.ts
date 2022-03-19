@@ -4,10 +4,12 @@ import * as rules from "vee-validate/dist/rules";
 import { i18n } from "@/base/config/configI18n";
 
 export function configVeeValidate() {
-  // extend("secret", {
-  //   validate: (value) => value === "example",
-  //   message: "This is not the magic word",
-  // });
+  extend("phoneTW", {
+    validate: (value) => {
+      return value.match("(?=(09))[0-9]{10}");
+    },
+    message: (field, values) => i18n.t("validation.phoneTW").toString(),
+  });
 
   for (const [rule, validation] of Object.entries(rules)) {
     extend(rule, {

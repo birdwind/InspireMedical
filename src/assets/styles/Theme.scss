@@ -112,6 +112,7 @@ body {
       border: 1px solid #3E3E3E;
       box-sizing: border-box;
       border-radius: 10px;
+      height: 46px;
 
       &:focus-visible {
         outline: unset;
@@ -133,10 +134,12 @@ body {
 
       input, textarea {
         width: 80%;
+        height: 46px;
       }
 
       span {
         min-width: 100px;
+        width: 10%;
       }
 
       & + p {

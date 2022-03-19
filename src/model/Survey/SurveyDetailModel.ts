@@ -1,7 +1,7 @@
-import { BaseModel, ModelID } from "@/base/data/BaseModel";
+import { AbstractModel } from "@/base/data/AbstractModel";
+import QuestionDetailModel from "@/model/Question/QuestionDetailModel";
 
-export class SurveyDetailModel extends BaseModel {
-  @ModelID
+export class SurveyDetailModel extends AbstractModel {
   SurveyID: number;
   UID: number;
   ConditionID: number;
@@ -17,7 +17,7 @@ export class SurveyDetailModel extends BaseModel {
   NameC: string;
   PrescribedPatientCount: number;
   QuestionsCount: number;
-  Questions: any;
+  Questions: QuestionDetailModel[];
   ConditionName: string;
   RespondentName: string;
 
@@ -41,5 +41,9 @@ export class SurveyDetailModel extends BaseModel {
     this.Questions = [];
     this.ConditionName = "";
     this.RespondentName = "";
+  }
+
+  getID(): number {
+    return this.SurveyID;
   }
 }
