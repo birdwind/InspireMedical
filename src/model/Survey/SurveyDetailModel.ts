@@ -29,14 +29,14 @@ export class SurveyDetailModel extends AbstractModel {
   @jsonMember(Number)
   UserC: number;
 
-  @jsonMember(Date)
-  TimeC: Date;
+  @jsonMember({ deserializer: (value) => (value ? new Date(value) : null) })
+  TimeC: Date | null;
 
   @jsonMember(Number)
   UserU: number;
 
-  @jsonMember(Date)
-  TimeU: Date;
+  @jsonMember({ deserializer: (value) => (value ? new Date(value) : null) })
+  TimeU: Date | null;
 
   @jsonMember(Boolean)
   IsEnable: boolean;
@@ -69,9 +69,9 @@ export class SurveyDetailModel extends AbstractModel {
     this.SurveyName = "";
     this.SurveyDescription = "";
     this.UserC = 0;
-    this.TimeC = new Date();
+    this.TimeC = null;
     this.UserU = 0;
-    this.TimeU = new Date();
+    this.TimeU = null;
     this.IsEnable = false;
     this.PrescribedPatientCount = 0;
     this.NameC = "";

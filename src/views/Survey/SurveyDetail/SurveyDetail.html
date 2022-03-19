@@ -93,8 +93,8 @@
                             <br>
                             <span class="notice">{{ $t('survey.availableQuestionsNotice') }}</span>
                             <div class="question-drag_drop-area">
-                                <Vuedraggable :list="temp"
-                                              :data-index="tempIndex"
+                                <Vuedraggable :list="availableQuestions"
+                                              :data-index="availableQuestionDragIndex"
                                               v-bind="dragOptions"
                                               handle=".icon-drag_drop"
                                               group="question"
@@ -102,10 +102,10 @@
                                               @end="handlerEndDrag">
                                     <transition-group class="question-drag_drop-group">
                                         <div class="question-item"
-                                             v-for="item in temp"
-                                             :key="item">
+                                             v-for="item in availableQuestions"
+                                             :key="item.QuestionID">
                                             <i class="medical-icon icon-drag_drop"></i>
-                                            {{ item }}
+                                            {{ item.QuestionText }}
                                         </div>
                                     </transition-group>
                                 </Vuedraggable>
@@ -117,7 +117,7 @@
                             <span class="notice">{{ $t('survey.includeQuestionsNotice') }}</span>
                             <div class="question-drag_drop-area">
                                 <Vuedraggable :list="surveyDetailModel.Questions"
-                                              :data-index="tempIndex"
+                                              :data-index="questionDragIndex"
                                               v-bind="dragOptions"
                                               handle=".icon-drag_drop"
                                               group="question"

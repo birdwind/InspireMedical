@@ -7,8 +7,8 @@ export default class QuestionDetailModel extends AbstractModel {
   @jsonMember(Number)
   QuestionID: number;
 
-  @jsonMember(String)
-  Version: string;
+  @jsonMember(Number)
+  Version: number;
 
   @jsonMember(String)
   QuestionText: string;
@@ -28,17 +28,17 @@ export default class QuestionDetailModel extends AbstractModel {
   @jsonMember(Number)
   UserC: number;
 
-  @jsonMember(Date)
-  TimeC: Date;
+  @jsonMember({ deserializer: (value) => (value ? new Date(value) : null) })
+  TimeC: Date | null;
 
   @jsonMember(Number)
   UserU: number;
 
-  @jsonMember({ deserializer: value => new Date(value) })
-  TimeU: Date;
+  @jsonMember({ deserializer: (value) => (value ? new Date(value) : null) })
+  TimeU: Date | null;
 
-  @jsonMember(Number)
-  NameC: number;
+  @jsonMember(String)
+  NameC: string;
 
   @jsonArrayMember(QuestionChoicesModel)
   Choices: QuestionChoicesModel[];
@@ -46,26 +46,26 @@ export default class QuestionDetailModel extends AbstractModel {
   @jsonMember(String)
   Topics: string;
 
-  @jsonMember(String)
-  UsingSurveyCount: string;
+  @jsonMember(Number)
+  UsingSurveyCount: number;
 
   constructor() {
     super();
     this.QuestionID = 0;
-    this.Version = "";
+    this.Version = 0;
     this.QuestionText = "";
     this.RespondentType = 0;
     this.ConditionID = 0;
     this.AnswerType = 0;
     this.MediaLink = "";
     this.UserC = 0;
-    this.TimeC = new Date();
+    this.TimeC = null;
     this.UserU = 0;
-    this.TimeU = new Date();
-    this.NameC = 0;
+    this.TimeU = null;
+    this.NameC = "0";
     this.Choices = [];
     this.Topics = "";
-    this.UsingSurveyCount = "";
+    this.UsingSurveyCount = 0;
   }
 
   getID(): number {

@@ -71,10 +71,10 @@ export default class SurveyDetail extends BaseVue {
     },
   ];
   private id = 0;
-  private temp = [1, 2, 3, 4, 5, 6];
-  private tempIndex = -1;
   private availableQuestions: QuestionDetailModel[] = [];
   private surveyDetailModel = new SurveyDetailModel();
+  private questionDragIndex = -1;
+  private availableQuestionDragIndex = -1;
 
   $refs!: {
     form: any;
@@ -112,9 +112,7 @@ export default class SurveyDetail extends BaseVue {
     } else {
       await this.executeAsync(async () => {
         await SurveyServer.surveyDetail(this.id).then((response) => {
-          MyLogger.log(this.surveyDetailModel.parse(response));
           this.surveyDetailModel = this.surveyDetailModel.parse(response);
-          // this.surveyDetailModel = new SurveyDetailModel().deserialize(response, this.surveyDetailModel);
         });
       });
     }
@@ -122,7 +120,12 @@ export default class SurveyDetail extends BaseVue {
 
   private async availableQuestionsAPI(respondent: number, condition: number) {
     await this.executeAsync(async () => {
-      await SurveyServer.availableQuestions(respondent, condition).then((response) => {});
+      await SurveyServer.availableQuestions(respondent, condition).then((response) => {
+        this.availableQuestions = [];
+        response.QuestionList.forEach((item: any) => {
+          this.availableQuestions.push(new QuestionDetailModel().parse(item));
+        });
+      });
     });
   }
 
