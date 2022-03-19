@@ -112,7 +112,9 @@ export default class SurveyDetail extends BaseVue {
     } else {
       await this.executeAsync(async () => {
         await SurveyServer.surveyDetail(this.id).then((response) => {
-          this.surveyDetailModel = new SurveyDetailModel().json(response);
+          MyLogger.log(this.surveyDetailModel.parse(response));
+          this.surveyDetailModel = this.surveyDetailModel.parse(response);
+          // this.surveyDetailModel = new SurveyDetailModel().deserialize(response, this.surveyDetailModel);
         });
       });
     }

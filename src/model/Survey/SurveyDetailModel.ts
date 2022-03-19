@@ -1,24 +1,62 @@
 import { AbstractModel } from "@/base/data/AbstractModel";
 import QuestionDetailModel from "@/model/Question/QuestionDetailModel";
+import "reflect-metadata";
+import { jsonArrayMember, jsonMember, jsonObject, TypedJSON } from "typedjson";
 
+@jsonObject()
 export class SurveyDetailModel extends AbstractModel {
+  @jsonMember(Number)
   SurveyID: number;
+
+  @jsonMember(Number)
   UID: number;
+
+  @jsonMember(Number)
   ConditionID: number;
+
+  @jsonMember(Number)
   RespondentType: number;
+
+  @jsonMember(Number)
   SurveySchedule: number;
+
+  @jsonMember(String)
   SurveyName: string;
+
+  @jsonMember(String)
   SurveyDescription: string;
+
+  @jsonMember(Number)
   UserC: number;
-  TimeC: Date | null;
+
+  @jsonMember(Date)
+  TimeC: Date;
+
+  @jsonMember(Number)
   UserU: number;
-  TimeU: Date | null;
-  IsEnable: boolean | null;
+
+  @jsonMember(Date)
+  TimeU: Date;
+
+  @jsonMember(Boolean)
+  IsEnable: boolean;
+
+  @jsonMember(String)
   NameC: string;
+
+  @jsonMember(Number)
   PrescribedPatientCount: number;
+
+  @jsonMember(Number)
   QuestionsCount: number;
+
+  @jsonArrayMember(QuestionDetailModel)
   Questions: QuestionDetailModel[];
+
+  @jsonMember(String)
   ConditionName: string;
+
+  @jsonMember(String)
   RespondentName: string;
 
   constructor() {
@@ -31,10 +69,10 @@ export class SurveyDetailModel extends AbstractModel {
     this.SurveyName = "";
     this.SurveyDescription = "";
     this.UserC = 0;
-    this.TimeC = null;
+    this.TimeC = new Date();
     this.UserU = 0;
-    this.TimeU = null;
-    this.IsEnable = null;
+    this.TimeU = new Date();
+    this.IsEnable = false;
     this.PrescribedPatientCount = 0;
     this.NameC = "";
     this.QuestionsCount = 0;
@@ -45,5 +83,9 @@ export class SurveyDetailModel extends AbstractModel {
 
   getID(): number {
     return this.SurveyID;
+  }
+
+  getTypes(): TypedJSON<any> {
+    return new TypedJSON(SurveyDetailModel);
   }
 }

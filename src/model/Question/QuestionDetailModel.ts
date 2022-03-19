@@ -1,21 +1,52 @@
 import { AbstractModel } from "@/base/data/AbstractModel";
 import QuestionChoicesModel from "@/model/Question/QuestionChoicesModel";
+import { jsonArrayMember, jsonMember, jsonObject, TypedJSON } from "typedjson";
 
+@jsonObject()
 export default class QuestionDetailModel extends AbstractModel {
+  @jsonMember(Number)
   QuestionID: number;
+
+  @jsonMember(String)
   Version: string;
+
+  @jsonMember(String)
   QuestionText: string;
+
+  @jsonMember(Number)
   RespondentType: number;
+
+  @jsonMember(Number)
   ConditionID: number;
+
+  @jsonMember(Number)
   AnswerType: number;
+
+  @jsonMember(String)
   MediaLink: string;
+
+  @jsonMember(Number)
   UserC: number;
-  TimeC: Date | null;
+
+  @jsonMember(Date)
+  TimeC: Date;
+
+  @jsonMember(Number)
   UserU: number;
-  TimeU: Date | null;
+
+  @jsonMember({ deserializer: value => new Date(value) })
+  TimeU: Date;
+
+  @jsonMember(Number)
   NameC: number;
+
+  @jsonArrayMember(QuestionChoicesModel)
   Choices: QuestionChoicesModel[];
+
+  @jsonMember(String)
   Topics: string;
+
+  @jsonMember(String)
   UsingSurveyCount: string;
 
   constructor() {
@@ -28,9 +59,9 @@ export default class QuestionDetailModel extends AbstractModel {
     this.AnswerType = 0;
     this.MediaLink = "";
     this.UserC = 0;
-    this.TimeC = null;
+    this.TimeC = new Date();
     this.UserU = 0;
-    this.TimeU = null;
+    this.TimeU = new Date();
     this.NameC = 0;
     this.Choices = [];
     this.Topics = "";
@@ -39,5 +70,9 @@ export default class QuestionDetailModel extends AbstractModel {
 
   getID(): number {
     return this.QuestionID;
+  }
+
+  getTypes(): TypedJSON<any> {
+    return new TypedJSON(QuestionDetailModel);
   }
 }

@@ -1,3 +1,3 @@
-export interface Serializable<T> {
-  deserialize(input: Object): T;
+export interface Serializable {
+  deserialize(json: any, clazz: typeof Object): Object;
 }
