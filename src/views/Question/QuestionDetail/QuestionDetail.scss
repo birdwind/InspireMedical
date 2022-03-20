@@ -65,7 +65,7 @@
       .question-form-flex {
         display: flex;
 
-        .question-answer-choices {
+        .question-answer-wrapper {
 
           .question-answer-preview {
             padding: 12px;
@@ -82,44 +82,6 @@
               span {
                 padding: 0 7px;
               }
-
-              input {
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                border: solid 1px #000000;
-                border-radius: 10px;
-                height: 44px;
-                padding: 5px 7px;
-
-                &:focus {
-                  visibility: visible;
-
-                  & + span {
-                    visibility: hidden;
-                  }
-                }
-
-                &:focus-visible {
-                  outline: unset;
-                }
-
-                &:not(:placeholder-shown) {
-                  visibility: hidden;
-                }
-              }
-
-              &:hover {
-                input {
-                  visibility: visible;
-
-                  & + span {
-                    visibility: hidden;
-                  }
-                }
-              }
             }
 
             .question-answer {
@@ -127,63 +89,10 @@
               min-width: 360px;
               padding: 12px 10px;
 
-              .question-answer-text {
-                .question-answer-drag_drop-group {
-                  display: grid;
-                  grid-gap: 10px;
-                  grid-template-columns: repeat(auto-fit, minmax(120px, auto));
-
-                  .question-answer-item {
-                    padding: 5px 0;
-                    align-items: center;
-                    position: relative;
-
-                    &:before {
-                      content: '';
-                      display: block;
-                      position: relative;
-                      left: 0;
-                      border-radius: 50%;
-                      width: 16px;
-                      height: 16px;
-                      border: 1px solid #7E7E7E;
-                      background: #FFFFFF;
-                      margin-right: 10px;
-                    }
-
-                    .icon-drag_drop {
-                      position: absolute;
-                      left: 0;
-                      display: none;
-                      cursor: pointer;
-                    }
-
-                    .icon-delete {
-                      cursor: pointer;
-                      min-width: 20px;
-                      min-height: 20px;
-                      width: 20px;
-                      height: 20px;
-                      display: none;
-                    }
-
-                    &:hover {
-                      &:before {
-                        visibility: hidden;
-                      }
-
-                      .icon-delete, .icon-drag_drop {
-                        display: block;
-                      }
-                    }
-                  }
-
-                  .ghost {
-                    opacity: 0.5;
-                    background: #C4C4C4;
-                  }
-                }
-
+              .question-answer-choices{
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                grid-auto-rows: 1fr;
               }
 
               .question-answer-add {

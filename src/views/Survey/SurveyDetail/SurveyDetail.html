@@ -83,52 +83,62 @@
             <hr>
             <div v-if="surveyDetailModel.RespondentType !== 0"
                  class="survey-question">
-<!--                <button class="medical-button">-->
-<!--                    Load a Template-->
-<!--                </button>-->
+                <!--                <button class="medical-button">-->
+                <!--                    Load a Template-->
+                <!--                </button>-->
                 <div class="survey-question-wrapper">
                     <div class="question">
                         <div class="question-wrapper">
-                            <span v-html="$t('survey.availableQuestions').replace('${question}', 2)"></span>
+                            <span v-html="$t('survey.availableQuestions').replace('${question}', availableQuestions.length)"></span>
                             <br>
                             <span class="notice">{{ $t('survey.availableQuestionsNotice') }}</span>
                             <div class="question-drag_drop-area">
                                 <Vuedraggable :list="availableQuestions"
-                                              :data-index="availableQuestionDragIndex"
                                               v-bind="dragOptions"
                                               handle=".icon-drag_drop"
-                                              group="question"
+                                              filter=".selected"
+                                              :group="{name: 'question', pull: 'clone', put:'false'}"
                                               :move="handlerMove"
                                               @end="handlerEndDrag">
-                                    <transition-group class="question-drag_drop-group">
-                                        <div class="question-item"
+                                    <transition-group class="question-drag_drop-group question-drag_drop-group-left">
+                                        <div class="question-item medical-simply-grid"
                                              v-for="item in availableQuestions"
-                                             :key="item.QuestionID">
+                                             :key="item.QuestionID"
+                                             :ref="`available_question_${item.QuestionID}`">
                                             <i class="medical-icon icon-drag_drop"></i>
                                             {{ item.QuestionText }}
+                                            <div class="right">
+                                                <i class="medical-icon icon-type"
+                                                   :class="questionAnswerType(item)"></i>
+                                            </div>
                                         </div>
                                     </transition-group>
                                 </Vuedraggable>
                             </div>
                         </div>
                         <div class="question-wrapper">
-                            <span v-html="$t('survey.includeQuestions').replace('${question}', 2)"></span>
+                            <span v-html="$t('survey.includeQuestions').replace('${question}', surveyDetailModel.Questions.length)"></span>
                             <br>
                             <span class="notice">{{ $t('survey.includeQuestionsNotice') }}</span>
                             <div class="question-drag_drop-area">
                                 <Vuedraggable :list="surveyDetailModel.Questions"
-                                              :data-index="questionDragIndex"
                                               v-bind="dragOptions"
                                               handle=".icon-drag_drop"
                                               group="question"
                                               :move="handlerMove"
                                               @end="handlerEndDrag">
-                                    <transition-group class="question-drag_drop-group">
-                                        <div class="question-item"
+                                    <transition-group class="question-drag_drop-group question-drag_drop-group-right">
+                                        <div class="question-item medical-simply-grid"
                                              v-for="item in surveyDetailModel.Questions"
                                              :key="item.QuestionID">
                                             <i class="medical-icon icon-drag_drop"></i>
                                             {{ item.QuestionText }}
+                                            <div class="right">
+                                                <i class="medical-icon icon-type"
+                                                   :class="questionAnswerType(item)"></i>
+                                                <i class="medical-icon icon-delete"
+                                                   @click="removeSelectedQuestion(item)"></i>
+                                            </div>
                                         </div>
                                     </transition-group>
                                 </Vuedraggable>
@@ -139,20 +149,25 @@
                         <span>{{ $t("survey.preview") }}</span>
                         <div class="text-preview">
                             <div class="text-preview-item"
-                                 v-for="item in 10">
+                                 v-for="item in surveyDetailModel.Questions">
                                 <div class="text-preview-item-title">
-                                    1.您是否經常劇烈疼痛?
+                                    <span>{{ item.QuestionText }}</span>
+                                    <img :src="item.MediaLink"
+                                         v-if="item.MediaLink">
                                 </div>
                                 <div class="text-preview-item-answer">
-                                    <div class="medical-input medical-radio">
-                                        <input type="radio" value="0">
-                                        <span>NO</span>
-                                        <p></p>
-                                    </div>
-                                    <div class="medical-input medical-radio">
-                                        <input type="radio" value="1">
-                                        <span>YES</span>
-                                        <p></p>
+                                    <div v-if="item.AnswerType === 1"
+                                         class="answer-type-boolean">
+                                        <div class="medical-input medical-radio">
+                                            <input type="radio" value="0">
+                                            <span>NO</span>
+                                            <p></p>
+                                        </div>
+                                        <div class="medical-input medical-radio">
+                                            <input type="radio" value="1">
+                                            <span>YES</span>
+                                            <p></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -170,6 +185,7 @@
                     <span>{{ $t("common.save") }}</span>
                 </button>
                 <button class="save modify"
+                        @click="save"
                         v-else-if="!surveyDetailModel.isCreate()">
                     <span>{{ $t("common.modify") }}</span>
                 </button>

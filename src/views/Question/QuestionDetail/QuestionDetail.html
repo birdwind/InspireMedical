@@ -63,7 +63,7 @@
                         :on-success="handleQuestionImageSuccess"
                         :on-error="handlerQuestionImageError"
                         :on-change="handlerQuestionImageChange"
-                        ref="question_image" >
+                        ref="question_image">
                     <i slot="default" class="el-icon-plus"></i>
                     <div slot="file" slot-scope="{file}">
                         <img class="el-upload-list__item-thumbnail"
@@ -107,43 +107,22 @@
                     </div>
                 </ValidationProvider>
                 <div class="question-form-flex">
-                    <div class="question-answer-choices">
+                    <div class="question-answer-wrapper">
                         <span v-html="$t('question.answerChoices')"></span>
 
                         <div class="question-answer-preview">
                             <div class="question-title">
-                                <input type="text" v-model="questionTitle"
-                                       :placeholder="$t('question.titlePlaceholder')"/>
-                                <span>{{ questionTitle }}</span>
+                                <span>{{ questionDetailModel.QuestionText }}</span>
                             </div>
                             <div class="question-answer">
-                                <div class="question-answer-text">
-                                    <Vuedraggable :list="temp"
-                                                  :data-index="tempIndex"
-                                                  v-bind="dragOptions"
-                                                  handle=".icon-drag_drop"
-                                                  group="question"
-                                                  :move="handlerMove"
-                                                  @end="handlerEndDrag">
-                                        <transition-group class="question-answer-drag_drop-group">
-                                            <div class="question-answer-item medical-simply-grid"
-                                                 v-for="item in temp"
-                                                 :key="item">
-                                                <i class="medical-icon icon-drag_drop"></i>
-                                                {{ item }}
-                                                <div class="right">
-                                                    <i class="medical-icon icon-delete"></i>
-                                                </div>
-                                            </div>
-                                        </transition-group>
-                                    </Vuedraggable>
-                                    <div class="question-answer-add medical-input">
+                                <div class="question-answer-choices">
+                                    <div class="question-answer-item medical-simply-grid"
+                                         v-for="item in questionDetailModel.Choices">
+                                        <div class="left">
+                                            <i class="medical-icon"></i>
+                                        </div>
                                         <div>
-                                            <div class="medical-input-inline">
-                                                <input type="text">
-                                                <button>Add</button>
-                                            </div>
-                                            <p></p>
+                                            <span>{{item.AnswerText}}</span>
                                         </div>
                                     </div>
                                 </div>

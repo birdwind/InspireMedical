@@ -73,24 +73,43 @@
     background-image: url("/icons/icon_account.svg");
   }
 
-  &.icon-arrow-left{
+  &.icon-arrow-left {
     background-image: url("/icons/icon_arrow_left.svg");
   }
 
-  &.icon-arrow-right{
+  &.icon-arrow-right {
     background-image: url("/icons/icon_arrow_right.svg");
   }
 
-  &.icon-drag_drop{
+  &.icon-drag_drop {
     background-image: url("/icons/icon_drag_drop.svg");
   }
 
-  &.icon-delete{
+  &.icon-delete {
     background-image: url("/icons/icon_delete.svg");
   }
 
-  &.icon-upload-image{
+  &.icon-upload-image {
     background-image: url("/icons/icon_upload_image.svg");
   }
 
+  &.icon-yesno {
+    background-image: url("/icons/icon_boolean.svg");
+  }
+
+  &.icon-select {
+    background-image: url("/icons/icon_dropdown.svg");
+  }
+
+  &.icon-text {
+    background-image: url("/icons/icon_text.svg");
+  }
+
+  &.icon-audio {
+    background-image: url("/icons/icon_audio.svg");
+  }
+
+  &.icon-video {
+    background-image: url("/icons/icon_video.svg");
+  }
 }

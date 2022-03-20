@@ -49,6 +49,8 @@ export default class QuestionDetailModel extends AbstractModel {
   @jsonMember(Number)
   UsingSurveyCount: number;
 
+  isAvailable: boolean;
+
   constructor() {
     super();
     this.QuestionID = 0;
@@ -66,6 +68,7 @@ export default class QuestionDetailModel extends AbstractModel {
     this.Choices = [];
     this.Topics = "";
     this.UsingSurveyCount = 0;
+    this.isAvailable = false;
   }
 
   getID(): number {

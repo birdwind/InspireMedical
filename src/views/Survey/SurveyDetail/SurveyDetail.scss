@@ -92,10 +92,17 @@
               overflow: auto;
 
               .question-drag_drop-group {
+                height: 100%;
+
+                >div{
+                  height: 100%;
+                }
+
                 .question-item {
                   display: flex;
                   align-items: center;
                   border-bottom: 1px solid #C4C4C4;
+                  padding: 7px 0;
 
                   i {
                     margin-right: 8px;
@@ -103,16 +110,55 @@
                     &.icon-drag_drop {
                       cursor: pointer;
                     }
+
+                    &.icon-delete {
+                      display: none;
+                      cursor: pointer;
+                      min-width: 16px;
+                      min-height: 16px;
+                      width: 16px;
+                      height: 16px;
+                    }
+
+                    &.icon-type {
+                      min-width: 24px;
+                      min-height: 24px;
+                      width: 24px;
+                      height: 24px;
+                    }
+                  }
+
+                  .right {
+                    display: flex;
+                    align-items: center;
                   }
 
                   &:last-of-type {
                     border-bottom: initial;
+                  }
+
+                  &.selected {
+                    opacity: 0.6;
+
+                    .icon-drag_drop {
+                      cursor: default;
+                    }
+                  }
+
+                  &:hover {
+                    .icon-delete {
+                      display: block;
+                    }
                   }
                 }
 
                 .ghost {
                   opacity: 0.5;
                   background: #C4C4C4;
+
+                  .icon-delete {
+                    display: none;
+                  }
                 }
               }
             }
@@ -144,12 +190,15 @@
                 }
 
                 .text-preview-item-answer {
-                  display: flex;
-                  justify-content: center;
                   padding: 12px 25px;
 
                   .medical-input {
                     flex: 1;
+                  }
+
+                  .answer-type-boolean{
+                    display: flex;
+                    justify-content: center;
                   }
                 }
               }
@@ -159,26 +208,26 @@
       }
     }
 
-    .survey-footer{
+    .survey-footer {
       display: flex;
       align-items: center;
       margin-top: 60px;
 
-      button{
+      button {
         padding: 15px 95px;
         margin-left: 50px;
         border-radius: 12px;
         color: #FFFFFF;
 
-        &.cancel{
+        &.cancel {
           background: #6F6F6F;
         }
 
-        &.save{
+        &.save {
           background: #017C8E;
         }
 
-        &:first-of-type{
+        &:first-of-type {
           margin-left: 0;
         }
       }

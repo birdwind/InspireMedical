@@ -4,11 +4,14 @@ import { PatientConditionEnum } from "@/enums/PatientConditionEnum";
 import { RespondentEnum } from "@/enums/RespondentEnum";
 import { ScheduleEnum } from "@/enums/ScheduleEnum";
 import Vuedraggable from "vuedraggable";
-import { MyLogger } from "@/base/utils/MyLogger";
 import { SurveyDetailModel } from "@/model/Survey/SurveyDetailModel";
 import { SurveyServer } from "@/server/SurveyServer";
 import { Watch } from "vue-property-decorator";
 import QuestionDetailModel from "@/model/Question/QuestionDetailModel";
+import question from "@/store/module/question";
+import { AnswerTypeEnum } from "@/enums/AnswerTypeEnum";
+import { Getter } from "vuex-class";
+import { MyLogger } from "@/base/utils/MyLogger";
 
 @Component({
   components: {
@@ -16,6 +19,9 @@ import QuestionDetailModel from "@/model/Question/QuestionDetailModel";
   },
 })
 export default class SurveyDetail extends BaseVue {
+  @Getter("Question/answerType")
+  private answerTypes!: any[];
+
   private patientConditionList = [
     {
       text: "survey.patient.alzheimer",
@@ -76,9 +82,7 @@ export default class SurveyDetail extends BaseVue {
   private questionDragIndex = -1;
   private availableQuestionDragIndex = -1;
 
-  $refs!: {
-    form: any;
-  };
+  $refs!: any;
 
   @Watch("$route.params")
   private async watchParams(newVal: any) {
@@ -126,6 +130,7 @@ export default class SurveyDetail extends BaseVue {
           this.availableQuestions.push(new QuestionDetailModel().parse(item));
         });
       });
+      this.handlerAvailableQuestionDragable();
     });
   }
 
@@ -150,15 +155,61 @@ export default class SurveyDetail extends BaseVue {
     this.surveyDetailModel.SurveySchedule = scheduleEnum;
   }
 
-  private handlerMove(evt: any, originalEvent: any) {
-    MyLogger.log(evt);
+  private questionAnswerType(item: QuestionDetailModel) {
+    const answerType = this.answerTypes
+      .filter((type: any) => {
+        return type.AnswerTypeID === item.AnswerType;
+      })
+      .map((type: any) => type.AnswerType)[0]
+      .replace("question.types.", "")
+      .replace("/", "");
+    return `icon-${answerType}`;
   }
 
-  private handlerEndDrag() {
-    MyLogger.log("EndDrag");
+  private handlerAvailableQuestionDragable() {
+    if (this.surveyDetailModel.Questions.length >= 0) {
+      this.availableQuestions.forEach((question) => {
+        this.$nextTick(() => {
+          this.$refs[`available_question_${question.QuestionID}`][0].classList.remove("selected");
+        });
+      });
+
+      this.surveyDetailModel.Questions.forEach((question) => {
+        const selected = this.availableQuestions.filter((available) => {
+          return question.QuestionID === available.QuestionID;
+        });
+
+        this.$nextTick(() => {
+          this.$refs[`available_question_${selected[0].QuestionID}`][0].classList.add("selected");
+        });
+      });
+    }
+  }
+
+  private handlerMove(evt: any, originalEvent: any) {
+    if (evt.from.className.indexOf("question-drag_drop-group-left") !== -1 && evt.from.className === evt.to.className) {
+      return false;
+    }
+  }
+
+  private handlerEndDrag(evt: any) {
+    this.handlerAvailableQuestionDragable();
+  }
+
+  private removeSelectedQuestion(question: QuestionDetailModel) {
+    this.surveyDetailModel.Questions = this.surveyDetailModel.Questions.filter((item) => {
+      return item.QuestionID !== question.QuestionID;
+    });
+    this.handlerAvailableQuestionDragable();
   }
 
   private async save() {
-    await SurveyServer.saveSurvey(this.surveyDetailModel).then((response) => {});
+    await SurveyServer.saveSurvey(this.surveyDetailModel).then((response) => {
+      if (this.surveyDetailModel.isCreate()) {
+        this.routerLink(`/survey/${response.SurveyID}`);
+      } else {
+        this.reloadPage();
+      }
+    });
   }
 }

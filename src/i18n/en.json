@@ -86,11 +86,11 @@
     "created": "Created By",
     "patientCondition": "Patient Condition",
     "types": {
+      "select": "SELECT",
+      "yes/no": "YES/NO",
       "text": "TEXT",
-      "choices": "CHOICES",
       "number": "NUMBER",
       "image": "IMAGE",
-      "boolean": "BOOLEAN",
       "audio": "AUDIO",
       "video": "VIDEO"
     },

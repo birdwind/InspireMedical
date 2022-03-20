@@ -1,5 +1,8 @@
 export enum AnswerTypeEnum {
-  text = 1,
+  boolean = 1,
   number = 2,
-  media = 3,
+  select = 3,
+  image,
+  audio,
+  video,
 }
