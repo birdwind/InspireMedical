@@ -19,19 +19,25 @@
                         <div class="medical-input medical-radio"
                              v-for="patient of patientConditionList"
                              @click="clickPatient(patient.value)">
-                            <input type="radio" :value="patient.value" v-model="questionDetailModel.ConditionID">
+                            <input type="radio"
+                                   v-model="questionDetailModel.ConditionID"
+                                   :value="patient.value"
+                                   :disabled="!questionDetailModel.isCreate()">
                             <span>{{ $t(patient.text) }}</span>
                             <p></p>
                         </div>
                     </div>
                 </div>
                 <div class="question-category-wrapper">
-                    <span class="question-category-header">{{ $t("survey.respondent") }}</span>
+                    <span class="question-category-header">{{ $t("question.respondent") }}</span>
                     <div class="question-category-list">
                         <div class="medical-input medical-radio"
                              v-for="respondent of respondentList"
                              @click="clickRespondent(respondent.value)">
-                            <input type="radio" :value="respondent.value" v-model="questionDetailModel.RespondentType">
+                            <input type="radio"
+                                   v-model="questionDetailModel.RespondentType"
+                                   :value="respondent.value"
+                                   :disabled="!questionDetailModel.isCreate()">
                             <span>{{ $t(respondent.text) }}</span>
                             <p></p>
                         </div>
@@ -39,7 +45,7 @@
                 </div>
                 <div class="question-category-description">
                     <p v-html="$t('question.useSurveys').replace('${survey}', questionDetailModel.UsingSurveyCount)"></p>
-                    <p v-html="$t('question.usePrescribed')"></p>
+                    <p v-html="$t('question.usePrescribed').replace('${patient}', questionDetailModel.PrescribedPatientCount)"></p>
                 </div>
             </div>
             <div class="question-form">
@@ -55,38 +61,51 @@
                         <p>{{ errors[0] }}</p>
                     </div>
                 </ValidationProvider>
-                <el-upload
-                        action="/api/SurveyManagement/UploadMedia"
-                        list-type="picture-card"
-                        :headers="serverHeader"
-                        :before-upload="beforeUploadQuestionImage"
-                        :on-success="handleQuestionImageSuccess"
-                        :on-error="handlerQuestionImageError"
-                        :on-change="handlerQuestionImageChange"
-                        ref="question_image">
-                    <i slot="default" class="el-icon-plus"></i>
-                    <div slot="file" slot-scope="{file}">
-                        <img class="el-upload-list__item-thumbnail"
-                             :src="file.url" alt="">
-                        <span class="el-upload-list__item-actions">
-                            <span class="el-upload-list__item-preview"
-                                  @click="handlePictureCardPreview(file)">
-                                <i class="el-icon-zoom-in"></i>
-                            </span>
-                            <!--                            <span class="el-upload-list__item-delete"-->
-                            <!--                                  @click="handleDownload(file)">-->
-                            <!--                                <i class="el-icon-download"></i>-->
-                            <!--                            </span>-->
-                            <span class="el-upload-list__item-delete"
-                                  @click="handleRemove(file)">
-                                <i class="el-icon-delete"></i>
-                            </span>
-                        </span>
+                <div class="question-title-image">
+                    <div class="question-title-image-wrapper">
+                        <el-image v-if="questionDetailModel.MediaLink"
+                                  :src="questionDetailModel.MediaLink"
+                                  :preview-src-list="[questionDetailModel.MediaLink]">
+                        </el-image>
+                        <div class="question-title-image-block">
+                            <i class="medical-icon icon-zoom"
+                               @click="handlePictureCardPreview(questionDetailModel.MediaLink)"></i>
+                            <i class="medical-icon icon-trash"
+                               @click="handleRemove('question')"></i>
+                        </div>
                     </div>
-                </el-upload>
-                <el-dialog :visible.sync="uploadImageModel.dialogVisible">
-                    <img width="100%" :src="uploadImageModel.dialogImageUrl" alt="">
-                </el-dialog>
+                    <el-upload v-if="!questionDetailModel.MediaLink"
+                               action="/api/SurveyManagement/UploadMedia"
+                               list-type="picture-card"
+                               :show-file-list="false"
+                               :headers="serverHeader"
+                               :before-upload="beforeUploadQuestionImage"
+                               :on-success="handleQuestionImageSuccess"
+                               :on-error="handlerQuestionImageError"
+                               :on-change="handlerQuestionImageChange"
+                               ref="question_image">
+                        <i slot="default" class="el-icon-plus"></i>
+                    </el-upload>
+                </div>
+                <div class="question-topic medical-input">
+                    <div>
+                        <div class="medical-input-inline">
+                            <span>{{ $t("question.topicTitle") }}</span>
+                            <el-select class="question-topic-mutiple_select"
+                                       v-model="questionDetailModel.Topics"
+                                       value-key="TopicID"
+                                       multiple
+                                       :placeholder="$t('question.topic')">
+                                <el-option
+                                        v-for="item in topics"
+                                        :key="item.TopicID"
+                                        :label="item.Topic"
+                                        :value="item">
+                                </el-option>
+                            </el-select>
+                        </div>
+                    </div>
+                </div>
                 <ValidationProvider class="medical-input"
                                     name="question.answerType"
                                     :rules="{ oneOf: answerTypes.map((answer) => {return answer.AnswerTypeID}) }"
@@ -106,44 +125,70 @@
                         <p>{{ errors[0] }}</p>
                     </div>
                 </ValidationProvider>
-                <div class="question-form-flex">
-                    <div class="question-answer-wrapper">
-                        <span v-html="$t('question.answerChoices')"></span>
-
-                        <div class="question-answer-preview">
-                            <div class="question-title">
-                                <span>{{ questionDetailModel.QuestionText }}</span>
-                            </div>
-                            <div class="question-answer">
-                                <div class="question-answer-choices">
-                                    <div class="question-answer-item medical-simply-grid"
-                                         v-for="item in questionDetailModel.Choices">
-                                        <div class="left">
-                                            <i class="medical-icon"></i>
-                                        </div>
-                                        <div>
-                                            <span>{{item.AnswerText}}</span>
-                                        </div>
+                <div class="question-answer-wrapper">
+                    <div class="answer-choice-add-area"
+                         v-if="getPreviewAnswerArea(3)">
+                        <span v-html="$t('question.answerChoices').replace('${count}', questionDetailModel.Choices.length)"></span>
+                        <div class="question-answer-add">
+                            <div class="medical-input"
+                                 style="margin-right: 12px;">
+                                <div>
+                                    <div class="medical-input-inline">
+                                        <input type="text"
+                                               v-model="questionChoicesItem.AnswerText"
+                                               v-on:keyup.enter="addAnswerChoice">
+                                        <button @click="addAnswerChoice">Add</button>
                                     </div>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div v-if="questionChoicesItem.MediaLink"
+                                 class="question-answer-image-wrapper">
+                                <el-image :src="questionChoicesItem.MediaLink"
+                                          :preview-src-list="[questionChoicesItem.MediaLink]">
+                                </el-image>
+                                <div class="question-title-image-block">
+                                    <i class="medical-icon icon-zoom"
+                                       @click="handlePictureCardPreview(questionChoicesItem.MediaLink)"></i>
+                                    <i class="medical-icon icon-trash"
+                                       @click="handleRemove('choice')"></i>
                                 </div>
                             </div>
                         </div>
+                        <Vuedraggable :list="questionDetailModel.Choices"
+                                      v-bind="dragOptions"
+                                      handle=".icon-drag_drop"
+                                      filter=".selected"
+                                      :move="handlerMove"
+                                      @end="handlerEndDrag">
+                            <transition-group class="answer-choice-drag-drop-area">
+                                <div class="answer-choice-item medical-simply-grid"
+                                     v-for="item in questionDetailModel.Choices"
+                                     :key="`${item.AnswerText}_${item.ChoiceID}`">
+                                    <i class="medical-icon icon-drag_drop"></i>
+                                    {{ item.AnswerText }}
+                                    <div class="right">
+                                        <i v-if="item.MediaLink"
+                                           class="medical-icon icon-zoom"
+                                           @click="handlePictureCardPreview(item.MediaLink)"></i>
+                                        <i v-if="!item.MediaLink"
+                                           class="medical-icon icon-upload-image"
+                                           @click="clickUploadChoiceImage(item.ChoiceID)"></i>
+                                        <input type="file"
+                                               accept="image/png, image/jpeg"
+                                               v-on:change="handlerUploadChoiceImage($event, item)"
+                                               style="display: none"
+                                               :ref="`file_${item.ChoiceID}`"></input>
+                                        <i class="medical-icon icon-delete"
+                                           @click="removeSelectedChoice(item)"></i>
+                                    </div>
+                                </div>
+                            </transition-group>
+                        </Vuedraggable>
                     </div>
-                    <div class="question-topic">
-                        <div class="question-topic-title">
-                            <span>{{ $t("question.topicTitle") }}</span>
-                        </div>
-                        <el-select class="question-topic-mutiple_select"
-                                   v-model="questionDetailModel.Topics"
-                                   multiple
-                                   :placeholder="$t('question.topic')">
-                            <el-option
-                                    v-for="item in topics"
-                                    :key="item.TopicID"
-                                    :label="item.Topic"
-                                    :value="item.TopicID">
-                            </el-option>
-                        </el-select>
+                    <div class="question-answer-preview">
+                        <span>{{ $t("question.preview") }}</span>
+                        <QuestionPreviewComponent :question="questionDetailModel"/>
                     </div>
                 </div>
             </div>
@@ -152,14 +197,20 @@
                     <span>{{ $t("common.cancel") }}</span>
                 </button>
                 <button class="save"
+                        @click="save"
                         v-if="questionDetailModel.isCreate()">
                     <span>{{ $t("common.save") }}</span>
                 </button>
                 <button class="save modify"
+                        @click="save"
+                        :disabled="isCompare"
                         v-else>
                     <span>{{ $t("common.modify") }}</span>
                 </button>
             </div>
         </ValidationObserver>
     </div>
+    <el-dialog :visible.sync="uploadImageModel.dialogVisible">
+        <img width="100%" :src="uploadImageModel.dialogImageUrl" alt="">
+    </el-dialog>
 </div>

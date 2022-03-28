@@ -1,6 +1,7 @@
 import { AbstractModel } from "@/base/data/AbstractModel";
 import QuestionChoicesModel from "@/model/Question/QuestionChoicesModel";
 import { jsonArrayMember, jsonMember, jsonObject, TypedJSON } from "typedjson";
+import TopicModel from "@/model/Question/TopicModel";
 
 @jsonObject()
 export default class QuestionDetailModel extends AbstractModel {
@@ -43,11 +44,14 @@ export default class QuestionDetailModel extends AbstractModel {
   @jsonArrayMember(QuestionChoicesModel)
   Choices: QuestionChoicesModel[];
 
-  @jsonMember(String)
-  Topics: string;
+  @jsonArrayMember(TopicModel)
+  Topics: TopicModel[];
 
   @jsonMember(Number)
   UsingSurveyCount: number;
+
+  @jsonMember(Number)
+  PrescribedPatientCount: number;
 
   isAvailable: boolean;
 
@@ -58,7 +62,7 @@ export default class QuestionDetailModel extends AbstractModel {
     this.QuestionText = "";
     this.RespondentType = 0;
     this.ConditionID = 0;
-    this.AnswerType = 0;
+    this.AnswerType = 1;
     this.MediaLink = "";
     this.UserC = 0;
     this.TimeC = null;
@@ -66,8 +70,9 @@ export default class QuestionDetailModel extends AbstractModel {
     this.TimeU = null;
     this.NameC = "0";
     this.Choices = [];
-    this.Topics = "";
+    this.Topics = [];
     this.UsingSurveyCount = 0;
+    this.PrescribedPatientCount = 0;
     this.isAvailable = false;
   }
 

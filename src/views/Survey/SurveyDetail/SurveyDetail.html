@@ -19,7 +19,10 @@
                         <div class="medical-input medical-radio"
                              v-for="patient of patientConditionList"
                              @click="clickPatient(patient.value)">
-                            <input type="radio" :value="patient.value" v-model="surveyDetailModel.ConditionID">
+                            <input type="radio"
+                                   :disabled="!surveyDetailModel.isCreate()"
+                                   v-model="surveyDetailModel.ConditionID"
+                                   :value="patient.value">
                             <span>{{ $t(patient.text) }}</span>
                             <p></p>
                         </div>
@@ -32,7 +35,10 @@
                         <div class="medical-input medical-radio"
                              v-for="respondent of respondentList"
                              @click="clickRespondent(respondent.value)">
-                            <input type="radio" :value="respondent.value" v-model="surveyDetailModel.RespondentType">
+                            <input type="radio"
+                                   v-model="surveyDetailModel.RespondentType"
+                                   :disabled="!surveyDetailModel.isCreate()"
+                                   :value="respondent.value">
                             <span>{{ $t(respondent.text) }}</span>
                             <p></p>
                         </div>
@@ -45,7 +51,9 @@
                         <div class="medical-input medical-radio"
                              v-for="schedule of scheduleList"
                              @click="clickSchedule(schedule.value)">
-                            <input type="radio" :value="schedule.value" v-model="surveyDetailModel.SurveySchedule">
+                            <input type="radio"
+                                   v-model="surveyDetailModel.SurveySchedule"
+                                   :value="schedule.value">
                             <span>{{ $t(schedule.text) }}</span>
                             <p></p>
                         </div>
@@ -91,7 +99,7 @@
                         <div class="question-wrapper">
                             <span v-html="$t('survey.availableQuestions').replace('${question}', availableQuestions.length)"></span>
                             <br>
-                            <span class="notice">{{ $t('survey.availableQuestionsNotice') }}</span>
+                            <span class="notice">{{ $t("survey.availableQuestionsNotice") }}</span>
                             <div class="question-drag_drop-area">
                                 <Vuedraggable :list="availableQuestions"
                                               v-bind="dragOptions"
@@ -106,10 +114,10 @@
                                              :key="item.QuestionID"
                                              :ref="`available_question_${item.QuestionID}`">
                                             <i class="medical-icon icon-drag_drop"></i>
+                                            <i class="medical-icon icon-type"
+                                               :class="questionAnswerType(item)"></i>
                                             {{ item.QuestionText }}
                                             <div class="right">
-                                                <i class="medical-icon icon-type"
-                                                   :class="questionAnswerType(item)"></i>
                                             </div>
                                         </div>
                                     </transition-group>
@@ -119,7 +127,7 @@
                         <div class="question-wrapper">
                             <span v-html="$t('survey.includeQuestions').replace('${question}', surveyDetailModel.Questions.length)"></span>
                             <br>
-                            <span class="notice">{{ $t('survey.includeQuestionsNotice') }}</span>
+                            <span class="notice">{{ $t("survey.includeQuestionsNotice") }}</span>
                             <div class="question-drag_drop-area">
                                 <Vuedraggable :list="surveyDetailModel.Questions"
                                               v-bind="dragOptions"
@@ -132,10 +140,10 @@
                                              v-for="item in surveyDetailModel.Questions"
                                              :key="item.QuestionID">
                                             <i class="medical-icon icon-drag_drop"></i>
+                                            <i class="medical-icon icon-type"
+                                               :class="questionAnswerType(item)"></i>
                                             {{ item.QuestionText }}
                                             <div class="right">
-                                                <i class="medical-icon icon-type"
-                                                   :class="questionAnswerType(item)"></i>
                                                 <i class="medical-icon icon-delete"
                                                    @click="removeSelectedQuestion(item)"></i>
                                             </div>
@@ -147,31 +155,33 @@
                     </div>
                     <div class="preview">
                         <span>{{ $t("survey.preview") }}</span>
-                        <div class="text-preview">
-                            <div class="text-preview-item"
-                                 v-for="item in surveyDetailModel.Questions">
-                                <div class="text-preview-item-title">
-                                    <span>{{ item.QuestionText }}</span>
-                                    <img :src="item.MediaLink"
-                                         v-if="item.MediaLink">
-                                </div>
-                                <div class="text-preview-item-answer">
-                                    <div v-if="item.AnswerType === 1"
-                                         class="answer-type-boolean">
-                                        <div class="medical-input medical-radio">
-                                            <input type="radio" value="0">
-                                            <span>NO</span>
-                                            <p></p>
-                                        </div>
-                                        <div class="medical-input medical-radio">
-                                            <input type="radio" value="1">
-                                            <span>YES</span>
-                                            <p></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <QuestionPreviewComponent v-for="question in surveyDetailModel.Questions"
+                                                  :question="question"/>
+                        <!--                        <div class="text-preview">-->
+                        <!--                            <div class="text-preview-item"-->
+                        <!--                                 v-for="item in surveyDetailModel.Questions">-->
+                        <!--                                <div class="text-preview-item-title">-->
+                        <!--                                    <span>{{ item.QuestionText }}</span>-->
+                        <!--                                    <img :src="item.MediaLink"-->
+                        <!--                                         v-if="item.MediaLink">-->
+                        <!--                                </div>-->
+                        <!--                                <div class="text-preview-item-answer">-->
+                        <!--                                    <div v-if="item.AnswerType === 1"-->
+                        <!--                                         class="answer-type-boolean">-->
+                        <!--                                        <div class="medical-input medical-radio">-->
+                        <!--                                            <input type="radio" value="0">-->
+                        <!--                                            <span>NO</span>-->
+                        <!--                                            <p></p>-->
+                        <!--                                        </div>-->
+                        <!--                                        <div class="medical-input medical-radio">-->
+                        <!--                                            <input type="radio" value="1">-->
+                        <!--                                            <span>YES</span>-->
+                        <!--                                            <p></p>-->
+                        <!--                                        </div>-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -186,6 +196,7 @@
                 </button>
                 <button class="save modify"
                         @click="save"
+                        :disabled="isCompare"
                         v-else-if="!surveyDetailModel.isCreate()">
                     <span>{{ $t("common.modify") }}</span>
                 </button>

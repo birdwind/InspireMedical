@@ -6,8 +6,10 @@ import { MyLogger } from "@/base/utils/MyLogger";
 
 @Component({})
 export default class Login extends BaseVue {
-  private username = "0981222612";
-  private password = "10101010";
+  // private username = "0981222612";
+  // private password = "10101010";
+  private username = "";
+  private password = "";
 
   @Action("Auth/loginServer")
   private loginServer!: LoginServer;

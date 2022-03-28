@@ -83,20 +83,21 @@
             .question-drag_drop-area {
               background: #F3F3F3;
               border-radius: 10px;
-              padding: 15px;
               width: 412px;
               max-width: 412px;
               height: 551px;
               max-height: 551px;
               margin-top: 30px;
               overflow: auto;
+              position: relative;
 
               .question-drag_drop-group {
-                height: 100%;
-
-                >div{
-                  height: 100%;
-                }
+                padding: 15px;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
 
                 .question-item {
                   display: flex;
@@ -176,33 +177,11 @@
           padding: 20px;
           min-width: 400px;
           max-width: 400px;
+          max-height: 631px;
+          overflow: auto;
 
           > div {
             max-height: 551px;
-
-            &.text-preview {
-              overflow: auto;
-
-              .text-preview-item {
-                .text-preview-item-title {
-                  background: #FAF1E7;
-                  padding: 18px 25px;
-                }
-
-                .text-preview-item-answer {
-                  padding: 12px 25px;
-
-                  .medical-input {
-                    flex: 1;
-                  }
-
-                  .answer-type-boolean{
-                    display: flex;
-                    justify-content: center;
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -229,6 +208,10 @@
 
         &:first-of-type {
           margin-left: 0;
+        }
+
+        &:disabled{
+          background: #c5c5c5;
         }
       }
     }

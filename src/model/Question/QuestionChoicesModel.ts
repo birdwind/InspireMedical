@@ -1,13 +1,14 @@
 import { AbstractModel } from "@/base/data/AbstractModel";
 import { jsonMember, jsonObject, TypedJSON } from "typedjson";
+import { UUID } from "uuid-generator-ts";
 
 @jsonObject()
 export default class QuestionChoicesModel extends AbstractModel {
-  @jsonMember(Number)
-  ChoiceID: number;
+  @jsonMember(Number, { deserializer: (value) => Number(value) })
+  ChoiceID: number | string;
 
-  @jsonMember(String)
-  QuestionID: string;
+  @jsonMember(Number)
+  QuestionID: number;
 
   @jsonMember(String)
   AnswerText: string;
@@ -15,16 +16,24 @@ export default class QuestionChoicesModel extends AbstractModel {
   @jsonMember(Number)
   Level: number;
 
+  @jsonMember(String)
+  MediaLink: string;
+
   constructor() {
     super();
-    this.ChoiceID = 0;
-    this.QuestionID = "";
+    this.ChoiceID = new UUID().toString();
+    this.QuestionID = 0;
     this.AnswerText = "";
     this.Level = 0;
+    this.MediaLink = "";
   }
 
   getID(): number {
-    return this.ChoiceID;
+    if (typeof this.ChoiceID === "number") {
+      return this.ChoiceID;
+    } else {
+      return 0;
+    }
   }
 
   getTypes(): TypedJSON<any> {

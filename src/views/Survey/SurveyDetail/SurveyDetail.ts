@@ -9,13 +9,15 @@ import { SurveyServer } from "@/server/SurveyServer";
 import { Watch } from "vue-property-decorator";
 import QuestionDetailModel from "@/model/Question/QuestionDetailModel";
 import question from "@/store/module/question";
-import { AnswerTypeEnum } from "@/enums/AnswerTypeEnum";
 import { Getter } from "vuex-class";
+import QuestionPreviewComponent from "@/components/QuestionPreview/QuestionPreview.component.vue";
+import { simplyComparison } from "@/utils/ObjectUtils";
 import { MyLogger } from "@/base/utils/MyLogger";
 
 @Component({
   components: {
     Vuedraggable,
+    QuestionPreviewComponent,
   },
 })
 export default class SurveyDetail extends BaseVue {
@@ -79,8 +81,8 @@ export default class SurveyDetail extends BaseVue {
   private id = 0;
   private availableQuestions: QuestionDetailModel[] = [];
   private surveyDetailModel = new SurveyDetailModel();
-  private questionDragIndex = -1;
-  private availableQuestionDragIndex = -1;
+  private surveyDetailModelTemp = new SurveyDetailModel();
+  private questionTempCount = 0;
 
   $refs!: any;
 
@@ -119,7 +121,13 @@ export default class SurveyDetail extends BaseVue {
           this.surveyDetailModel = this.surveyDetailModel.parse(response);
         });
       });
+      this.cloneModel();
     }
+  }
+
+  private cloneModel() {
+    this.surveyDetailModelTemp = Object.assign({}, this.surveyDetailModel);
+    this.questionTempCount = this.surveyDetailModel.Questions.length;
   }
 
   private async availableQuestionsAPI(respondent: number, condition: number) {
@@ -143,12 +151,33 @@ export default class SurveyDetail extends BaseVue {
     };
   }
 
+  private get isCompare() {
+    if (!simplyComparison(this.surveyDetailModel, this.surveyDetailModelTemp)) {
+      return false;
+    } else {
+      if (this.surveyDetailModel.Questions.length !== this.questionTempCount) {
+        return false;
+      } else {
+        for (let i = 0; i < this.questionTempCount; i++) {
+          if (this.surveyDetailModel.Questions[i].QuestionID !== this.surveyDetailModelTemp.Questions[i].QuestionID) {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+  }
+
   private clickPatient(patientConditionEnum: PatientConditionEnum) {
-    this.surveyDetailModel.ConditionID = patientConditionEnum.valueOf();
+    if (this.surveyDetailModel.isCreate()) {
+      this.surveyDetailModel.ConditionID = patientConditionEnum.valueOf();
+    }
   }
 
   private clickRespondent(respondentEnum: RespondentEnum) {
-    this.surveyDetailModel.RespondentType = respondentEnum.valueOf();
+    if (this.surveyDetailModel.isCreate()) {
+      this.surveyDetailModel.RespondentType = respondentEnum.valueOf();
+    }
   }
 
   private clickSchedule(scheduleEnum: ScheduleEnum) {
@@ -168,15 +197,15 @@ export default class SurveyDetail extends BaseVue {
 
   private handlerAvailableQuestionDragable() {
     if (this.surveyDetailModel.Questions.length >= 0) {
-      this.availableQuestions.forEach((question) => {
+      this.availableQuestions.forEach((questionItem) => {
         this.$nextTick(() => {
-          this.$refs[`available_question_${question.QuestionID}`][0].classList.remove("selected");
+          this.$refs[`available_question_${questionItem.QuestionID}`][0].classList.remove("selected");
         });
       });
 
-      this.surveyDetailModel.Questions.forEach((question) => {
+      this.surveyDetailModel.Questions.forEach((questionItem) => {
         const selected = this.availableQuestions.filter((available) => {
-          return question.QuestionID === available.QuestionID;
+          return questionItem.QuestionID === available.QuestionID;
         });
 
         this.$nextTick(() => {
@@ -196,20 +225,23 @@ export default class SurveyDetail extends BaseVue {
     this.handlerAvailableQuestionDragable();
   }
 
-  private removeSelectedQuestion(question: QuestionDetailModel) {
+  private removeSelectedQuestion(questionItem: QuestionDetailModel) {
     this.surveyDetailModel.Questions = this.surveyDetailModel.Questions.filter((item) => {
-      return item.QuestionID !== question.QuestionID;
+      return item.QuestionID !== questionItem.QuestionID;
     });
     this.handlerAvailableQuestionDragable();
   }
 
   private async save() {
-    await SurveyServer.saveSurvey(this.surveyDetailModel).then((response) => {
-      if (this.surveyDetailModel.isCreate()) {
-        this.routerLink(`/survey/${response.SurveyID}`);
-      } else {
-        this.reloadPage();
-      }
+    await this.executeAsync(async () => {
+      await SurveyServer.saveSurvey(this.surveyDetailModel).then((response) => {
+        if (this.surveyDetailModel.isCreate()) {
+          this.routerLink(`/survey`);
+        } else {
+          this.reloadPage();
+          this.cloneModel();
+        }
+      });
     });
   }
 }

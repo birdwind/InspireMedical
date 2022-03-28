@@ -1,6 +1,121 @@
 {
+  "common": {
+    "backToList": "返回列表",
+    "cancel": "取消",
+    "save": "儲存",
+    "modify": "儲存變更"
+  },
+  "validation": {
+    "required": "此欄位不得為空",
+    "email": "無效的email",
+    "oneOf": "此欄位不得為空",
+    "phoneTW": "無效的台灣手機號碼"
+  },
   "mainTabs": {
-    "surveyList": "問卷",
-    "questionLibrary": "問題表"
+    "surveyList": "問卷列表",
+    "questionLibrary": "問題列表"
+  },
+  "table": {
+    "empty": "目前暫無資料",
+    "loading": "Loading..."
+  },
+  "pagination": {
+    "pageOf": "${startOfPage} - ${endOfPage} 共 ${total} 筆",
+    "pageInclude": "單頁顯示 ${perPage} 筆,共 ${dataOfPage} 筆"
+  },
+  "login": {
+    "phone": "電話",
+    "password": "密碼"
+  },
+  "patient": {
+    "alzheimer": "Alzheimer"
+  },
+  "survey": {
+    "add": "建立表單",
+    "new": "新增表單",
+    "edit": "編輯表單",
+    "name": "表單名稱",
+    "created": "建立者",
+    "condition": "疾病",
+    "respondent": "回答者",
+    "questions": "問題數",
+    "createdDate": "建立時間",
+    "modifiedDate": "最後編輯時間",
+    "prescription": "處方",
+    "default": "預設",
+    "patientCondition": "疾病",
+    "schedule": "排程",
+    "description": "描述",
+    "setup": "設定屬於您的問卷",
+    "prescribed": "目前表單使用： <span style='color: #3190e8'>${patient}</span> 位病人",
+    "patient": {
+      "alzheimer": "癡呆症",
+      "parkinson": "帕金森氏症",
+      "migraine": "偏頭痛"
+    },
+    "respondents": {
+      "patient": "病患",
+      "caregiver": "家屬",
+      "nurse": "醫護"
+    },
+    "schedules": {
+      "one_month": "1次/月",
+      "two_month": "2次/月",
+      "one_week": "1次/週",
+      "two_week": "2次/週",
+      "one_day": "1次/日",
+      "hoc": "臨時"
+    },
+    "availableQuestions": "可使用問題 <span style='color: #3190e8'> ${question}</span>",
+    "availableQuestionsNotice": "拖曳問題到右邊進行新增問題",
+    "includeQuestions": "已加入問題 <span style='color: #3190e8'> ${question}</span>",
+    "includeQuestionsNotice": "拖曳排序",
+    "preview": "預覽"
+  },
+  "question": {
+    "library": "問題列表",
+    "availableQuestion": "可使用問題 <span style='color: #3190e8'>${question}</span>",
+    "new": "新增問題",
+    "edit": "編輯問題",
+    "add": "建立問題",
+    "name": "問題",
+    "type": "答案類型",
+    "condition": "疾病",
+    "respondent": "回答者",
+    "createdDate": "建立時間",
+    "modifiedDate": "最後更新時間",
+    "use": "目前使用",
+    "created": "建立者",
+    "patientCondition": "疾病",
+    "types": {
+      "select": "選擇",
+      "yes/no": "是非",
+      "text": "文字",
+      "number": "數字",
+      "image": "圖片",
+      "audio": "錄音",
+      "video": "錄影"
+    },
+    "patient": {
+      "alzheimer": "癡呆症",
+      "parkinson": "帕金森氏症",
+      "migraine": "偏頭痛"
+    },
+    "respondents": {
+      "patient": "病患",
+      "caregiver": "家屬",
+      "nurse": "醫護"
+    },
+    "useSurveys": "目前使用為 <span style='color: #3190e8'>${survey}</span> 份表單",
+    "usePrescribed": "目前使用此問題 <span style='color: #3190e8'>${patient}</span> 位病患",
+    "answerType": "答案類型",
+    "answerChoices": "選項數量 <span style='color: #3190e8'>${count}</span>",
+    "titlePlaceholder": "問題名稱",
+    "topicTitle": "Topic",
+    "topic": "Topic",
+    "addAnswerChoices": "新增選項",
+    "preview": "預覽",
+    "numberPlaceholder": "請輸入數字",
+    "imagePlaceholder": "上傳圖片"
   }
 }

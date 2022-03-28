@@ -89,7 +89,11 @@
     background-image: url("/icons/icon_delete.svg");
   }
 
-  &.icon-upload-image {
+  &.icon-trash {
+    background-image: url("/icons/icon_trash.svg");
+  }
+
+  &.icon-upload-image, &.icon-image {
     background-image: url("/icons/icon_upload_image.svg");
   }
 
@@ -111,5 +115,21 @@
 
   &.icon-video {
     background-image: url("/icons/icon_video.svg");
+  }
+
+  &.icon-zoom {
+    background-image: url("/icons/icon_zoom.svg");
+  }
+
+  &.icon-check {
+    background-image: url("/icons/icon_check.svg");
+  }
+
+  &.icon-upload {
+    background-image: url("/icons/icon_upload.svg");
+  }
+
+  &.icon-number {
+    background-image: url("/icons/icon_number.svg");
   }
 }

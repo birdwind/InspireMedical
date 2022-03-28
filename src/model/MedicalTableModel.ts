@@ -14,7 +14,7 @@ export class MedicalTableModel {
     this.data = data;
     this.sortBy = "";
     this.sortDesc = false;
-    this.perPage = 10;
+    this.perPage = 20;
     this.totalData = 0;
     this.totalPage = 0;
     this.options = null;
@@ -49,7 +49,6 @@ export class MedicalTableModel {
   }
 
   prev(): void {
-    MyLogger.log("上一頁");
     if (!this.isPrev) {
       return;
     }
@@ -57,7 +56,6 @@ export class MedicalTableModel {
   }
 
   next(): void {
-    MyLogger.log("下一頁");
     if (!this.isNext) {
       return;
     }

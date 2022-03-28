@@ -1,0 +1,63 @@
+<div class="question-preview">
+    <div class="question-title">
+        <span>{{ question.QuestionText }}</span>
+    </div>
+    <div class="question-answer">
+        <el-image v-if="question.MediaLink"
+                  :src="question.MediaLink">
+            <div slot="error">
+                {{$t('question.imagePlaceholder')}}
+            </div>
+        </el-image>
+        <div v-if="getPreviewAnswerArea(1)"
+             class="answer-type-boolean">
+            <div class="medical-input medical-radio">
+                <input type="radio" value="0">
+                <span>NO</span>
+            </div>
+            <div class="medical-input medical-radio">
+                <input type="radio" value="1">
+                <span>YES</span>
+            </div>
+        </div>
+        <div v-else-if="getPreviewAnswerArea(2)"
+             class="answer-type-number">
+            <div class="medical-input">
+                <div>
+                    <input :placeholder="$t('question.numberPlaceholder')"/>
+                </div>
+            </div>
+            <div></div>
+        </div>
+        <div v-else-if="getPreviewAnswerArea(3)"
+             class="answer-type-choices">
+            <div class="choices-item"
+                 v-for="item in question.Choices">
+                <el-image v-if="item.MediaLink"
+                          class="question-answer-item-image"
+                          :src="item.MediaLink"></el-image>
+                <div class="medical-simply-grid">
+                    <div class="left">
+                        <i class="medical-icon icon-check"></i>
+                    </div>
+                    <span>{{ item.AnswerText }}</span>
+                </div>
+            </div>
+        </div>
+        <div v-else-if="getPreviewAnswerArea(4)"
+             class="answer-type-image">
+            <div class="toolbar">
+                <i class="medical-icon icon-upload"></i>
+            </div>
+        </div>
+        <div v-else-if="getPreviewAnswerArea(5)"
+             class="answer-type-audio">
+            <div class="toolbar">
+                <i class="medical-icon icon-audio"></i>
+            </div>
+        </div>
+        <div v-else-if="getPreviewAnswerArea(6)"
+             class="answer-type-video">
+        </div>
+    </div>
+</div>

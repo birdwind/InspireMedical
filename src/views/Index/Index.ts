@@ -1,11 +1,12 @@
 import Component from "vue-class-component";
 import { BaseVue } from "@/base/view/BaseVue";
-import { Action } from "vuex-class";
+import { Action, Getter } from "vuex-class";
 import { UpdateAnswerType, UpdateLang, UpdateTopic } from "@/store/types";
 import { LocalesEnums } from "@/enums/LocalesEnums";
 import { Watch } from "vue-property-decorator";
 import { RouteRecord } from "vue-router";
 import { QuestionServer } from "@/server/QuestionServer";
+import TopicModel from "@/model/Question/TopicModel";
 
 @Component({
   components: {},
@@ -17,6 +18,8 @@ export default class Index extends BaseVue {
   private updateAnswerType!: UpdateAnswerType;
   @Action("Question/updateTopic")
   private updateTopic!: UpdateTopic;
+  @Getter("Auth/auth")
+  private auth!: any;
 
   private currentTab = 0;
   private copyRight = process.env.VUE_APP_CopyRight;
@@ -39,7 +42,11 @@ export default class Index extends BaseVue {
       this.updateAnswerType(response);
     });
     await QuestionServer.questionTopic().then((response) => {
-      this.updateTopic(response.TopicList);
+      const topicModels: TopicModel[] = [];
+      response.TopicList.forEach((item: string) => {
+        topicModels.push(new TopicModel().parse(item));
+      });
+      this.updateTopic(topicModels);
     });
   }
 

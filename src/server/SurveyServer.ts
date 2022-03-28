@@ -30,9 +30,9 @@ export const SurveyServer = {
       data.Questions = data.Questions.map((item: QuestionDetailModel) => item.QuestionID);
       MyLogger.log(data);
       if (surveyDetailModel.isCreate()) {
-        return await apiUtils.post("/api/SurveyManagement/AddSurvey", JSON.stringify(data), {});
+        return await apiUtils.post("/api/SurveyManagement/AddSurvey", data, {});
       } else {
-        return await apiUtils.patch("/api/SurveyManagement/EditSurvey", JSON.stringify(data), {});
+        return await apiUtils.patch("/api/SurveyManagement/EditSurvey", data, {});
       }
     } catch (e) {}
   },

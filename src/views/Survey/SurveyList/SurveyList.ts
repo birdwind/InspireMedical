@@ -42,7 +42,7 @@ export default class SurveyList extends BaseVue {
       },
       {
         text: i18n.t("survey.prescription"),
-        value: "prescription",
+        value: "PrescribedPatientCount",
       },
       {
         text: i18n.t("survey.default"),

@@ -46,9 +46,10 @@
     "patientCondition": "Patient Condition",
     "schedule": "Schedule",
     "description": "Description",
+    "setup": "Surveys setup in your care center",
     "prescribed": "Currently Prescribed to： <span style='color: #3190e8'>${patient}</span> patients",
     "patient": {
-      "alzheimer": "Alzheimer's",
+      "alzheimer": "Dementia's",
       "parkinson": "Parkinson's",
       "migraine": "Migraine's"
     },
@@ -77,8 +78,9 @@
     "new": "New Question",
     "edit": "Edit Question",
     "add": "Add new question",
-    "name": "Question Name",
+    "name": "Question",
     "type": "Answer Type",
+    "condition": "Condition",
     "respondent": "Respondent",
     "createdDate": "Created",
     "modifiedDate": "Modified",
@@ -86,7 +88,7 @@
     "created": "Created By",
     "patientCondition": "Patient Condition",
     "types": {
-      "select": "SELECT",
+      "select": "MULTIPLE CHOICES",
       "yes/no": "YES/NO",
       "text": "TEXT",
       "number": "NUMBER",
@@ -95,9 +97,9 @@
       "video": "VIDEO"
     },
     "patient": {
-      "alzheimer": "Alzheimer's",
-      "parkinson": "Parkinson's",
-      "migraine": "Migraine's"
+      "alzheimer": "Dementia",
+      "parkinson": "Parkinson",
+      "migraine": "Migraine"
     },
     "respondents": {
       "patient": "Patient",
@@ -110,6 +112,10 @@
     "answerChoices": "Answer Choices <span style='color: #3190e8'>${count}</span>",
     "titlePlaceholder": "Question Title",
     "topicTitle": "Add Topics to this question",
-    "topic": "Topic"
+    "topic": "Topic",
+    "addAnswerChoices": "Append Answer Choices",
+    "preview": "Preview",
+    "numberPlaceholder": "Please input number",
+    "imagePlaceholder": "Upload Image"
   }
 }

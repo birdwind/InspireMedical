@@ -9,20 +9,24 @@ import { Getter } from "vuex-class";
 import Vuedraggable from "vuedraggable";
 import QuestionDetailModel from "@/model/Question/QuestionDetailModel";
 import UploadImageModel from "@/model/UploadImageModel";
+import QuestionChoicesModel from "@/model/Question/QuestionChoicesModel";
+import QuestionPreviewComponent from "@/components/QuestionPreview/QuestionPreview.component.vue";
+import TopicModel from "@/model/Question/TopicModel";
+import { simplyComparison } from "@/utils/ObjectUtils";
 
 @Component({
   components: {
     Vuedraggable,
+    QuestionPreviewComponent,
   },
 })
 export default class QuestionDetail extends BaseVue {
-  $refs!: {
-    question_image: any;
-  };
   @Getter("Question/answerType")
   private answerTypes!: any;
+
   @Getter("Question/topic")
-  private topics!: any;
+  private topics!: TopicModel[];
+
   @Getter("Auth/auth")
   private auth!: any;
 
@@ -55,18 +59,42 @@ export default class QuestionDetail extends BaseVue {
     },
   ];
   private id = 0;
-  private patientConditionValue = -1;
-  private respondentValue = -1;
-  private answerType = "";
-  private questionTitle = "";
-  private temp = [1, 2, 3];
-  private tempIndex = -1;
-  private topic = [];
   private questionDetailModel = new QuestionDetailModel();
+  private questionDetailModelTemp = new QuestionDetailModel();
+  private choiceTempCount = 0;
   private uploadImageModel = new UploadImageModel();
+  private questionChoicesItem = new QuestionChoicesModel();
 
-  get serverHeader() {
+  $refs!: any;
+
+  private get serverHeader() {
     return { Token: this.auth ? this.auth.LoginKey : "0000" };
+  }
+
+  private get dragOptions() {
+    return {
+      animation: 200,
+      group: "question",
+      disabled: false,
+      ghostClass: "ghost",
+    };
+  }
+
+  private get isCompare() {
+    if (!simplyComparison(this.questionDetailModel, this.questionDetailModelTemp)) {
+      return false;
+    } else {
+      if (this.questionDetailModel.Choices.length !== this.choiceTempCount) {
+        return false;
+      } else {
+        for (let i = 0; i < this.choiceTempCount; i++) {
+          if (this.questionDetailModel.Choices[i].ChoiceID !== this.questionDetailModelTemp.Choices[i].ChoiceID) {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
   }
 
   @Watch("$route.params")
@@ -89,44 +117,47 @@ export default class QuestionDetail extends BaseVue {
           this.questionDetailModel = new QuestionDetailModel().json(response);
         });
       });
-      MyLogger.log(this.questionDetailModel);
+      this.cloneModel();
     }
   }
 
-  private get dragOptions() {
-    return {
-      animation: 200,
-      group: "answer",
-      disabled: false,
-      ghostClass: "ghost",
-    };
+  private cloneModel() {
+    this.questionDetailModelTemp = Object.assign({}, this.questionDetailModel);
+    this.choiceTempCount = this.questionDetailModel.Choices.length;
   }
 
   private clickPatient(patientConditionEnum: PatientConditionEnum) {
-    this.patientConditionValue = patientConditionEnum;
+    if (this.questionDetailModel.isCreate()) {
+      this.questionDetailModel.ConditionID = patientConditionEnum;
+    }
   }
 
   private clickRespondent(respondentEnum: RespondentEnum) {
-    this.respondentValue = respondentEnum;
-  }
-
-  private handlerMove(evt: any, originalEvent: any) {
-    MyLogger.log(evt);
-  }
-
-  private handlerEndDrag() {
-    MyLogger.log("EndDrag");
+    if (this.questionDetailModel.isCreate()) {
+      this.questionDetailModel.RespondentType = respondentEnum;
+    }
   }
 
   private beforeUploadQuestionImage(file: any) {
-    // MyLogger.log(this.$refs.question_image);
-    // const formData = new FormData();
-    // formData.append("file", file);
-    // QuestionServer.uploadImage(formData).then((response) => {
-    //   this.questionDetailModel.MediaLink = response.MediaLink;
-    //   this.$refs.question_image
-    // });
-    // return false;
+    this.showLoading(true);
+  }
+
+  private handleQuestionImageSuccess(response: any) {
+    if (this.$refs.question_image.uploadFiles) {
+      this.questionDetailModel.MediaLink = response.JsonData.MediaLink;
+    }
+    this.showLoading(false);
+  }
+
+  private handleChoiceImageSuccess(response: any) {
+    if (this.$refs.choice_image.uploadFiles) {
+      this.questionChoicesItem.MediaLink = response.JsonData.MediaLink;
+    }
+    this.showLoading(false);
+  }
+
+  private handlerQuestionImageError() {
+    this.showLoading(false);
   }
 
   private handlerQuestionImageChange(file: any) {
@@ -140,25 +171,65 @@ export default class QuestionDetail extends BaseVue {
     // return false;
   }
 
-  private handleQuestionImageSuccess() {
-    if (this.$refs.question_image.uploadFiles) {
-      this.questionDetailModel.MediaLink = this.$refs.question_image.uploadFiles[0].response.JsonData.MadiaLink;
+  private handlePictureCardPreview(fileUrl: string) {
+    this.uploadImageModel.dialogImageUrl = fileUrl;
+    this.uploadImageModel.dialogVisible = true;
+  }
+
+  private handleRemove(imageTarget: string) {
+    switch (imageTarget) {
+      case "question":
+        this.questionDetailModel.MediaLink = "";
+        break;
+      case "choice":
+        this.questionChoicesItem.MediaLink = "";
+        break;
     }
   }
 
-  private handlerQuestionImageError() {
-    MyLogger.log("456");
+  private getPreviewAnswerArea(answerType: number) {
+    return this.questionDetailModel.AnswerType === answerType;
   }
-  private handlePictureCardPreview(file: any) {
-    this.uploadImageModel.dialogImageUrl = file.url;
-    this.uploadImageModel.dialogVisible = true;
-  }
-  private handleDownload(file: any) {}
 
-  private handleRemove(file: any) {
-    this.$refs.question_image.uploadFiles = this.$refs.question_image.uploadFiles.filter((item: any) => {
-      return item.uid !== file.uid;
+  private handlerMove(evt: any, originalEvent: any) {}
+
+  private handlerEndDrag(evt: any) {}
+
+  private addAnswerChoice() {
+    this.questionDetailModel.Choices.push(this.questionChoicesItem);
+    this.questionChoicesItem = new QuestionChoicesModel();
+  }
+
+  private removeSelectedChoice(questionChoicesModel: QuestionChoicesModel) {
+    this.questionDetailModel.Choices = this.questionDetailModel.Choices.filter((item) => {
+      return item !== questionChoicesModel;
     });
-    this.questionDetailModel.MediaLink = "";
+  }
+
+  private async save() {
+    await this.executeAsync(async () => {
+      await QuestionServer.save(this.questionDetailModel).then((response) => {
+        if (this.questionDetailModel.isCreate()) {
+          this.routerLink(`/question`);
+        } else {
+          this.reloadPage();
+          this.cloneModel();
+        }
+      });
+    });
+  }
+
+  private clickUploadChoiceImage(choiceID: string) {
+    this.$refs[`file_${choiceID}`][0].click();
+  }
+
+  private async handlerUploadChoiceImage(event: any, item: any) {
+    const formData = new FormData();
+    formData.set("file", event.target.files[0]);
+    await this.executeAsync(async () => {
+      await QuestionServer.uploadImage(formData).then((response) => {
+        item.MediaLink = response.MediaLink;
+      });
+    });
   }
 }

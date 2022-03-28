@@ -97,7 +97,7 @@ body {
 
   > div {
 
-    span {
+    > span {
       line-height: 23px;
       color: #3E3E3E;
 
@@ -130,6 +130,14 @@ body {
       > * {
         display: inline-block;
         vertical-align: middle;
+
+        &.el-select {
+          width: 80%;
+
+          input {
+            width: 100%;
+          }
+        }
       }
 
       input, textarea {
@@ -137,9 +145,9 @@ body {
         height: 46px;
       }
 
-      span {
+      > span {
         min-width: 100px;
-        width: 10%;
+        width: 15%;
       }
 
       & + p {
@@ -216,8 +224,6 @@ body {
 
       &:checked {
         & + span {
-          //color: #3F99DF !important;
-
           &:before {
             border: 1px solid #3F99DF;
           }
@@ -225,6 +231,16 @@ body {
           &:after {
             opacity: 1;
             transform: scale(1, 1);
+          }
+        }
+
+        &:disabled{
+          & + span {
+            &:after {
+              opacity: 1;
+              transform: scale(1, 1);
+              border: 1px solid #3F99DF;
+            }
           }
         }
       }
@@ -235,12 +251,6 @@ body {
 
           &:before {
             border: 1px solid #6d7073;
-          }
-
-          &:after {
-            opacity: 1;
-            transform: scale(1, 1);
-            background: #6d7073;
           }
         }
       }

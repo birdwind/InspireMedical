@@ -24,7 +24,7 @@
                     </v-tab>
                     <v-tab class="medical-tab-item"
                            to="/question">
-                        <span>Question Library</span>
+                        <span>{{ $t("mainTabs.questionLibrary") }}</span>
                     </v-tab>
                 </v-tabs>
             </div>
@@ -32,7 +32,7 @@
                 <el-dropdown>
                     <div class="account">
                         <i class="medical-icon medical-account"></i>
-                        <span>Dr.Wu</span>
+                        <span>{{ auth.Name }}</span>
                     </div>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>

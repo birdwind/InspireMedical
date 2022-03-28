@@ -80,6 +80,9 @@
                             <div v-else-if="header.value === 'AnswerTypeText'">
                                 {{ $t(itemRow.item[header.value]) }}
                             </div>
+                            <div v-else-if="header.value === 'RespondentTypeText' || header.value === 'ConditionText'">
+                                {{ $t(itemRow.item[header.value]) }}
+                            </div>
                             <div v-else>
                                 {{ itemRow.item[header.value] }}
                             </div>

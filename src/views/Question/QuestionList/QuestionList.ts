@@ -5,11 +5,42 @@ import { MedicalTableModel } from "@/model/MedicalTableModel";
 import { Watch } from "vue-property-decorator";
 import { QuestionServer } from "@/server/QuestionServer";
 import { Getter } from "vuex-class";
+import { MyLogger } from "@/base/utils/MyLogger";
+import { RespondentEnum } from "@/enums/RespondentEnum";
+import { PatientConditionEnum } from "@/enums/PatientConditionEnum";
 
 @Component({})
 export default class QuestionList extends BaseVue {
   @Getter("Question/answerType")
   private answerTypes!: any;
+  private respondentList = [
+    {
+      text: "question.respondents.patient",
+      value: RespondentEnum.Patient,
+    },
+    {
+      text: "question.respondents.caregiver",
+      value: RespondentEnum.Caregiver,
+    },
+    {
+      text: "question.respondents.nurse",
+      value: RespondentEnum.Nurse,
+    },
+  ];
+  private patientConditionList = [
+    {
+      text: "question.patient.alzheimer",
+      value: PatientConditionEnum.Alzheimer,
+    },
+    {
+      text: "question.patient.parkinson",
+      value: PatientConditionEnum.Parkinson,
+    },
+    {
+      text: "question.patient.migraine",
+      value: PatientConditionEnum.Migraine,
+    },
+  ];
   private tableLoading = false;
   private medicalTableModel: MedicalTableModel = new MedicalTableModel();
 
@@ -20,12 +51,16 @@ export default class QuestionList extends BaseVue {
         value: "QuestionText",
       },
       {
+        text: i18n.t("question.condition"),
+        value: "ConditionText",
+      },
+      {
         text: i18n.t("question.type"),
         value: "AnswerTypeText",
       },
       {
         text: i18n.t("question.respondent"),
-        value: "RespondentType",
+        value: "RespondentTypeText",
       },
       {
         text: i18n.t("question.createdDate"),
@@ -56,6 +91,7 @@ export default class QuestionList extends BaseVue {
    */
   @Watch("medicalTableModel.options.page")
   private async watchMedicalTableModelOption(newVal: any) {
+    MyLogger.log(newVal);
     await this.updateQuestionList(newVal);
   }
 
@@ -72,6 +108,16 @@ export default class QuestionList extends BaseVue {
                   return type.AnswerTypeID === item.AnswerType;
                 })
                 .map((type: any) => type.AnswerType)[0];
+              item.RespondentTypeText = this.respondentList
+                .filter((respondent) => {
+                  return respondent.value === item.RespondentType;
+                })
+                .map((respondent) => respondent.text)[0];
+              item.ConditionText = this.patientConditionList
+                .filter((condition) => {
+                  return condition.value === item.ConditionID;
+                })
+                .map((respondent) => respondent.text)[0];
             });
             this.medicalTableModel.data = response.QuestionList;
             this.medicalTableModel.totalData = response.QuestionCount;

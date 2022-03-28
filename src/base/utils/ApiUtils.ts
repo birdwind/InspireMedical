@@ -87,6 +87,7 @@ instance.interceptors.response.use(
       if (response.data.Message.indexOf("金鑰失效") !== -1) {
         stores.dispatch("Auth/logout", {});
       }
+      MyLogger.log(response.data.Message);
       customerErrorHandler(new BusinessError(response.data.Message));
     }
     return Promise.reject(response.data.Message);
@@ -99,7 +100,7 @@ instance.interceptors.response.use(
           break;
         case 401:
           stores.dispatch("Auth/logout", {});
-          customerErrorHandler(new ApiUnauthorizedError(error.response.status.toString(), error.response.statusText));
+          // customerErrorHandler(new ApiUnauthorizedError(error.response.status.toString(), error.response.statusText));
           break;
         default:
           customerErrorHandler(new ApiBadRequestError(error.response.status.toString(), error.response.statusText));
