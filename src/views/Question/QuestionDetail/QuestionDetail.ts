@@ -12,7 +12,7 @@ import UploadImageModel from "@/model/UploadImageModel";
 import QuestionChoicesModel from "@/model/Question/QuestionChoicesModel";
 import QuestionPreviewComponent from "@/components/QuestionPreview/QuestionPreview.component.vue";
 import TopicModel from "@/model/Question/TopicModel";
-import { simplyComparison } from "@/utils/ObjectUtils";
+import { deepCopy, simplyComparison } from "@/utils/ObjectUtils";
 
 @Component({
   components: {
@@ -61,6 +61,7 @@ export default class QuestionDetail extends BaseVue {
   private id = 0;
   private questionDetailModel = new QuestionDetailModel();
   private questionDetailModelTemp = new QuestionDetailModel();
+  private questionChoicesModelTemp: QuestionChoicesModel[] = [];
   private choiceTempCount = 0;
   private uploadImageModel = new UploadImageModel();
   private questionChoicesItem = new QuestionChoicesModel();
@@ -84,16 +85,21 @@ export default class QuestionDetail extends BaseVue {
     if (!simplyComparison(this.questionDetailModel, this.questionDetailModelTemp)) {
       return false;
     } else {
-      if (this.questionDetailModel.Choices.length !== this.choiceTempCount) {
-        return false;
-      } else {
-        for (let i = 0; i < this.choiceTempCount; i++) {
-          if (this.questionDetailModel.Choices[i].ChoiceID !== this.questionDetailModelTemp.Choices[i].ChoiceID) {
-            return false;
+      if (this.questionDetailModel.Choices.length === this.questionChoicesModelTemp.length) {
+        let isSame = true;
+        this.questionDetailModel.Choices.forEach((item, index) => {
+          if (isSame) {
+            if (
+              this.questionChoicesModelTemp[index].ChoiceID !== item.ChoiceID ||
+              this.questionChoicesModelTemp[index].MediaLink !== item.MediaLink
+            ) {
+              isSame = false;
+            }
           }
-        }
+        });
+        return isSame;
       }
-      return true;
+      return false;
     }
   }
 
@@ -114,6 +120,7 @@ export default class QuestionDetail extends BaseVue {
     } else {
       await this.executeAsync(async () => {
         await QuestionServer.questionDetail(this.id).then((response) => {
+          response.Choices = response.Choices.reverse();
           this.questionDetailModel = new QuestionDetailModel().json(response);
         });
       });
@@ -123,6 +130,10 @@ export default class QuestionDetail extends BaseVue {
 
   private cloneModel() {
     this.questionDetailModelTemp = Object.assign({}, this.questionDetailModel);
+    this.questionChoicesModelTemp = [];
+    this.questionDetailModel.Choices.forEach((item) => {
+      this.questionChoicesModelTemp.push(Object.assign({}, item));
+    });
     this.choiceTempCount = this.questionDetailModel.Choices.length;
   }
 
@@ -231,5 +242,13 @@ export default class QuestionDetail extends BaseVue {
         item.MediaLink = response.MediaLink;
       });
     });
+  }
+
+  private currentReload() {
+    if (this.id === 0) {
+      this.$router.go(-1);
+    } else {
+      this.reloadPage();
+    }
   }
 }

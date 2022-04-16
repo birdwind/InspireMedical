@@ -2,8 +2,11 @@
   "common": {
     "backToList": "Back to List",
     "cancel": "Cancel",
+    "confirm": "Confirm",
     "save": "Save",
-    "modify": "Save Changes"
+    "modify": "Save Changes",
+    "modifyPassword": "Modify Password",
+    "logout": "Logout"
   },
   "validation": {
     "required": "This field is required",
@@ -12,6 +15,7 @@
     "phoneTW": "This field is invalid mobile"
   },
   "mainTabs": {
+    "patientManager": "Patient Manager",
     "surveyList": "Survey List",
     "questionLibrary": "Question Library"
   },
@@ -21,7 +25,7 @@
   },
   "pagination": {
     "pageOf": "${startOfPage} - ${endOfPage} of ${total}",
-    "pageInclude": "Viewing ${perPage} of ${dataOfPage} records"
+    "pageInclude": "Viewing ${dataOfPage} of ${perPage} records"
   },
   "login": {
     "phone": "Phone",
@@ -49,9 +53,9 @@
     "setup": "Surveys setup in your care center",
     "prescribed": "Currently Prescribed to： <span style='color: #3190e8'>${patient}</span> patients",
     "patient": {
-      "alzheimer": "Dementia's",
-      "parkinson": "Parkinson's",
-      "migraine": "Migraine's"
+      "alzheimer": "Dementia",
+      "parkinson": "Parkinson",
+      "migraine": "Migraine"
     },
     "respondents": {
       "patient": "Patient",
@@ -88,7 +92,7 @@
     "created": "Created By",
     "patientCondition": "Patient Condition",
     "types": {
-      "select": "MULTIPLE CHOICES",
+      "select": "MULTIPLE CHOICE",
       "yes/no": "YES/NO",
       "text": "TEXT",
       "number": "NUMBER",
@@ -106,7 +110,7 @@
       "caregiver": "Caregiver",
       "nurse": "Nurse"
     },
-    "useSurveys": "Currently use in <span style='color: #3190e8'>${survey}</span> survey",
+    "useSurveys": "Currently used in <span style='color: #3190e8'>${survey}</span> survey",
     "usePrescribed": "Currently Prescribed to <span style='color: #3190e8'>${patient}</span> patients",
     "answerType": "Answer Type",
     "answerChoices": "Answer Choices <span style='color: #3190e8'>${count}</span>",
@@ -117,5 +121,24 @@
     "preview": "Preview",
     "numberPlaceholder": "Please input number",
     "imagePlaceholder": "Upload Image"
+  },
+  "modifyPasswordDialog": {
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password"
+  },
+  "patientManager": {
+    "patientTitle": "Patient",
+    "myPatient": "MyPatient <span style='color: #3190e8; font-size: 36px;'>${patient}</span>",
+    "export": "Save Patient List as CSV",
+    "name": "Patient Name",
+    "phone": "Phone",
+    "condition": "Condition",
+    "hasCaregiver": "Has Caregiver",
+    "comment": "Comment",
+    "currentSurvey": "Current Survey",
+    "response": "Response",
+    "lastResponse": "Last Response",
+    "created": "Created"
   }
 }

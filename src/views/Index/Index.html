@@ -19,6 +19,10 @@
                         active-class="medical-tabs-active"
                         height="43">
                     <v-tab class="medical-tab-item"
+                           to="/patient">
+                        <span>{{ $t("mainTabs.patientManager") }}</span>
+                    </v-tab>
+                    <v-tab class="medical-tab-item"
                            to="/survey">
                         <span>{{ $t("mainTabs.surveyList") }}</span>
                     </v-tab>
@@ -33,7 +37,20 @@
                     <div class="account">
                         <i class="medical-icon medical-account"></i>
                         <span>{{ auth.Name }}</span>
+                        <i class="medical-icon icon-arrow-down"></i>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>
+                                <div @click="showModifyPassword">{{ $t("common.modifyPassword") }}</div>
+                            </el-dropdown-item>
+                            <el-dropdown-item>
+                                <div @click="logout">{{ $t("common.logout") }}</div>
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
                     </div>
+                </el-dropdown>
+                <el-dropdown class="lang">
+                    <span>{{ Lang }}</span>
+                    <i class="medical-icon icon-arrow-down"></i>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>
                             <div @click="changeLang('en')">English</div>
@@ -54,6 +71,69 @@
             <!--                {{ copyRight }}-->
             <!--            </div>-->
             <!--        </div>-->
+            <v-dialog v-model="isShowModifyPassword"
+                      width="500">
+                <v-card class="medical-dialog">
+                    <v-card-title class="text-h5 grey lighten-2">
+                        {{ $t("common.modifyPassword") }}
+                    </v-card-title>
+
+                    <div class="medical-dialog-content">
+                        <ValidationProvider class="medical-input"
+                                            name="survey.name"
+                                            rules="required"
+                                            v-slot="{ errors, classes }">
+                            <div :class="classes">
+                                <div class="">
+                                    <span>{{ $t("modifyPasswordDialog.oldPassword") }}</span>
+                                    <input type="password" v-model="modifyPasswordModel.OldPassword">
+                                </div>
+                                <p>{{ errors[0] }}</p>
+                            </div>
+                        </ValidationProvider>
+                        <ValidationProvider class="medical-input"
+                                            name="survey.name"
+                                            rules="required"
+                                            v-slot="{ errors, classes }">
+                            <div :class="classes">
+                                <div class="">
+                                    <span>{{ $t("modifyPasswordDialog.newPassword") }}</span>
+                                    <input type="password" v-model="modifyPasswordModel.NewPassword">
+                                </div>
+                                <p>{{ errors[0] }}</p>
+                            </div>
+                        </ValidationProvider>
+                        <ValidationProvider class="medical-input"
+                                            name="survey.name"
+                                            rules="required"
+                                            v-slot="{ errors, classes }">
+                            <div :class="classes">
+                                <div class="">
+                                    <span>{{ $t("modifyPasswordDialog.confirmPassword") }}</span>
+                                    <input type="password" v-model="modifyPasswordModel.ConfirmPassword">
+                                </div>
+                                <p>{{ errors[0] }}</p>
+                            </div>
+                        </ValidationProvider>
+                    </div>
+
+                    <v-divider></v-divider>
+
+                    <v-card-actions class="medical-dialog-footer">
+                        <v-spacer></v-spacer>
+                        <div class="right">
+                            <button class="cancel"
+                                    @click="showModifyPassword(false)">
+                                <span>{{ $t("common.cancel") }}</span>
+                            </button>
+                            <button class="save"
+                                    @click="saveModifyPassword">
+                                <span>{{ $t("common.confirm") }}</span>
+                            </button>
+                        </div>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-layout>
     </v-main>
 </v-app>

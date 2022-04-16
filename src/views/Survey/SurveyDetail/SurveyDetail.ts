@@ -82,6 +82,7 @@ export default class SurveyDetail extends BaseVue {
   private availableQuestions: QuestionDetailModel[] = [];
   private surveyDetailModel = new SurveyDetailModel();
   private surveyDetailModelTemp = new SurveyDetailModel();
+  private questionDetailModelTemp: QuestionDetailModel[] = [];
   private questionTempCount = 0;
 
   $refs!: any;
@@ -127,6 +128,10 @@ export default class SurveyDetail extends BaseVue {
 
   private cloneModel() {
     this.surveyDetailModelTemp = Object.assign({}, this.surveyDetailModel);
+    this.questionDetailModelTemp = [];
+    this.surveyDetailModel.Questions.forEach((item) => {
+      this.questionDetailModelTemp.push(Object.assign({}, item));
+    });
     this.questionTempCount = this.surveyDetailModel.Questions.length;
   }
 
@@ -155,16 +160,18 @@ export default class SurveyDetail extends BaseVue {
     if (!simplyComparison(this.surveyDetailModel, this.surveyDetailModelTemp)) {
       return false;
     } else {
-      if (this.surveyDetailModel.Questions.length !== this.questionTempCount) {
-        return false;
-      } else {
-        for (let i = 0; i < this.questionTempCount; i++) {
-          if (this.surveyDetailModel.Questions[i].QuestionID !== this.surveyDetailModelTemp.Questions[i].QuestionID) {
-            return false;
+      if (this.surveyDetailModel.Questions.length === this.questionDetailModelTemp.length) {
+        let isSame = true;
+        this.surveyDetailModel.Questions.forEach((item, index) => {
+          if (isSame) {
+            if (this.questionDetailModelTemp[index].QuestionID !== item.QuestionID) {
+              isSame = false;
+            }
           }
-        }
+        });
+        return isSame;
       }
-      return true;
+      return false;
     }
   }
 
@@ -243,5 +250,13 @@ export default class SurveyDetail extends BaseVue {
         }
       });
     });
+  }
+
+  private currentReload() {
+    if (this.id === 0) {
+      this.$router.go(-1);
+    } else {
+      this.reloadPage();
+    }
   }
 }

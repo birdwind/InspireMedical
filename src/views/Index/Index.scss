@@ -32,15 +32,25 @@
     }
 
     .medical-header-right {
+      display: flex;
+      align-items: center;
       margin-left: auto;
 
       .account {
+        margin-right: 12px;
         display: flex;
         align-items: center;
 
-        i{
-          margin-right: 12px;
+        .medical-account {
+          margin-right: 6px;
         }
+
+      }
+
+      .lang {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
       }
     }
   }

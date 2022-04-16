@@ -100,7 +100,6 @@ instance.interceptors.response.use(
           break;
         case 401:
           stores.dispatch("Auth/logout", {});
-          // customerErrorHandler(new ApiUnauthorizedError(error.response.status.toString(), error.response.statusText));
           break;
         default:
           customerErrorHandler(new ApiBadRequestError(error.response.status.toString(), error.response.statusText));

@@ -1,0 +1,39 @@
+.patient-list {
+  padding: 20px;
+
+  button{
+    padding: 10px;
+    width: 313px;
+  }
+
+  .patient-list-top {
+    .left {
+
+      span{
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 28px;
+        color: #3E3E3E;
+      }
+
+      .patient_manager-title {
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 42px;
+        color: #3E3E3E;
+        margin-right: 60px;
+      }
+    }
+
+    .center {
+
+    }
+
+    .right {
+
+    }
+  }
+
+  .patient-list-main {
+  }
+}

@@ -51,6 +51,21 @@ export default class SurveyList extends BaseVue {
     ];
   }
 
+  private get startOfPage() {
+    if (this.medicalTableModel.totalData > this.medicalTableModel.currentItemStart) {
+      return this.medicalTableModel.currentItemStart;
+    } else {
+      return this.medicalTableModel.totalData;
+    }
+  }
+  private get endOfPage() {
+    if (this.medicalTableModel.totalData < this.medicalTableModel.currentItemEnd) {
+      return this.medicalTableModel.totalData;
+    } else {
+      return this.medicalTableModel.currentItemEnd;
+    }
+  }
+
   async mounted() {
     await this.init();
   }

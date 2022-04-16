@@ -11,8 +11,8 @@ export class BaseVue extends Vue {
   @Getter("ElementUI/isLoading")
   protected isLoading!: boolean;
 
-  @Action("ElementUI/reload")
-  private reload!: Reload;
+  @Action(`ElementUI/reload`)
+  reload!: Reload;
 
   @Action(`ElementUI/addHistoryMessage`)
   addHistoryMessage!: AddHistoryMessage;

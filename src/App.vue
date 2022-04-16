@@ -16,13 +16,13 @@ import Component from "vue-class-component";
 import { AuthGuard } from "@/components/AuthGuard";
 import { MyLogger } from "@/base/utils/MyLogger";
 import { Browser } from "@/base/utils/Browser";
-import { State } from "vuex-class";
+import { Getter, State } from "vuex-class";
 
 @Component({
   components: { AuthGuard },
 })
 export default class App extends BaseVue {
-  @State("ElementUI/isReload")
+  @Getter("ElementUI/isReload")
   private isReload!: boolean;
 
   private isReady = false;
