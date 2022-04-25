@@ -120,7 +120,7 @@ export default class QuestionDetail extends BaseVue {
     } else {
       await this.executeAsync(async () => {
         await QuestionServer.questionDetail(this.id).then((response) => {
-          response.Choices = response.Choices.reverse();
+          // response.Choices = response.Choices.reverse();
           this.questionDetailModel = new QuestionDetailModel().json(response);
         });
       });

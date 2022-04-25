@@ -139,6 +139,16 @@
     "currentSurvey": "Current Survey",
     "response": "Response",
     "lastResponse": "Last Response",
-    "created": "Created"
+    "created": "Created",
+    "currentlySurvey": "Currently Survey",
+    "answerQuestionnaire": "Answer Questionnaire",
+    "surveyName": "Survey Name",
+    "respondent": "Respondent",
+    "schedule": "Schedule",
+    "request": "Request",
+    "scheduleStatus": "Schedule Status",
+    "score": "Score",
+    "submitTime": "Submit Time",
+    "download": "Download"
   }
 }

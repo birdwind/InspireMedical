@@ -2,10 +2,11 @@ import Vue from "vue";
 import {
   configElementUi,
   configErrorHandler,
+  configJsonCSV,
   configRightMouseMenu,
-  vuetify,
-  i18n,
   configVeeValidate,
+  i18n,
+  vuetify,
 } from "@/base/config";
 import App from "./App.vue";
 import router from "./router";
@@ -19,6 +20,7 @@ configElementUi();
 configRightMouseMenu();
 configVeeValidate();
 filter();
+configJsonCSV();
 
 // Vue.prototype.$store = store;
 new Vue({

@@ -1,3 +1,150 @@
-<div class="info"> 
-    <h1>infoComponent</h1>
+<div class="patient-info">
+    <div class="patient-top">
+        <div class="back"
+             @click="routerLink('/patient')">
+            <i class="medical-icon icon-arrow-left"></i>
+            <span>{{ $t("common.backToList") }}</span>
+        </div>
+    </div>
+    <div class="patient-main">
+        <div class="patient-information">
+            <el-avatar :size="105"
+                       :src="patient.PhotoUrl">
+                <img src="/images/default_avatar.png"/>
+            </el-avatar>
+            <div class="information">
+                <div class="name">{{ patient.Name }}</div>
+                <div class="phone">{{ patient.Phone }}</div>
+                <div class="create-time">{{ patient.LastLogin | ToDateMonth }}</div>
+            </div>
+            <el-divider direction="vertical"></el-divider>
+            <div class="patient-family">
+                <div class="family-item"
+                     v-for="item in patientMembers">
+                    <el-avatar :size="45" :src="item.PhotoUrl">
+                        <img src="/images/default_avatar.png"/>
+                    </el-avatar>
+                    <span>{{ item.UserName }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="patient-survey">
+            <span class="patient-survey-title">{{ $t("patientManager.currentlySurvey") }}</span>
+            <div class="medical-table">
+                <v-data-table
+                        hide-default-header
+                        hide-default-footer
+                        :headers="surveyListHeaderModel"
+                        :items="survetMedicalTableModel.data"
+                        :items-per-page="survetMedicalTableModel.perPage"
+                        :no-data-text="$t('table.empty')"
+                        :loading-text="$t('table.loading')"
+                        :options.sync="survetMedicalTableModel.options">
+                    <template v-slot:header="{ props }">
+                        <thead class="v-data-table-header">
+                        <tr>
+                            <th v-for="header in props.headers"
+                                :key="header.value">
+                                <div>
+                                    <span>{{ header.text }}</span>
+                                    <!--                                <div class="sort">-->
+                                    <!--                                    <i class="medical-icon icon-sort asc"-->
+                                    <!--                                       :class="[(medicalTableModel.sortBy === header.value && medicalTableModel.sortDesc)? 'active' : '']"-->
+                                    <!--                                       @click="sort(header, true)"/>-->
+                                    <!--                                    <i class="medical-icon icon-sort desc"-->
+                                    <!--                                       :class="[(medicalTableModel.sortBy === header.value && !medicalTableModel.sortDesc)? 'active' : '']"-->
+                                    <!--                                       @click="sort(header, false)"/>-->
+                                    <!--                                </div>-->
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                    </template>
+                    <template v-slot:item="itemRow">
+                        <tr>
+                            <td v-for="header of surveyListHeaderModel">
+                                <div v-if="header.value === 'LastRequestTime' || header.value === 'CreatedTime'">
+                                    {{ itemRow.item[header.value] | ToDateMonth }}
+                                </div>
+                                <div v-else-if="header.value === 'Name'">
+                                    <router-link :to="`/patient/${itemRow.item.PID}`">
+                                        {{ itemRow.item[header.value] }}
+                                    </router-link>
+                                </div>
+                                <div v-else-if="header.value === 'HasCaregiver'"
+                                     v-text="itemRow.item[header.value]? 'Yes': 'No'"
+                                     :style="[{color: itemRow.item[header.value]? '#28A039':'#E95959'}]">
+                                </div>
+                                <div v-else-if="header.value === 'RespondentTypeText' || header.value === 'ConditionText'">
+                                    {{ $t(itemRow.item[header.value]) }}
+                                </div>
+                                <div v-else>
+                                    {{ itemRow.item[header.value] }}
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                </v-data-table>
+            </div>
+        </div>
+        <div class="patient-questionnaire">
+            <span class="patient-questionnaire-title">{{ $t("patientManager.answerQuestionnaire") }}</span>
+            <div class="medical-table">
+                <v-data-table
+                        hide-default-header
+                        hide-default-footer
+                        :headers="questionnaireListHeaderModel"
+                        :items="questionnaireMedicalTableModel.data"
+                        :items-per-page="questionnaireMedicalTableModel.perPage"
+                        :no-data-text="$t('table.empty')"
+                        :loading-text="$t('table.loading')"
+                        :options.sync="questionnaireMedicalTableModel.options">
+                    <template v-slot:header="{ props }">
+                        <thead class="v-data-table-header">
+                        <tr>
+                            <th v-for="header in props.headers"
+                                :key="header.value">
+                                <div>
+                                    <span>{{ header.text }}</span>
+                                    <!--                                <div class="sort">-->
+                                    <!--                                    <i class="medical-icon icon-sort asc"-->
+                                    <!--                                       :class="[(medicalTableModel.sortBy === header.value && medicalTableModel.sortDesc)? 'active' : '']"-->
+                                    <!--                                       @click="sort(header, true)"/>-->
+                                    <!--                                    <i class="medical-icon icon-sort desc"-->
+                                    <!--                                       :class="[(medicalTableModel.sortBy === header.value && !medicalTableModel.sortDesc)? 'active' : '']"-->
+                                    <!--                                       @click="sort(header, false)"/>-->
+                                    <!--                                </div>-->
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                    </template>
+                    <template v-slot:item="itemRow">
+                        <tr>
+                            <td v-for="header of questionnaireListHeaderModel">
+                                <div v-if="header.value === 'SubmitTime'">
+                                    {{ itemRow.item[header.value] | ToDateMonth }}
+                                </div>
+                                <div v-else-if="header.value === 'Name'">
+                                    <router-link :to="`/patient/${itemRow.item.PID}`">
+                                        {{ itemRow.item[header.value] }}
+                                    </router-link>
+                                </div>
+                                <div v-else-if="header.value === 'HasCaregiver'"
+                                     v-text="itemRow.item[header.value]? 'Yes': 'No'"
+                                     :style="[{color: itemRow.item[header.value]? '#28A039':'#E95959'}]">
+                                </div>
+                                <div v-else-if="header.value === 'RespondentTypeText' || header.value === 'ConditionText'">
+                                    {{ $t(itemRow.item[header.value]) }}
+                                </div>
+                                <div v-else>
+                                    {{ itemRow.item[header.value] }}
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                </v-data-table>
+            </div>
+        </div>
+    </div>
 </div>

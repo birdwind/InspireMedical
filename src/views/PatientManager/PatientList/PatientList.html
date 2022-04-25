@@ -2,14 +2,33 @@
     <div class="patient-list-top medical-simply-grid">
         <div class="left">
             <span class="patient_manager-title">{{ $t("patientManager.patientTitle") }}</span>
-            <span v-html="$t('patientManager.myPatient').replace('${patient}', 27)"></span>
+            <span v-html="$t('patientManager.myPatient').replace('${patient}', medicalTableModel.totalData)"></span>
         </div>
         <div class="right">
-            <button class="medical-button"
-                    @click="">
-                {{ $t("patientManager.export") }}
-            </button>
+            <!--            <button class="medical-button"-->
+            <!--                    @click="">-->
+            <!--                {{ $t("patientManager.export") }}-->
+            <!--            </button>-->
+            <vue-blob-json-csv
+                    tag-name="button"
+                    class="medical-button"
+                    file-type="csv"
+                    :file-name="patientCSVName"
+                    :title="$t('patientManager.export')"
+                    :data="medicalTableModel.data"
+            ></vue-blob-json-csv>
         </div>
+    </div>
+    <div class="patient-list-filter" >
+        <span>Condition</span>
+        <el-select v-model="selectedCondition" placeholder="请选择">
+            <el-option
+                    v-for="item in conditionList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </el-option>
+        </el-select>
     </div>
     <div class="patient-list-main">
         <div class="medical-table">
@@ -67,16 +86,17 @@
                 <template v-slot:item="itemRow">
                     <tr>
                         <td v-for="header of questionListHeaderModel">
-                            <div v-if="header.value === 'TimeC' || header.value === 'TimeU'">
+                            <div v-if="header.value === 'LastRequestTime' || header.value === 'CreatedTime'">
                                 {{ itemRow.item[header.value] | ToDateMonth }}
                             </div>
-                            <div v-else-if="header.value === 'QuestionText'">
-                                <router-link :to="`/question/${itemRow.item.QuestionID}`">
+                            <div v-else-if="header.value === 'Name'">
+                                <router-link :to="`/patient/${itemRow.item.PID}`">
                                     {{ itemRow.item[header.value] }}
                                 </router-link>
                             </div>
-                            <div v-else-if="header.value === 'AnswerTypeText'">
-                                {{ $t(itemRow.item[header.value]) }}
+                            <div v-else-if="header.value === 'HasCaregiver'"
+                                 v-text="itemRow.item[header.value]? 'Yes': 'No'"
+                                 :style="[{color: itemRow.item[header.value]? '#28A039':'#E95959'}]">
                             </div>
                             <div v-else-if="header.value === 'RespondentTypeText' || header.value === 'ConditionText'">
                                 {{ $t(itemRow.item[header.value]) }}

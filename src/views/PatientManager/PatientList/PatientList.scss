@@ -1,7 +1,7 @@
 .patient-list {
   padding: 20px;
 
-  button{
+  button {
     padding: 10px;
     width: 313px;
   }
@@ -9,7 +9,7 @@
   .patient-list-top {
     .left {
 
-      span{
+      span {
         font-weight: 400;
         font-size: 24px;
         line-height: 28px;
@@ -31,6 +31,14 @@
 
     .right {
 
+    }
+  }
+
+  .patient-list-filter {
+    margin: 12px 0;
+
+    span {
+      padding-right: 12px;
     }
   }
 

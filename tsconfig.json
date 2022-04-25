@@ -11,6 +11,7 @@
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    "noImplicitAny": false,
     "resolveJsonModule": true,
     "baseUrl": ".",
     "types": ["reflect-metadata", "webpack-env", "jest"],

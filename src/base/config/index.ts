@@ -10,3 +10,4 @@ export * from "./configVuetify";
 export * from "./configRightMouseMenu";
 export * from "./configI18n";
 export * from "./configVeeValidate";
+export * from "./configJsonCSV";

@@ -15,6 +15,7 @@
     "phoneTW": "無效的台灣手機號碼"
   },
   "mainTabs": {
+    "patientManager": "病患列表",
     "surveyList": "問卷列表",
     "questionLibrary": "問題列表"
   },
@@ -125,5 +126,29 @@
     "oldPassword": "舊密碼",
     "newPassword": "新密碼",
     "confirmPassword": "確認密碼"
+  },
+  "patientManager": {
+    "patientTitle": "病患",
+    "myPatient": "我的病患 <span style='color: #3190e8; font-size: 36px;'>${patient}</span>",
+    "export": "匯出",
+    "name": "病人",
+    "phone": "電話",
+    "condition": "病徵",
+    "hasCaregiver": "有家屬",
+    "comment": "Comment",
+    "currentSurvey": "Current Survey",
+    "response": "Response",
+    "lastResponse": "最後一次回答",
+    "created": "Created",
+    "currentlySurvey": "Currently Survey",
+    "answerQuestionnaire": "Answer Questionnaire",
+    "surveyName": "問卷名稱",
+    "respondent": "身分",
+    "schedule": "排程",
+    "request": "回答次數",
+    "scheduleStatus": "啟用",
+    "score": "分數",
+    "submitTime": "回答時間",
+    "download": "下載"
   }
 }

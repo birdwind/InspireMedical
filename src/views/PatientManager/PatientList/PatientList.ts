@@ -4,49 +4,51 @@ import { MedicalTableModel } from "@/model/MedicalTableModel";
 import { i18n } from "@/base/config";
 import { Watch } from "vue-property-decorator";
 import { MyLogger } from "@/base/utils/MyLogger";
+import { PatientServer } from "@/server/PatientServer";
 
 @Component({})
 export default class PatientList extends BaseVue {
   private tableLoading = false;
   private medicalTableModel: MedicalTableModel = new MedicalTableModel();
+  private selectedCondition = 0;
 
   private get questionListHeaderModel() {
     return [
       {
         text: i18n.t("patientManager.name"),
-        value: "QuestionText",
+        value: "Name",
       },
       {
         text: i18n.t("patientManager.phone"),
-        value: "QuestionText",
+        value: "Phone",
       },
       {
         text: i18n.t("patientManager.condition"),
-        value: "QuestionText",
+        value: "ConditionName",
       },
       {
         text: i18n.t("patientManager.hasCaregiver"),
-        value: "QuestionText",
+        value: "HasCaregiver",
       },
       {
         text: i18n.t("patientManager.comment"),
-        value: "QuestionText",
+        value: "RequestCount",
       },
       {
         text: i18n.t("patientManager.currentSurvey"),
-        value: "QuestionText",
+        value: "1",
       },
       {
         text: i18n.t("patientManager.response"),
-        value: "QuestionText",
+        value: "2",
       },
       {
         text: i18n.t("patientManager.lastResponse"),
-        value: "QuestionText",
+        value: "LastRequestTime",
       },
       {
         text: i18n.t("patientManager.created"),
-        value: "QuestionText",
+        value: "CreatedTime",
       },
     ];
   }
@@ -67,6 +69,19 @@ export default class PatientList extends BaseVue {
     }
   }
 
+  private get patientCSVName() {
+    return new Date().getTime().toString();
+  }
+
+  private get conditionList() {
+    return [
+      { label: "All", value: 0 },
+      { label: "Alzheimer", value: 1 },
+      { label: "Parkinson", value: 2 },
+      { label: "Migraine", value: 3 },
+    ];
+  }
+
   mounted() {}
 
   /*
@@ -78,37 +93,29 @@ export default class PatientList extends BaseVue {
     await this.updateQuestionList(newVal);
   }
 
+  @Watch("selectedCondition")
+  private async watchSelectedCondition(newVal: number) {
+    await this.updateQuestionList(newVal);
+  }
+
   private async updateQuestionList(page: number) {
-    // await this.executeComponentAsync(
-    //     async () => {
-    //       await QuestionServer.questionList(page - 1).then((response) => {
-    //         if (response) {
-    //           response.QuestionList.forEach((item: any) => {
-    //             item.TimeC = item.TimeC ? new Date(item.TimeC) : "--";
-    //             item.TimeU = item.TimeU ? new Date(item.TimeU) : "--";
-    //             item.AnswerTypeText = this.answerTypes
-    //                 .filter((type: any) => {
-    //                   return type.AnswerTypeID === item.AnswerType;
-    //                 })
-    //                 .map((type: any) => type.AnswerType)[0];
-    //             item.RespondentTypeText = this.respondentList
-    //                 .filter((respondent) => {
-    //                   return respondent.value === item.RespondentType;
-    //                 })
-    //                 .map((respondent) => respondent.text)[0];
-    //             item.ConditionText = this.patientConditionList
-    //                 .filter((condition) => {
-    //                   return condition.value === item.ConditionID;
-    //                 })
-    //                 .map((respondent) => respondent.text)[0];
-    //           });
-    //           this.medicalTableModel.data = response.QuestionList;
-    //           this.medicalTableModel.totalData = response.QuestionCount;
-    //         }
-    //       });
-    //     },
-    //     (isShowLoading) => (this.tableLoading = isShowLoading)
-    // );
+    await this.executeComponentAsync(
+      async () => {
+        await PatientServer.patientList(page - 1, this.selectedCondition).then((response) => {
+          if (response) {
+            response.PatientList.forEach((item: any) => {
+              item.LastRequestTime = item.LastRequestTime ? new Date(item.LastRequestTime) : "--";
+              item.CreatedTime = item.CreatedTime ? new Date(item.CreatedTime) : "--";
+              // item.HasCaregiver = item.HasCaregiver === true ? "Yes" : "No";
+            });
+
+            this.medicalTableModel.data = response.PatientList;
+            this.medicalTableModel.totalData = response.PatientCount;
+          }
+        });
+      },
+      (isShowLoading) => (this.tableLoading = isShowLoading)
+    );
   }
 
   private sort(header: any, asc: boolean) {

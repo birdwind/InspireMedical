@@ -1,3 +1,85 @@
-.info {
+.patient-info {
+  padding: 20px;
 
+  .patient-top {
+    .back {
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      opacity: 0.5;
+
+      i {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  .patient-main {
+    margin-top: 37px;
+
+    .patient-information {
+      background: #F2F2F2;
+      width: 100%;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      padding: 25px 40px;
+      border-radius: 13px;
+
+      .information {
+        display: block;
+        margin-left: 17px;
+
+        .name {
+          font-size: 36px;
+        }
+
+        .phone {
+          font-size: 20px;
+        }
+
+        .create-time {
+          font-size: 20px;
+        }
+      }
+
+      .el-divider {
+        height: 80%;
+        margin: 0 50px;
+      }
+
+      .patient-family {
+        .family-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+
+        }
+      }
+
+      .avatar {
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+
+    }
+
+    .patient-survey {
+      margin: 24px 0;
+      .patient-survey-title{
+
+      }
+
+    }
+
+    .patient-questionnaire {
+      margin: 24px 0;
+      .patient-questionnaire-title{}
+    }
+
+  }
 }
