@@ -218,15 +218,19 @@ export default class QuestionDetail extends BaseVue {
   }
 
   private async save() {
-    await this.executeAsync(async () => {
-      await QuestionServer.save(this.questionDetailModel).then((response) => {
-        if (this.questionDetailModel.isCreate()) {
-          this.routerLink(`/question`);
-        } else {
-          this.reloadPage();
-          this.cloneModel();
-        }
-      });
+    this.$refs.form.validate().then(async (success) => {
+      if (success) {
+        await this.executeAsync(async () => {
+          await QuestionServer.save(this.questionDetailModel).then((response) => {
+            if (this.questionDetailModel.isCreate()) {
+              this.routerLink(`/question`);
+            } else {
+              this.reloadPage();
+              this.cloneModel();
+            }
+          });
+        });
+      }
     });
   }
 

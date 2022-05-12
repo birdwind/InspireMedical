@@ -234,7 +234,7 @@ body {
           }
         }
 
-        &:disabled{
+        &:disabled {
           & + span {
             &:after {
               opacity: 1;
@@ -348,14 +348,14 @@ body {
   }
 }
 
-.medical-dialog{
-  .medical-dialog-content{
+.medical-dialog {
+  .medical-dialog-content {
     margin: 12px;
   }
 
-  .medical-dialog-footer{
-    .right{
-      button{
+  .medical-dialog-footer {
+    .right {
+      button {
         padding: 7px 20px;
         margin-left: 12px;
         border-radius: 12px;
@@ -373,7 +373,7 @@ body {
           margin-left: 0;
         }
 
-        &:disabled{
+        &:disabled {
           background: #c5c5c5;
         }
       }

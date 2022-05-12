@@ -17,14 +17,23 @@
                     <span class="survey-category-header">{{ $t("survey.patientCondition") }}</span>
                     <div class="survey-category-list">
                         <div class="medical-input medical-radio"
-                             v-for="patient of patientConditionList"
+                             v-for="(patient, index) of patientConditionList"
                              @click="clickPatient(patient.value)">
-                            <input type="radio"
-                                   :disabled="!surveyDetailModel.isCreate()"
-                                   v-model="surveyDetailModel.ConditionID"
-                                   :value="patient.value">
-                            <span>{{ $t(patient.text) }}</span>
-                            <p></p>
+                            <ValidationProvider class="medical-input"
+                                                name="question.condition"
+                                                :rules="{ oneOf: patientConditionList.map((patinet) => {return patinet.value}) }"
+                                                v-slot="{ errors, classes }">
+                                <input type="radio"
+                                       :disabled="!surveyDetailModel.isCreate()"
+                                       v-model="surveyDetailModel.ConditionID"
+                                       :value="patient.value">
+                                <span>{{ $t(patient.text) }}</span>
+                                <div :class="classes"
+                                     v-if="index === patientConditionList.length - 1">
+                                    <p>{{ errors[0] }}</p>
+                                </div>
+                                <p v-else></p>
+                            </ValidationProvider>
                         </div>
                     </div>
                 </div>
@@ -33,14 +42,23 @@
                     <span class="survey-category-header">{{ $t("survey.respondent") }}</span>
                     <div class="survey-category-list">
                         <div class="medical-input medical-radio"
-                             v-for="respondent of respondentList"
+                             v-for="(respondent, index) of respondentList"
                              @click="clickRespondent(respondent.value)">
-                            <input type="radio"
-                                   v-model="surveyDetailModel.RespondentType"
-                                   :disabled="!surveyDetailModel.isCreate()"
-                                   :value="respondent.value">
-                            <span>{{ $t(respondent.text) }}</span>
-                            <p></p>
+                            <ValidationProvider class="medical-input"
+                                                name="question.respondent"
+                                                :rules="{ oneOf: respondentList.map((respondent) => {return respondent.value}) }"
+                                                v-slot="{ errors, classes }">
+                                <input type="radio"
+                                       v-model="surveyDetailModel.RespondentType"
+                                       :disabled="!surveyDetailModel.isCreate()"
+                                       :value="respondent.value">
+                                <span>{{ $t(respondent.text) }}</span>
+                                <div :class="classes"
+                                     v-if="index === patientConditionList.length - 1">
+                                    <p>{{ errors[0] }}</p>
+                                </div>
+                                <p v-else></p>
+                            </ValidationProvider>
                         </div>
                     </div>
                 </div>
@@ -49,13 +67,22 @@
                     <span class="survey-category-header">{{ $t("survey.schedule") }}</span>
                     <div class="survey-category-list grid">
                         <div class="medical-input medical-radio"
-                             v-for="schedule of scheduleList"
+                             v-for="(schedule, index) of scheduleList"
                              @click="clickSchedule(schedule.value)">
-                            <input type="radio"
-                                   v-model="surveyDetailModel.SurveySchedule"
-                                   :value="schedule.value">
-                            <span>{{ $t(schedule.text) }}</span>
-                            <p></p>
+                            <ValidationProvider class="medical-input"
+                                                name="question.schedule"
+                                                :rules="{ oneOf: scheduleList.map((schedule) => {return schedule.value}) }"
+                                                v-slot="{ errors, classes }">
+                                <input type="radio"
+                                       v-model="surveyDetailModel.SurveySchedule"
+                                       :value="schedule.value">
+                                <span>{{ $t(schedule.text) }}</span>
+                                <div :class="classes"
+                                     v-if="index === patientConditionList.length - 1">
+                                    <p>{{ errors[0] }}</p>
+                                </div>
+                                <p v-else></p>
+                            </ValidationProvider>
                         </div>
                     </div>
                 </div>

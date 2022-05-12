@@ -17,14 +17,23 @@
                     <span class="question-category-header">{{ $t("question.patientCondition") }}</span>
                     <div class="question-category-list">
                         <div class="medical-input medical-radio"
-                             v-for="patient of patientConditionList"
+                             v-for="(patient, index) of patientConditionList"
                              @click="clickPatient(patient.value)">
-                            <input type="radio"
-                                   v-model="questionDetailModel.ConditionID"
-                                   :value="patient.value"
-                                   :disabled="!questionDetailModel.isCreate()">
-                            <span>{{ $t(patient.text) }}</span>
-                            <p></p>
+                            <ValidationProvider class="medical-input"
+                                                name="question.condition"
+                                                :rules="{ oneOf: patientConditionList.map((patinet) => {return patinet.value}) }"
+                                                v-slot="{ errors, classes }">
+                                <input type="radio"
+                                       v-model="questionDetailModel.ConditionID"
+                                       :value="patient.value"
+                                       :disabled="!questionDetailModel.isCreate()">
+                                <span>{{ $t(patient.text) }}</span>
+                                <div :class="classes"
+                                     v-if="index === patientConditionList.length - 1">
+                                    <p>{{ errors[0] }}</p>
+                                </div>
+                                <p v-else></p>
+                            </ValidationProvider>
                         </div>
                     </div>
                 </div>
@@ -32,14 +41,23 @@
                     <span class="question-category-header">{{ $t("question.respondent") }}</span>
                     <div class="question-category-list">
                         <div class="medical-input medical-radio"
-                             v-for="respondent of respondentList"
+                             v-for="(respondent, index) of respondentList"
                              @click="clickRespondent(respondent.value)">
-                            <input type="radio"
-                                   v-model="questionDetailModel.RespondentType"
-                                   :value="respondent.value"
-                                   :disabled="!questionDetailModel.isCreate()">
-                            <span>{{ $t(respondent.text) }}</span>
-                            <p></p>
+                            <ValidationProvider class="medical-input"
+                                                name="question.respondent"
+                                                :rules="{ oneOf: respondentList.map((respondent) => {return respondent.value}) }"
+                                                v-slot="{ errors, classes }">
+                                <input type="radio"
+                                       v-model="questionDetailModel.RespondentType"
+                                       :value="respondent.value"
+                                       :disabled="!questionDetailModel.isCreate()">
+                                <span>{{ $t(respondent.text) }}</span>
+                                <div :class="classes"
+                                     v-if="index === respondentList.length - 1">
+                                    <p>{{ errors[0] }}</p>
+                                </div>
+                                <p v-else></p>
+                            </ValidationProvider>
                         </div>
                     </div>
                 </div>
@@ -77,6 +95,7 @@
                     <el-upload v-if="!questionDetailModel.MediaLink"
                                action="/api/SurveyManagement/UploadMedia"
                                list-type="picture-card"
+                               multiple
                                :show-file-list="false"
                                :headers="serverHeader"
                                :before-upload="beforeUploadQuestionImage"
@@ -113,7 +132,8 @@
                     <div :class="classes">
                         <div class="medical-input-inline">
                             <span>{{ $t("question.answerType") }}</span>
-                            <el-select v-model="questionDetailModel.AnswerType">
+                            <el-select v-model="questionDetailModel.AnswerType"
+                                       :disabled="id!==0">
                                 <el-option
                                         v-for="item in answerTypes"
                                         :key="item.AnswerTypeID"
@@ -204,7 +224,7 @@
                 </button>
                 <button class="save modify"
                         @click="save"
-                        :disabled="isCompare"
+                        :disabled="invalid"
                         v-else>
                     <span>{{ $t("common.modify") }}</span>
                 </button>

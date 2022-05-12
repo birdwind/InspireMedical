@@ -12,7 +12,6 @@ import question from "@/store/module/question";
 import { Getter } from "vuex-class";
 import QuestionPreviewComponent from "@/components/QuestionPreview/QuestionPreview.component.vue";
 import { simplyComparison } from "@/utils/ObjectUtils";
-import { MyLogger } from "@/base/utils/MyLogger";
 
 @Component({
   components: {
@@ -240,15 +239,19 @@ export default class SurveyDetail extends BaseVue {
   }
 
   private async save() {
-    await this.executeAsync(async () => {
-      await SurveyServer.saveSurvey(this.surveyDetailModel).then((response) => {
-        if (this.surveyDetailModel.isCreate()) {
-          this.routerLink(`/survey`);
-        } else {
-          this.reloadPage();
-          this.cloneModel();
-        }
-      });
+    this.$refs.form.validate().then(async (success) => {
+      if (success) {
+        await this.executeAsync(async () => {
+          await SurveyServer.saveSurvey(this.surveyDetailModel).then((response) => {
+            if (this.surveyDetailModel.isCreate()) {
+              this.routerLink(`/survey`);
+            } else {
+              this.reloadPage();
+              this.cloneModel();
+            }
+          });
+        });
+      }
     });
   }
 

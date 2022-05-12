@@ -96,7 +96,7 @@
       "yes/no": "YES/NO",
       "text": "TEXT",
       "number": "NUMBER",
-      "image": "IMAGE",
+      "image": "DRAWING",
       "audio": "AUDIO",
       "video": "VIDEO"
     },
@@ -120,7 +120,11 @@
     "addAnswerChoices": "Append Answer Choices",
     "preview": "Preview",
     "numberPlaceholder": "Please input number",
-    "imagePlaceholder": "Upload Image"
+    "imagePlaceholder": "Upload Image",
+    "error": {
+      "conditionNonNull": "Patient Condition can't be null",
+      "respondentNonNull": "Respondent can't be null"
+    }
   },
   "modifyPasswordDialog": {
     "oldPassword": "Old Password",
