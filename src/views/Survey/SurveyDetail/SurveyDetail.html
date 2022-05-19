@@ -131,7 +131,6 @@
                                 <Vuedraggable :list="availableQuestions"
                                               v-bind="dragOptions"
                                               handle=".icon-drag_drop"
-                                              filter=".selected"
                                               :group="{name: 'question', pull: 'clone', put:'false'}"
                                               :move="handlerMove"
                                               @end="handlerEndDrag">
@@ -164,15 +163,15 @@
                                               @end="handlerEndDrag">
                                     <transition-group class="question-drag_drop-group question-drag_drop-group-right">
                                         <div class="question-item medical-simply-grid"
-                                             v-for="item in surveyDetailModel.Questions"
-                                             :key="item.QuestionID">
+                                             v-for="(item, index) in surveyDetailModel.Questions"
+                                             :key="`${item.QuestionID}_${index}`">
                                             <i class="medical-icon icon-drag_drop"></i>
                                             <i class="medical-icon icon-type"
                                                :class="questionAnswerType(item)"></i>
                                             {{ item.QuestionText }}
                                             <div class="right">
                                                 <i class="medical-icon icon-delete"
-                                                   @click="removeSelectedQuestion(item)"></i>
+                                                   @click="removeSelectedQuestion(index)"></i>
                                             </div>
                                         </div>
                                     </transition-group>
@@ -184,31 +183,6 @@
                         <span>{{ $t("survey.preview") }}</span>
                         <QuestionPreviewComponent v-for="question in surveyDetailModel.Questions"
                                                   :question="question"/>
-                        <!--                        <div class="text-preview">-->
-                        <!--                            <div class="text-preview-item"-->
-                        <!--                                 v-for="item in surveyDetailModel.Questions">-->
-                        <!--                                <div class="text-preview-item-title">-->
-                        <!--                                    <span>{{ item.QuestionText }}</span>-->
-                        <!--                                    <img :src="item.MediaLink"-->
-                        <!--                                         v-if="item.MediaLink">-->
-                        <!--                                </div>-->
-                        <!--                                <div class="text-preview-item-answer">-->
-                        <!--                                    <div v-if="item.AnswerType === 1"-->
-                        <!--                                         class="answer-type-boolean">-->
-                        <!--                                        <div class="medical-input medical-radio">-->
-                        <!--                                            <input type="radio" value="0">-->
-                        <!--                                            <span>NO</span>-->
-                        <!--                                            <p></p>-->
-                        <!--                                        </div>-->
-                        <!--                                        <div class="medical-input medical-radio">-->
-                        <!--                                            <input type="radio" value="1">-->
-                        <!--                                            <span>YES</span>-->
-                        <!--                                            <p></p>-->
-                        <!--                                        </div>-->
-                        <!--                                    </div>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
                     </div>
                 </div>
             </div>

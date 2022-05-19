@@ -3,10 +3,11 @@
         <span>{{ question.QuestionText }}</span>
     </div>
     <div class="question-answer">
-        <el-image v-if="question.MediaLink"
-                  :src="question.MediaLink">
+        <el-image v-if="question.getMediaLink()"
+                  :src="question.getMediaLink()"
+                  class="question-answer-image">
             <div slot="error">
-                {{$t('question.imagePlaceholder')}}
+                {{ $t("question.imagePlaceholder") }}
             </div>
         </el-image>
         <div v-if="getPreviewAnswerArea(1)"

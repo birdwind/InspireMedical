@@ -204,19 +204,18 @@ export default class SurveyDetail extends BaseVue {
   private handlerAvailableQuestionDragable() {
     if (this.surveyDetailModel.Questions.length >= 0) {
       this.availableQuestions.forEach((questionItem) => {
-        this.$nextTick(() => {
-          this.$refs[`available_question_${questionItem.QuestionID}`][0].classList.remove("selected");
-        });
+        // this.$nextTick(() => {
+        //   this.$refs[`available_question_${questionItem.QuestionID}`][0].classList.remove("selected");
+        // });
       });
 
       this.surveyDetailModel.Questions.forEach((questionItem) => {
-        const selected = this.availableQuestions.filter((available) => {
-          return questionItem.QuestionID === available.QuestionID;
-        });
-
-        this.$nextTick(() => {
-          this.$refs[`available_question_${selected[0].QuestionID}`][0].classList.add("selected");
-        });
+        // const selected = this.availableQuestions.filter((available) => {
+        //   return questionItem.QuestionID === available.QuestionID;
+        // });
+        // this.$nextTick(() => {
+        //   this.$refs[`available_question_${selected[0].QuestionID}`][0].classList.add("selected");
+        // });
       });
     }
   }
@@ -231,10 +230,8 @@ export default class SurveyDetail extends BaseVue {
     this.handlerAvailableQuestionDragable();
   }
 
-  private removeSelectedQuestion(questionItem: QuestionDetailModel) {
-    this.surveyDetailModel.Questions = this.surveyDetailModel.Questions.filter((item) => {
-      return item.QuestionID !== questionItem.QuestionID;
-    });
+  private removeSelectedQuestion(index: number) {
+    this.surveyDetailModel.Questions.splice(index, 1);
     this.handlerAvailableQuestionDragable();
   }
 

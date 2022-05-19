@@ -93,6 +93,7 @@ instance.interceptors.response.use(
     return Promise.reject(response.data.Message);
   },
   (error) => {
+    MyLogger.log("測試", "2");
     if (error.response) {
       switch (error.response.status) {
         case 500:
@@ -102,11 +103,11 @@ instance.interceptors.response.use(
           stores.dispatch("Auth/logout", {});
           break;
         default:
+          MyLogger.log("測試", "3");
           customerErrorHandler(new ApiBadRequestError(error.response.status.toString(), error.response.statusText));
-          break;
+          return Promise.reject(error);
       }
     }
-    return Promise.reject(error);
   }
 );
 // ** end response interceptors

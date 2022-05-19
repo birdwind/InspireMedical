@@ -153,10 +153,12 @@ export default class QuestionDetail extends BaseVue {
     this.showLoading(true);
   }
 
-  private handleQuestionImageSuccess(response: any) {
-    if (this.$refs.question_image.uploadFiles) {
-      this.questionDetailModel.MediaLink = response.JsonData.MediaLink;
+  private handleQuestionImageSuccess(response: any, file: any, fileList: any) {
+    if (file.response.IsSuccess) {
+      this.questionDetailModel.MediaLinks.push(file.response.JsonData.MediaLink);
     }
+    const randomIndex = Math.floor(Math.random() * this.questionDetailModel.MediaLinks.length);
+    this.questionDetailModel.MediaLink = this.questionDetailModel.MediaLinks[randomIndex];
     this.showLoading(false);
   }
 
@@ -187,10 +189,10 @@ export default class QuestionDetail extends BaseVue {
     this.uploadImageModel.dialogVisible = true;
   }
 
-  private handleRemove(imageTarget: string) {
+  private handleRemove(imageTarget: string, position: number = 0) {
     switch (imageTarget) {
       case "question":
-        this.questionDetailModel.MediaLink = "";
+        this.questionDetailModel.MediaLinks.splice(position, 1);
         break;
       case "choice":
         this.questionChoicesItem.MediaLink = "";

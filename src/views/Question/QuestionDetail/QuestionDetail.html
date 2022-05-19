@@ -80,20 +80,17 @@
                     </div>
                 </ValidationProvider>
                 <div class="question-title-image">
-                    <div class="question-title-image-wrapper">
-                        <el-image v-if="questionDetailModel.MediaLink"
-                                  :src="questionDetailModel.MediaLink"
-                                  :preview-src-list="[questionDetailModel.MediaLink]">
-                        </el-image>
+                    <div class="question-title-image-wrapper"
+                         v-for="(imageSrc, index) of questionDetailModel.MediaLinks">
+                        <el-image :src="imageSrc"></el-image>
                         <div class="question-title-image-block">
                             <i class="medical-icon icon-zoom"
-                               @click="handlePictureCardPreview(questionDetailModel.MediaLink)"></i>
+                               @click="handlePictureCardPreview(imageSrc)"></i>
                             <i class="medical-icon icon-trash"
-                               @click="handleRemove('question')"></i>
+                               @click="handleRemove('question', index)"></i>
                         </div>
                     </div>
-                    <el-upload v-if="!questionDetailModel.MediaLink"
-                               action="/api/SurveyManagement/UploadMedia"
+                    <el-upload action="/api/SurveyManagement/UploadMedia"
                                list-type="picture-card"
                                multiple
                                :show-file-list="false"
@@ -145,6 +142,16 @@
                         <p>{{ errors[0] }}</p>
                     </div>
                 </ValidationProvider>
+                <div class="question-drawing-setting"
+                     v-if="questionDetailModel.AnswerType === 4">
+<!--                    <div class="medical-input medical-radio">-->
+<!--                        <input type="radio" value="1">-->
+<!--                        <span>{{ $t("question.drawingSetting.model") }}</span>-->
+<!--                    </div>-->
+                    <div class="medical-input ">
+                        <el-checkbox v-model="questionDetailModel.IsBackground">{{ $t("question.drawingSetting.background") }}</el-checkbox>
+                    </div>
+                </div>
                 <div class="question-answer-wrapper">
                     <div class="answer-choice-add-area"
                          v-if="getPreviewAnswerArea(3)">

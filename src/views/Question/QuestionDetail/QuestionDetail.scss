@@ -67,6 +67,15 @@
         margin-top: 12px;
       }
 
+      .question-title-image {
+        display: flex;
+        flex-wrap: wrap;
+
+        .question-title-image-wrapper + .question-title-image-wrapper {
+          margin: 0 7px;
+        }
+      }
+
       .question-topic {
         .question-topic-title {
 
@@ -74,6 +83,19 @@
 
         .question-topic-mutiple_select {
 
+        }
+      }
+
+      .question-drawing-setting {
+        &:before {
+          display: inline-block;
+          content: "\00a0";
+          min-width: 100px;
+          width: 15%;
+        }
+
+        .medical-input{
+          display: inline-block;
         }
       }
 
@@ -221,7 +243,7 @@
           margin-left: 0;
         }
 
-        &:disabled{
+        &:disabled {
           background: #c5c5c5;
         }
       }

@@ -26,6 +26,12 @@ export default class QuestionDetailModel extends AbstractModel {
   @jsonMember(String)
   MediaLink: string;
 
+  @jsonArrayMember(String)
+  MediaLinks: string[];
+
+  @jsonMember(Boolean)
+  IsBackground: boolean;
+
   @jsonMember(Number)
   UserC: number;
 
@@ -64,6 +70,8 @@ export default class QuestionDetailModel extends AbstractModel {
     this.ConditionID = 0;
     this.AnswerType = 1;
     this.MediaLink = "";
+    this.MediaLinks = [];
+    this.IsBackground = false;
     this.UserC = 0;
     this.TimeC = null;
     this.UserU = 0;
@@ -82,5 +90,10 @@ export default class QuestionDetailModel extends AbstractModel {
 
   getTypes(): TypedJSON<any> {
     return new TypedJSON(QuestionDetailModel);
+  }
+
+  getMediaLink(): string {
+    const randomIndex = Math.floor(Math.random() * this.MediaLinks.length);
+    return this.MediaLink ? this.MediaLink : this.MediaLinks[randomIndex];
   }
 }
