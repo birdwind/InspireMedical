@@ -82,6 +82,7 @@
     "new": "新增問題",
     "edit": "編輯問題",
     "add": "建立問題",
+    "addAnswer": "新增",
     "name": "問題",
     "type": "答案類型",
     "condition": "疾病",
@@ -92,13 +93,14 @@
     "created": "建立者",
     "patientCondition": "疾病",
     "types": {
-      "select": "選擇",
+      "multiple": "選擇",
       "yes/no": "是非",
       "text": "文字",
       "number": "數字",
       "drawing": "畫圖",
       "audio": "錄音",
-      "video": "錄影"
+      "video": "錄影",
+      "weighted": "比重"
     },
     "patient": {
       "alzheimer": "癡呆症",
@@ -121,6 +123,7 @@
     "preview": "預覽",
     "numberPlaceholder": "請輸入數字",
     "imagePlaceholder": "上傳圖片",
+    "totalScore": "總分: ${score}/100",
     "drawingSetting": {
       "model": "圖片顯示於繪圖區塊上方",
       "background": "圖片顯示於繪圖區背景"

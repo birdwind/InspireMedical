@@ -62,6 +62,7 @@ export default class QuestionDetail extends BaseVue {
   private questionDetailModel = new QuestionDetailModel();
   private questionDetailModelTemp = new QuestionDetailModel();
   private questionChoicesModelTemp: QuestionChoicesModel[] = [];
+  private questionMediaLinksTemp: string[] = [];
   private choiceTempCount = 0;
   private uploadImageModel = new UploadImageModel();
   private questionChoicesItem = new QuestionChoicesModel();
@@ -85,8 +86,8 @@ export default class QuestionDetail extends BaseVue {
     if (!simplyComparison(this.questionDetailModel, this.questionDetailModelTemp)) {
       return false;
     } else {
+      let isSame = true;
       if (this.questionDetailModel.Choices.length === this.questionChoicesModelTemp.length) {
-        let isSame = true;
         this.questionDetailModel.Choices.forEach((item, index) => {
           if (isSame) {
             if (
@@ -97,9 +98,22 @@ export default class QuestionDetail extends BaseVue {
             }
           }
         });
-        return isSame;
+      } else {
+        isSame = false;
       }
-      return false;
+
+      if (this.questionDetailModel.MediaLinks.length === this.questionMediaLinksTemp.length) {
+        this.questionDetailModel.MediaLinks.forEach((item, index) => {
+          if (isSame) {
+            if (this.questionMediaLinksTemp[index] !== item) {
+              isSame = false;
+            }
+          }
+        });
+      } else {
+        isSame = false;
+      }
+      return isSame;
     }
   }
 
@@ -133,6 +147,9 @@ export default class QuestionDetail extends BaseVue {
     this.questionChoicesModelTemp = [];
     this.questionDetailModel.Choices.forEach((item) => {
       this.questionChoicesModelTemp.push(Object.assign({}, item));
+    });
+    this.questionDetailModel.MediaLinks.forEach((item) => {
+      this.questionMediaLinksTemp.push(item);
     });
     this.choiceTempCount = this.questionDetailModel.Choices.length;
   }

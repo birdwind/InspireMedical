@@ -63,5 +63,36 @@
                 <i class="medical-icon icon-video"></i>
             </div>
         </div>
+        <div v-else-if="getPreviewAnswerArea(7)"
+             class="answer-type-weighted">
+            <div class="answer-score">
+                <div class="medical-simply-grid">
+                    <div class="right">
+                        <span>{{ $t("question.totalScore").replace("${score}", maxSlider) }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="choices-item"
+                 v-for="(item) in question.Choices">
+                <div class="medical-simply-grid">
+                    <div class="left" style="width: 60px;">
+                        <span>{{ item.AnswerText }}</span>
+                    </div>
+                    <div class="center" style="width: 180px;">
+                        <el-slider :marks="marks"
+                                   v-model="sliderValue[item.ChoiceID]">
+                        </el-slider>
+                    </div>
+                    <div class="right">
+                        <div>
+                            <i class="medical-icon icon-minus medical-icon-16"></i>
+                        </div>
+                        <div>
+                            <i class="medical-icon icon-plus medical-icon-16"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

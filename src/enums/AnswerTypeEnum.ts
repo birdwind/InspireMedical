@@ -5,4 +5,5 @@ export enum AnswerTypeEnum {
   image,
   audio,
   video,
+  weighted,
 }

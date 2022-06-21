@@ -82,6 +82,7 @@
     "new": "New Question",
     "edit": "Edit Question",
     "add": "Add new question",
+    "addAnswer": "Add",
     "name": "Question",
     "type": "Answer Type",
     "condition": "Condition",
@@ -92,13 +93,14 @@
     "created": "Created By",
     "patientCondition": "Patient Condition",
     "types": {
-      "select": "MULTIPLE CHOICE",
+      "multiple": "MULTIPLE CHOICE",
       "yes/no": "YES/NO",
       "text": "TEXT",
       "number": "NUMBER",
       "drawing": "DRAWING",
       "audio": "AUDIO",
-      "video": "VIDEO"
+      "video": "VIDEO",
+      "weighted": "WEIGHTED"
     },
     "patient": {
       "alzheimer": "Dementia",
@@ -121,6 +123,7 @@
     "preview": "Preview",
     "numberPlaceholder": "Please input number",
     "imagePlaceholder": "Upload Image",
+    "totalScore": "Total Score: ${score}/100",
     "drawingSetting": {
       "model": "Display image above drawing area, as a model",
       "background": "Display image as background of the drawing area, for respondent to draw on"

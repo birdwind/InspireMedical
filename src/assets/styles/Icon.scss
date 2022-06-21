@@ -10,6 +10,8 @@
   &.medical-icon-16 {
     width: 16px;
     height: 16px;
+    min-width: 16px;
+    min-height: 16px;
   }
 
   &.medical-icon-36 {
@@ -101,7 +103,7 @@
     background-image: url("/icons/icon_boolean.svg");
   }
 
-  &.icon-select {
+  &.icon-multiple {
     background-image: url("/icons/icon_dropdown.svg");
   }
 
@@ -115,6 +117,18 @@
 
   &.icon-video {
     background-image: url("/icons/icon_video.svg");
+  }
+
+  &.icon-weighted {
+    background-image: url("/icons/icon_weighted.svg");
+  }
+
+  &.icon-minus {
+    background-image: url("/icons/icon_minus.svg");
+  }
+
+  &.icon-plus {
+    background-image: url("/icons/icon_plus.svg");
   }
 
   &.icon-zoom {

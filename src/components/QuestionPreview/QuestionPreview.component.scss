@@ -18,7 +18,7 @@
     display: flex;
     flex-direction: column;
 
-    .question-answer-image{
+    .question-answer-image {
       max-height: 450px;
     }
 
@@ -85,6 +85,62 @@
     }
 
     .answer-type-video {
+    }
+
+    .answer-type-weighted {
+      .choices-item {
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+
+        .medical-simply-grid {
+          width: 100%;
+
+          .right {
+            display: flex;
+            margin-left: auto;
+
+            >div {
+              width: 24px;
+              height: 24px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background-color: #F3F3F3;
+              border-radius: 50%;
+
+              & + div {
+                margin-left: 6px;
+              }
+            }
+          }
+        }
+
+        ::v-deep {
+          .el-slider__runway {
+            .el-slider__bar {
+              background-color: #DC7400;
+            }
+
+            .el-slider__button-wrapper {
+              .el-slider__button {
+                border-color: #DC7400;
+                background-color: #DC7400;
+              }
+            }
+          }
+
+          .el-slider__stop {
+            visibility: hidden;
+          }
+
+          .el-slider__marks {
+            .el-slider__marks-text {
+              color: #DC7400;
+            }
+          }
+        }
+      }
     }
 
     .toolbar {

@@ -144,17 +144,19 @@
                 </ValidationProvider>
                 <div class="question-drawing-setting"
                      v-if="questionDetailModel.AnswerType === 4">
-<!--                    <div class="medical-input medical-radio">-->
-<!--                        <input type="radio" value="1">-->
-<!--                        <span>{{ $t("question.drawingSetting.model") }}</span>-->
-<!--                    </div>-->
+                    <!--                    <div class="medical-input medical-radio">-->
+                    <!--                        <input type="radio" value="1">-->
+                    <!--                        <span>{{ $t("question.drawingSetting.model") }}</span>-->
+                    <!--                    </div>-->
                     <div class="medical-input ">
-                        <el-checkbox v-model="questionDetailModel.IsBackground">{{ $t("question.drawingSetting.background") }}</el-checkbox>
+                        <el-checkbox v-model="questionDetailModel.IsBackground">
+                            {{ $t("question.drawingSetting.background") }}
+                        </el-checkbox>
                     </div>
                 </div>
                 <div class="question-answer-wrapper">
                     <div class="answer-choice-add-area"
-                         v-if="getPreviewAnswerArea(3)">
+                         v-if="getPreviewAnswerArea(3) || getPreviewAnswerArea(7)">
                         <span v-html="$t('question.answerChoices').replace('${count}', questionDetailModel.Choices.length)"></span>
                         <div class="question-answer-add">
                             <div class="medical-input"
@@ -164,7 +166,7 @@
                                         <input type="text"
                                                v-model="questionChoicesItem.AnswerText"
                                                v-on:keyup.enter="addAnswerChoice">
-                                        <button @click="addAnswerChoice">Add</button>
+                                        <button @click="addAnswerChoice">{{ $t("question.addAnswer") }}</button>
                                     </div>
                                     <p></p>
                                 </div>
@@ -195,10 +197,10 @@
                                     <i class="medical-icon icon-drag_drop"></i>
                                     {{ item.AnswerText }}
                                     <div class="right">
-                                        <i v-if="item.MediaLink"
+                                        <i v-if="item.MediaLink && questionDetailModel.AnswerType !== 7"
                                            class="medical-icon icon-zoom"
                                            @click="handlePictureCardPreview(item.MediaLink)"></i>
-                                        <i v-if="!item.MediaLink"
+                                        <i v-if="!item.MediaLink && questionDetailModel.AnswerType !== 7"
                                            class="medical-icon icon-upload-image"
                                            @click="clickUploadChoiceImage(item.ChoiceID)"></i>
                                         <input type="file"
@@ -231,7 +233,7 @@
                 </button>
                 <button class="save modify"
                         @click="save"
-                        :disabled="invalid"
+                        :disabled="isCompare"
                         v-else>
                     <span>{{ $t("common.modify") }}</span>
                 </button>
