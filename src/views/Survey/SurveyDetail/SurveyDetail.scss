@@ -58,6 +58,21 @@
       margin-top: 30px;
     }
 
+    .Minwidth-input {
+      margin-bottom: 20px;
+    }
+
+    .Minwidth-input:before {
+      display: inline-block;
+      content: " ";
+      min-width: 100px;
+      width: 15%;
+    }
+
+    .right-site {
+      display: inline-block;
+    }
+
     hr {
       margin: 50px 0;
     }

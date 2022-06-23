@@ -47,6 +47,9 @@ export class SurveyDetailModel extends AbstractModel {
   @jsonMember(Number)
   PrescribedPatientCount: number;
 
+  @jsonMember(Boolean)
+  IsPageByPage: boolean;
+
   @jsonMember(Number)
   QuestionsCount: number;
 
@@ -79,6 +82,7 @@ export class SurveyDetailModel extends AbstractModel {
     this.Questions = [];
     this.ConditionName = "";
     this.RespondentName = "";
+    this.IsPageByPage = false;
   }
 
   getID(): number {

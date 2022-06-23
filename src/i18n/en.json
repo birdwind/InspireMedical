@@ -74,7 +74,8 @@
     "availableQuestionsNotice": "Drag a question to the right to add it to your Survey",
     "includeQuestions": "Included Questions <span style='color: #3190e8'> ${question}</span>",
     "includeQuestionsNotice": "Drag to reorder. Drag left to remove",
-    "preview": "Preview"
+    "preview": "Preview",
+    "pageByPage": "Testing with one question per page"
   },
   "question": {
     "library": "Question Library",
