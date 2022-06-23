@@ -113,6 +113,13 @@
                         <p>{{ errors[0] }}</p>
                     </div>
                 </ValidationProvider>
+                <div class="Minwidth-input">
+                    <div class="medical-input right-site">
+                        <el-checkbox v-model="surveyDetailModel.IsPageByPage">
+                        {{ $t("survey.pageByPage") }}
+                        </el-checkbox>
+                    </div>
+                </div>
                 <span v-html="$t('survey.prescribed').replace('${patient}', surveyDetailModel.PrescribedPatientCount)"></span>
             </div>
             <hr>
