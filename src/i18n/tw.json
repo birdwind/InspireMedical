@@ -74,7 +74,8 @@
     "availableQuestionsNotice": "拖曳問題到右邊進行新增問題",
     "includeQuestions": "已加入問題 <span style='color: #3190e8'> ${question}</span>",
     "includeQuestionsNotice": "拖曳排序",
-    "preview": "預覽"
+    "preview": "預覽",
+    "pageByPage": "依每頁一個問題進行測驗"
   },
   "question": {
     "library": "問題列表",
